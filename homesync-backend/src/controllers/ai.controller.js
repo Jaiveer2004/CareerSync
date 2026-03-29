@@ -21,6 +21,7 @@ const generateChatResponse = async (req, res) => {
     const completion = await openrouter.chat.completions.create({
       // Choose a reliable model from OpenRouter
       model: "google/gemini-2.5-flash",
+      max_tokens: 1000,
       messages: [
         {
           role: "system",
