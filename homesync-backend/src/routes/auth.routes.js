@@ -20,11 +20,23 @@ router.post('/resend-verification', resendVerificationEmail);
 
 router.get(
   '/google',
+  (req, res, next) => {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+      return res.status(501).json({ message: 'Google authentication is not configured on the server.' });
+    }
+    next();
+  },
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 router.get(
   '/google/callback',
+  (req, res, next) => {
+    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+      return res.status(501).json({ message: 'Google authentication is not configured on the server.' });
+    }
+    next();
+  },
   passport.authenticate('google', {
     failureRedirect: '/login',
     session: false
