@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { Navbar } from "@/components/shared/Navbar";
+import { ChatBubble } from "@/components/chat/ChatBubble";
 import { Toaster } from "react-hot-toast";
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -16,8 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-         <Toaster position="top-center" />
-         <main>{children}</main>
+          <AuthProvider>
+            <Toaster position="top-center" />
+            <Navbar />
+            <main>{children}</main>
+            <ChatBubble />
+          </AuthProvider>
       </body>
     </html>
   );

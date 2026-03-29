@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-interface FixoraLoaderProps {
+interface LoaderProps {
   onLoadingComplete: () => void;
 }
 
-export function FixoraLoader({ onLoadingComplete }: FixoraLoaderProps) {
+export function Loader({ onLoadingComplete }: LoaderProps) {
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -51,7 +51,7 @@ export function FixoraLoader({ onLoadingComplete }: FixoraLoaderProps) {
             </div>
           </div>
           <h1 className="text-2xl font-light text-white tracking-wide">
-            Fixora
+            HomeSync
           </h1>
         </div>
 
