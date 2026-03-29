@@ -18,28 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      touchAfter: 24 * 3600,
-      crypto: {
-        secret: process.env.ENCRYPTION_KEY || process.env.JWT_SECRET,
-      },
-    }),
-    cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'lax',
-    },
-  })
-);
-
-
 // API Welcome Route
 app.get('/', (req, res) => {
   res.json({
