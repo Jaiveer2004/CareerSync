@@ -59,12 +59,12 @@ export function LoginForm() {
           <div className="w-full border-t border-gray-300"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+          <span className="px-2 bg-white text-slate-500">Or continue with</span>
         </div>
       </div>
       {/* Email Field */}
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-white">
+        <label htmlFor="email" className="text-sm font-medium text-slate-900">
           Email address
         </label>
         <Input
@@ -81,7 +81,7 @@ export function LoginForm() {
 
       {/* Password Field */}
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium text-white">
+        <label htmlFor="password" className="text-sm font-medium text-slate-900">
           Password
         </label>
         <div className="relative">
@@ -97,7 +97,7 @@ export function LoginForm() {
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 transition-colors"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -121,14 +121,14 @@ export function LoginForm() {
             id="remember-me"
             name="remember-me"
             type="checkbox"
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700 rounded"
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 bg-slate-100 rounded"
           />
-          <label htmlFor="remember-me" className="ml-2 text-sm text-gray-300">
+          <label htmlFor="remember-me" className="ml-2 text-sm text-slate-600">
             Remember me
           </label>
         </div>
         <div className="text-sm">
-          <a href="/forgot-password" className="text-blue-400 hover:text-blue-300 transition-colors">
+          <a href="/forgot-password" className="text-[#1e40af] hover:text-blue-300 transition-colors">
             Forgot your password?
           </a>
         </div>
@@ -142,7 +142,7 @@ export function LoginForm() {
       >
         {isLoading ? (
           <div className="flex items-center justify-center">
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -156,10 +156,10 @@ export function LoginForm() {
       {/* OTP Login Alternative */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-700"></div>
+          <div className="w-full border-t border-slate-200"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-gray-900 text-gray-400">Or</span>
+          <span className="px-2 bg-slate-50 text-slate-500">Or</span>
         </div>
       </div>
 

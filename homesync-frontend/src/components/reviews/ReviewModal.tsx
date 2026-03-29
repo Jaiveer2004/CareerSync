@@ -55,11 +55,11 @@ export function ReviewModal({ bookingId, onClose, onReviewSubmit }: ReviewModalP
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md border border-gray-700 shadow-2xl">
-        <h2 className="text-2xl font-bold mb-4 text-white">Leave a Review</h2>
+      <div className="bg-white p-6 rounded-lg w-full max-w-md border border-slate-200 shadow-2xl">
+        <h2 className="text-2xl font-bold mb-4 text-slate-900">Leave a Review</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block mb-2 font-medium text-white">Rating</label>
+            <label className="block mb-2 font-medium text-slate-900">Rating</label>
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -67,7 +67,7 @@ export function ReviewModal({ bookingId, onClose, onReviewSubmit }: ReviewModalP
                   type="button"
                   onClick={() => setRating(star)}
                   className={`w-10 h-10 text-2xl transition-colors duration-200 ${
-                    rating >= star ? 'text-yellow-400 hover:text-yellow-300' : 'text-gray-600 hover:text-gray-500'
+                    rating >= star ? 'text-yellow-400 hover:text-yellow-300' : 'text-gray-600 hover:text-slate-600'
                   }`}
                 >
                   ★

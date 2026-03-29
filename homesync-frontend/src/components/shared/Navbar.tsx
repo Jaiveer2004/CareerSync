@@ -40,17 +40,17 @@ export function Navbar() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-800' 
-        : 'bg-gray-900/90 backdrop-blur-sm'
+        ? 'bg-slate-50/95 backdrop-blur-md shadow-lg border-b border-slate-100' 
+        : 'bg-slate-50/90 backdrop-blur-sm'
     }`}>
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link 
           href='/' 
-          className="text-2xl font-bold text-white hover:text-blue-400 transition-colors duration-200 flex items-center gap-2"
+          className="text-2xl font-bold text-slate-900 hover:text-[#1e40af] transition-colors duration-200 flex items-center gap-2"
         >
           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">F</span>
+            <span className="text-slate-900 font-bold text-sm">F</span>
           </div>
           HomeSync
         </Link>
@@ -61,10 +61,10 @@ export function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 hover:text-blue-400 ${
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 hover:text-[#1e40af] ${
                 pathname === item.href 
-                  ? 'text-blue-400' 
-                  : 'text-gray-300'
+                  ? 'text-[#1e40af]' 
+                  : 'text-slate-600'
               }`}
             >
               {item.name}
@@ -81,19 +81,19 @@ export function Navbar() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">
+                  <span className="text-slate-900 font-semibold text-sm">
                     {user.fullName?.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-white">{user.fullName}</span>
-                  <span className="text-xs text-gray-400 capitalize">{user.role}</span>
+                  <span className="text-sm font-medium text-slate-900">{user.fullName}</span>
+                  <span className="text-xs text-slate-500 capitalize">{user.role}</span>
                 </div>
               </div>
               <Button 
                 variant="outline" 
                 onClick={logout}
-                className="hover:bg-red-600 hover:border-red-600 hover:text-white transition-all duration-200"
+                className="hover:bg-red-600 hover:border-red-600 hover:text-slate-900 transition-all duration-200"
               >
                 Logout
               </Button>
@@ -101,7 +101,7 @@ export function Navbar() {
           ) : (
             <div className="flex items-center gap-3">
               <Link href='/login'>
-                <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800">
+                <Button variant="ghost" className="text-slate-600 hover:text-slate-900 hover:bg-white">
                   Login
                 </Button>
               </Link>
@@ -119,13 +119,13 @@ export function Navbar() {
           className="md:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+          <div className={`w-5 h-0.5 bg-slate-900 transition-all duration-300 ${
             isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
           }`} />
-          <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+          <div className={`w-5 h-0.5 bg-slate-900 transition-all duration-300 ${
             isMobileMenuOpen ? 'opacity-0' : ''
           }`} />
-          <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+          <div className={`w-5 h-0.5 bg-slate-900 transition-all duration-300 ${
             isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
           }`} />
         </button>
@@ -133,7 +133,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-        isMobileMenuOpen ? 'max-h-screen bg-gray-900/95 backdrop-blur-md border-b border-gray-800' : 'max-h-0'
+        isMobileMenuOpen ? 'max-h-screen bg-slate-50/95 backdrop-blur-md border-b border-slate-100' : 'max-h-0'
       }`}>
         <div className="px-4 py-6 space-y-4">
           {navigation.map((item) => (
@@ -142,8 +142,8 @@ export function Navbar() {
               href={item.href}
               className={`block px-3 py-2 text-base font-medium transition-colors duration-200 rounded-lg ${
                 pathname === item.href 
-                  ? 'text-blue-400 bg-blue-400/10' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ? 'text-[#1e40af] bg-blue-400/10' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white'
               }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -152,16 +152,16 @@ export function Navbar() {
           ))}
           
           {user ? (
-            <div className="pt-4 border-t border-gray-800">
+            <div className="pt-4 border-t border-slate-100">
               <div className="flex items-center gap-3 px-3 py-2 mb-4">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold">
+                  <span className="text-slate-900 font-semibold">
                     {user.fullName?.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-white">{user.fullName}</span>
-                  <span className="text-xs text-gray-400 capitalize">{user.role}</span>
+                  <span className="text-sm font-medium text-slate-900">{user.fullName}</span>
+                  <span className="text-xs text-slate-500 capitalize">{user.role}</span>
                 </div>
               </div>
               <Button 
@@ -170,17 +170,17 @@ export function Navbar() {
                   logout();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full hover:bg-red-600 hover:border-red-600 hover:text-white"
+                className="w-full hover:bg-red-600 hover:border-red-600 hover:text-slate-900"
               >
                 Logout
               </Button>
             </div>
           ) : (
-            <div className="pt-4 border-t border-gray-800 space-y-3">
+            <div className="pt-4 border-t border-slate-100 space-y-3">
               <Link href='/login' className="block">
                 <Button 
                   variant="ghost" 
-                  className="w-full text-gray-300 hover:text-white hover:bg-gray-800"
+                  className="w-full text-slate-600 hover:text-slate-900 hover:bg-white"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Login

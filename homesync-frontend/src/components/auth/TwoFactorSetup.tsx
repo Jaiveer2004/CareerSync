@@ -104,7 +104,7 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="p-3 bg-blue-500/10 rounded-lg">
-              <Shield className="h-6 w-6 text-blue-400" />
+              <Shield className="h-6 w-6 text-[#1e40af]" />
             </div>
             <div>
               <CardTitle className="text-2xl">Two-Factor Authentication</CardTitle>
@@ -121,9 +121,9 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
             </Alert>
           )}
 
-          <div className="space-y-3 p-4 bg-gray-800/50 rounded-lg">
-            <h4 className="font-semibold text-white">What is 2FA?</h4>
-            <p className="text-sm text-gray-400">
+          <div className="space-y-3 p-4 bg-white/50 rounded-lg">
+            <h4 className="font-semibold text-slate-900">What is 2FA?</h4>
+            <p className="text-sm text-slate-500">
               Two-factor authentication adds an extra layer of security by requiring a second
               verification method in addition to your password. You&apos;ll need an authenticator
               app like Google Authenticator or Authy.
@@ -131,8 +131,8 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
           </div>
 
           <div className="space-y-3">
-            <h4 className="font-semibold text-white">Before you begin:</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold text-slate-900">Before you begin:</h4>
+            <ul className="space-y-2 text-sm text-slate-500">
               <li className="flex items-start gap-2">
                 <Check className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
                 <span>Install an authenticator app on your phone</span>
@@ -218,9 +218,9 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
                 <p className="text-sm text-yellow-300/80">
                   Save these codes in a safe place. You can use them to access your account if you lose your device.
                 </p>
-                <div className="grid grid-cols-2 gap-2 font-mono text-sm bg-gray-900/50 p-3 rounded">
+                <div className="grid grid-cols-2 gap-2 font-mono text-sm bg-slate-50/50 p-3 rounded">
                   {backupCodes.map((code, index) => (
-                    <div key={index} className="text-gray-300">{code}</div>
+                    <div key={index} className="text-slate-600">{code}</div>
                   ))}
                 </div>
                 <div className="flex gap-2">
@@ -253,7 +253,7 @@ export default function TwoFactorSetup({ onSuccess }: TwoFactorSetupProps) {
             <div className="space-y-2">
               <Label htmlFor="token">Enter 6-Digit Code</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="token"
                   type="text"

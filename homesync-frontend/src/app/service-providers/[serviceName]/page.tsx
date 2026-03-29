@@ -104,10 +104,10 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
   // Show loading while checking auth or if partner is being redirected
   if (authLoading || (user?.role === 'partner')) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b border-gray-700-2 border-b border-gray-700lue-500 mx-auto mb-4"></div>
-          <div className="text-white">
+          <div className="animate-spin rounded-full h-12 w-12 border-b border-slate-200-2 border-b border-slate-200lue-500 mx-auto mb-4"></div>
+          <div className="text-slate-900">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-slate-50">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8 pt-24">
           <div className="animate-pulse">
@@ -128,7 +128,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
             <div className="h-4 bg-gray-200 rounded w-96 mb-8"></div>
             <div className="grid gap-6 md:grid-cols-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-gray-800 rounded-lg p-6 shadow-sm">
+                <div key={i} className="bg-white rounded-lg p-6 shadow-sm">
                   <div className="h-6 bg-gray-200 rounded mb-4"></div>
                   <div className="h-4 bg-gray-200 rounded mb-2"></div>
                   <div className="h-4 bg-gray-200 rounded mb-4 w-2/3"></div>
@@ -144,11 +144,11 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
   if (!serviceData) {
     return (
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-slate-50">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8 pt-24 text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Service Not Found</h1>
-          <p className="text-gray-400 mb-6">The service you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Service Not Found</h1>
+          <p className="text-slate-500 mb-6">The service you&apos;re looking for doesn&apos;t exist.</p>
           <Link href="/services">
             <Button>Back to Services</Button>
           </Link>
@@ -158,24 +158,24 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       
       {/* Header Section */}
-      <div className="bg-gray-800 shadow-sm border-b border-gray-700">
+      <div className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6 pt-24">
-          <div className="flex items-center gap-2 text-gray-500 mb-2 text-sm">
-            <Link href="/services" className="hover:text-blue-400">Services</Link>
+          <div className="flex items-center gap-2 text-slate-600 mb-2 text-sm">
+            <Link href="/services" className="hover:text-[#1e40af]">Services</Link>
             <span>→</span>
             <span>{serviceName}</span>
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white">{serviceName}</h1>
-              <p className="text-gray-400 mt-1">Choose from {serviceData.totalProviders} verified professionals</p>
+              <h1 className="text-3xl font-bold text-slate-900">{serviceName}</h1>
+              <p className="text-slate-500 mt-1">Choose from {serviceData.totalProviders} verified professionals</p>
             </div>
             <div className="text-right">
-              <div className="text-sm text-gray-500">Starting from</div>
+              <div className="text-sm text-slate-600">Starting from</div>
               <div className="text-2xl font-bold text-green-600">
                 ₹{Math.min(...serviceData.providers.map(p => p.price))}
               </div>
@@ -193,7 +193,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <h2 className="text-xl font-bold text-white">
+                  <h2 className="text-xl font-bold text-slate-900">
                     Available Now ({availableProviders.length})
                   </h2>
                 </div>
@@ -202,7 +202,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   {availableProviders.map((service, index) => (
                     <div 
                       key={service.serviceId}
-                      className="bg-gray-800 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200 p-6"
+                      className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200 p-6"
                     >
                       <div className="flex items-start gap-4">
                         {/* Provider Image */}
@@ -215,7 +215,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             className="rounded-full object-cover"
                           />
                           <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                            <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
                           </div>
                         </div>
 
@@ -223,9 +223,9 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h3 className="text-lg font-semibold text-white">{service.provider.name}</h3>
-                              <p className="text-gray-400 text-sm">{service.description}</p>
-                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                              <h3 className="text-lg font-semibold text-slate-900">{service.provider.name}</h3>
+                              <p className="text-slate-500 text-sm">{service.description}</p>
+                              <div className="flex items-center gap-4 mt-2 text-sm text-slate-600">
                                 <span className="flex items-center gap-1">
                                   <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -238,19 +238,19 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             </div>
                             
                             <div className="text-right">
-                              <div className="text-2xl font-bold text-white">₹{service.price}</div>
-                              <div className="text-sm text-gray-500">per service</div>
+                              <div className="text-2xl font-bold text-slate-900">₹{service.price}</div>
+                              <div className="text-sm text-slate-600">per service</div>
                             </div>
                           </div>
 
                           {/* Recent Review */}
                           {service.provider.recentReviews.length > 0 && (
-                            <div className="mt-4 p-3 bg-gray-900 rounded-lg">
+                            <div className="mt-4 p-3 bg-slate-50 rounded-lg">
                               <div className="flex items-center gap-2 mb-1">
                                 <div className="flex">
                                   {Array.from({ length: 5 }).map((_, i) => (
                                     <svg key={i} className={`w-3 h-3 ${
-                                      i < service.provider.recentReviews[0].rating ? 'text-yellow-400' : 'text-gray-300'
+                                      i < service.provider.recentReviews[0].rating ? 'text-yellow-400' : 'text-slate-600'
                                     } fill-current`} viewBox="0 0 20 20">
                                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                     </svg>
@@ -258,14 +258,14 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                                 </div>
                                 <span className="text-sm font-medium text-gray-700">{service.provider.recentReviews[0].customer.fullName}</span>
                               </div>
-                              <p className="text-sm text-gray-400">{service.provider.recentReviews[0].comment}</p>
+                              <p className="text-sm text-slate-500">{service.provider.recentReviews[0].comment}</p>
                             </div>
                           )}
 
                           {/* Action Buttons */}
                           <div className="flex items-center gap-3 mt-4">
                             <Button 
-                              className="bg-purple-600 hover:bg-purple-700 text-white px-6"
+                              className="bg-purple-600 hover:bg-purple-700 text-slate-900 px-6"
                               onClick={() => setSelectedProvider(service)}
                             >
                               View Details
@@ -273,7 +273,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             <Link href={`/book/${service.serviceId}`}>
                               <Button 
                                 variant="outline" 
-                                className="border-purple-600 text-purple-600 hover:bg-purple-50"
+                                className="border-purple-600 text-[#1e40af] hover:bg-purple-50"
                               >
                                 Book Now
                               </Button>
@@ -290,7 +290,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
             {/* Offline Providers Section */}
             {offlineProviders.length > 0 && (
               <section>
-                <h2 className="text-xl font-bold text-white mb-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
                   All Professionals ({offlineProviders.length})
                 </h2>
                 
@@ -298,7 +298,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   {offlineProviders.map((service, index) => (
                     <div 
                       key={service.serviceId}
-                      className="bg-gray-800 rounded-lg shadow-sm border p-4 opacity-75"
+                      className="bg-white rounded-lg shadow-sm border p-4 opacity-75"
                     >
                       <div className="flex items-center gap-3">
                         <Image
@@ -309,14 +309,14 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                           className="rounded-full object-cover"
                         />
                         <div className="flex-1">
-                          <h3 className="font-semibold text-white">{service.provider.name}</h3>
-                          <p className="text-sm text-gray-400">{service.description}</p>
+                          <h3 className="font-semibold text-slate-900">{service.provider.name}</h3>
+                          <p className="text-sm text-slate-500">{service.description}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-sm text-yellow-600">⭐ {service.provider.averageRating.toFixed(1)}</span>
-                            <span className="text-sm text-gray-500">₹{service.price}</span>
+                            <span className="text-sm text-slate-600">₹{service.price}</span>
                           </div>
                         </div>
-                        <div className="text-xs text-gray-500">Next: {service.provider.nextAvailableSlot}</div>
+                        <div className="text-xs text-slate-600">Next: {service.provider.nextAvailableSlot}</div>
                       </div>
                     </div>
                   ))}
@@ -327,27 +327,27 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800 rounded-lg shadow-sm border p-6 sticky top-4">
-              <h3 className="text-lg font-bold text-white mb-4">Types of {serviceName}</h3>
+            <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Types of {serviceName}</h3>
               
               {/* Service Types */}
               <div className="space-y-3">
                 {Array.from(new Set(serviceData.providers.map(p => p.serviceName))).slice(0, 6).map((serviceType, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-900 cursor-pointer">
+                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50 cursor-pointer">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 bg-blue-900/30 rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-[#1e40af]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>
-                        <div className="font-medium text-white">{serviceType}</div>
-                        <div className="text-sm text-gray-500">
+                        <div className="font-medium text-slate-900">{serviceType}</div>
+                        <div className="text-sm text-slate-600">
                           {serviceData.providers.filter(p => p.serviceName === serviceType).length} professionals
                         </div>
                       </div>
                     </div>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -355,10 +355,18 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               </div>
 
               {/* Quick Book Section */}
-              <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-                <h4 className="font-semibold text-purple-900 mb-2">Quick Book</h4>
-                <p className="text-sm text-purple-700 mb-3">Get instant booking for available professionals</p>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+              <div className="mt-6 p-4 bg-blue-900/20 rounded-lg">
+                <h4 className="font-semibold text-[#1e40af] mb-2">Quick Book</h4>
+                <p className="text-sm text-slate-500 mb-3">Get instant booking for available professionals</p>
+                <Button 
+                  onClick={() => {
+                    const firstProvider = serviceData?.providers?.[0];
+                    if (firstProvider) {
+                      router.push(`/book/${firstProvider.serviceId}`);
+                    }
+                  }}
+                  className="w-full bg-[#1e40af] hover:bg-[#1e3a8a] text-white"
+                >
                   Book Instantly
                 </Button>
               </div>
@@ -370,7 +378,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
       {/* Provider Detail Modal */}
       {selectedProvider && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
@@ -382,18 +390,18 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                     className="rounded-full object-cover"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-white">{selectedProvider.provider.name}</h3>
-                    <p className="text-gray-400">{selectedProvider.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900">{selectedProvider.provider.name}</h3>
+                    <p className="text-slate-500">{selectedProvider.description}</p>
                     <div className="flex items-center gap-1 mt-1">
                       <span className="text-yellow-500">⭐</span>
                       <span className="font-medium">{selectedProvider.provider.averageRating.toFixed(1)}</span>
-                      <span className="text-gray-500">({selectedProvider.provider.reviewCount} reviews)</span>
+                      <span className="text-slate-600">({selectedProvider.provider.reviewCount} reviews)</span>
                     </div>
                   </div>
                 </div>
                 <button 
                   onClick={() => setSelectedProvider(null)}
-                  className="text-gray-400 hover:text-gray-400"
+                  className="text-slate-500 hover:text-slate-500"
                 >
                   ✕
                 </button>
@@ -401,20 +409,20 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
               {/* Provider Bio */}
               <div className="mb-6">
-                <h4 className="font-semibold text-white mb-2">About</h4>
-                <p className="text-gray-400">{selectedProvider.provider.bio}</p>
+                <h4 className="font-semibold text-slate-900 mb-2">About</h4>
+                <p className="text-slate-500">{selectedProvider.provider.bio}</p>
               </div>
 
               {/* Service Details */}
               <div className="mb-6">
-                <h4 className="font-semibold text-white mb-3">Service Details</h4>
+                <h4 className="font-semibold text-slate-900 mb-3">Service Details</h4>
                 <div className="border rounded-lg p-4">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h5 className="font-medium text-white">{selectedProvider.serviceName}</h5>
-                      <p className="text-sm text-gray-400">{selectedProvider.duration} minutes</p>
+                      <h5 className="font-medium text-slate-900">{selectedProvider.serviceName}</h5>
+                      <p className="text-sm text-slate-500">{selectedProvider.duration} minutes</p>
                     </div>
-                    <span className="font-semibold text-white">₹{selectedProvider.price}</span>
+                    <span className="font-semibold text-slate-900">₹{selectedProvider.price}</span>
                   </div>
                 </div>
               </div>
@@ -422,15 +430,15 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               {/* Reviews */}
               {selectedProvider.provider.recentReviews.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="font-semibold text-white mb-3">Recent Reviews</h4>
+                  <h4 className="font-semibold text-slate-900 mb-3">Recent Reviews</h4>
                   <div className="space-y-3">
                     {selectedProvider.provider.recentReviews.slice(0, 3).map((review, index) => (
-                      <div key={index} className="border-l-4 border-b border-gray-700lue-200 pl-4">
+                      <div key={index} className="border-l-4 border-b border-slate-200lue-200 pl-4">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-white">{review.customer.fullName}</span>
+                          <span className="font-medium text-slate-900">{review.customer.fullName}</span>
                           <span className="text-yellow-500">⭐ {review.rating}</span>
                         </div>
-                        <p className="text-gray-400 text-sm">{review.comment}</p>
+                        <p className="text-slate-500 text-sm">{review.comment}</p>
                       </div>
                     ))}
                   </div>
@@ -439,11 +447,11 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
               <div className="flex gap-3">
                 <Link href={`/book/${selectedProvider.serviceId}`} className="flex-1">
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                  <Button className="w-full bg-[#1e40af] hover:bg-[#1e3a8a] text-white">
                     Book This Professional
                   </Button>
                 </Link>
-                <Button variant="outline" className="border-purple-600 text-purple-600">
+                <Button variant="outline" className="border-blue-600 text-[#1e40af] hover:bg-[#1e40af]/10">
                   Contact
                 </Button>
               </div>

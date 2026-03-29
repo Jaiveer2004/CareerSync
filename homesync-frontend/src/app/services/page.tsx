@@ -59,10 +59,10 @@ export default function ServicesPage() {
   // Show loading while checking auth or if partner is being redirected
   if (authLoading || (user?.role === 'partner')) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <div className="text-white">
+          <div className="text-slate-900">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
         </div>
@@ -82,13 +82,13 @@ export default function ServicesPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       
       <main className="container mx-auto py-8 pt-24 px-4">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-white">Explore Our Services</h1>
-          <p className="text-gray-400 text-lg mb-6">Choose from our wide range of professional home services</p>
+          <h1 className="text-4xl font-bold mb-4 text-slate-900">Explore Our Services</h1>
+          <p className="text-slate-500 text-lg mb-6">Choose from our wide range of professional home services</p>
           
           {/* Search and Filter */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -98,14 +98,14 @@ export default function ServicesPage() {
                 placeholder="Search services..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div className="md:w-48">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>{category}</option>
@@ -117,18 +117,18 @@ export default function ServicesPage() {
           {/* Stats */}
           <div className="flex flex-wrap gap-6 mb-8">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">{services.length}</div>
-              <div className="text-gray-400 text-sm">Services Available</div>
+              <div className="text-2xl font-bold text-[#1e40af]">{services.length}</div>
+              <div className="text-slate-500 text-sm">Services Available</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">
+              <div className="text-2xl font-bold text-[#1e40af]">
                 {services.reduce((sum, service) => sum + (service.providerCount || 0), 0)}
               </div>
-              <div className="text-gray-400 text-sm">Total Providers</div>
+              <div className="text-slate-500 text-sm">Total Providers</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">{categories.length - 1}</div>
-              <div className="text-gray-400 text-sm">Categories</div>
+              <div className="text-2xl font-bold text-[#1e40af]">{categories.length - 1}</div>
+              <div className="text-slate-500 text-sm">Categories</div>
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default function ServicesPage() {
           ) : (
             // Show a helpful message if no services are found
             <div className="md:col-span-2 lg:col-span-3 xl:col-span-4 text-center py-12">
-              <div className="text-gray-400 text-lg mb-4">
+              <div className="text-slate-500 text-lg mb-4">
                 {searchTerm || selectedCategory !== 'All' 
                   ? 'No services match your criteria' 
                   : 'No services available at the moment'
@@ -157,7 +157,7 @@ export default function ServicesPage() {
                     setSearchTerm('');
                     setSelectedCategory('All');
                   }}
-                  className="text-blue-400 hover:text-blue-300 underline"
+                  className="text-[#1e40af] hover:text-blue-300 underline"
                 >
                   Clear filters
                 </button>

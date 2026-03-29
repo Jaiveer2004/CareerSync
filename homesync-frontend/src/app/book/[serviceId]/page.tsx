@@ -181,10 +181,10 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   // Show loading while checking auth or if partner is being redirected
   if (authLoading || (user?.role === 'partner')) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <div className="text-white">
+          <div className="text-slate-900">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
         </div>
@@ -282,7 +282,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
 
   if (isLoading) return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-slate-50">
         <Navbar />
         <div className="pt-16">
           <BookingPageSkeleton />
@@ -293,16 +293,16 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   
   if (!service) return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-slate-50">
         <Navbar />
-        <div className="min-h-screen bg-gray-900 text-center py-10 pt-24 text-white">
+        <div className="min-h-screen bg-slate-50 text-center py-10 pt-24 text-slate-900">
           <div className="max-w-md mx-auto">
             <div className="text-6xl mb-4">🔍</div>
             <h2 className="text-2xl font-bold mb-4">Service Not Found</h2>
-            <p className="text-gray-400 mb-6">The service you&apos;re looking for doesn&apos;t exist or has been removed.</p>
+            <p className="text-slate-500 mb-6">The service you&apos;re looking for doesn&apos;t exist or has been removed.</p>
             <button 
               onClick={() => router.push('/services')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium"
+              className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-6 py-3 rounded-xl font-medium"
             >
               Browse All Services
             </button>
@@ -314,36 +314,36 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-slate-50">
         <Navbar />
         <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
         
         <main className="container mx-auto py-8 pt-24 px-4">
           {/* Header Section */}
           <div className="mb-8">
-            <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
-              <button onClick={() => router.back()} className="hover:text-white">
+            <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
+              <button onClick={() => router.back()} className="hover:text-slate-900">
                 ← Back
               </button>
               <span>/</span>
               <span>{service.category}</span>
               <span>/</span>
-              <span className="text-white">{service.name}</span>
+              <span className="text-slate-900">{service.name}</span>
             </div>
             
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Service Details */}
               <div className="lg:col-span-2">
-                <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 mb-6">
+                <div className="bg-white rounded-2xl p-8 border border-slate-200 mb-6">
                   <div className="flex items-start justify-between mb-6">
                     <div>
-                      <h1 className="text-4xl font-bold text-white mb-2">{service.name}</h1>
+                      <h1 className="text-4xl font-bold text-slate-900 mb-2">{service.name}</h1>
                       <div className="flex items-center gap-4 text-sm">
-                        <span className="bg-blue-600/20 text-blue-400 px-3 py-1 rounded-full border border-blue-600/30">
+                        <span className="bg-[#1e40af]/20 text-[#1e40af] px-3 py-1 rounded-full border border-blue-600/30">
                           {service.category}
                         </span>
                         {service.duration && (
-                          <span className="text-gray-400 flex items-center gap-1">
+                          <span className="text-slate-500 flex items-center gap-1">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -356,14 +356,14 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                       <div className="text-3xl font-bold text-green-400 mb-1">
                         {formatCurrency(service.price)}
                       </div>
-                      <div className="text-gray-400 text-sm">per service</div>
+                      <div className="text-slate-500 text-sm">per service</div>
                     </div>
                   </div>
 
                   {service.description && (
                     <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-white mb-3">Service Description</h3>
-                      <p className="text-gray-300 leading-relaxed">{service.description}</p>
+                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Service Description</h3>
+                      <p className="text-slate-600 leading-relaxed">{service.description}</p>
                     </div>
                   )}
 
@@ -371,10 +371,10 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                   {providers.length > 1 && (
                     <div className="mb-6">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-white">Choose Your Service Provider</h3>
+                        <h3 className="text-lg font-semibold text-slate-900">Choose Your Service Provider</h3>
                         <button
                           onClick={() => setShowProviders(!showProviders)}
-                          className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                          className="text-[#1e40af] hover:text-blue-300 text-sm font-medium"
                         >
                           {showProviders ? 'Hide Options' : `View All ${providers.length} Providers`}
                         </button>
@@ -389,7 +389,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                               className={`p-4 rounded-xl border transition-all cursor-pointer ${
                                 selectedProvider?._id === provider._id
                                   ? 'border-blue-500 bg-blue-500/10'
-                                  : 'border-gray-600 bg-gray-700/50 hover:border-gray-500'
+                                  : 'border-slate-300 bg-slate-100/50 hover:border-gray-500'
                               }`}
                             >
                               <div className="flex items-center justify-between">
@@ -398,8 +398,8 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                                     {provider.user.fullName.charAt(0)}
                                   </div>
                                   <div>
-                                    <h4 className="font-semibold text-white">{provider.user.fullName}</h4>
-                                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                                    <h4 className="font-semibold text-slate-900">{provider.user.fullName}</h4>
+                                    <div className="flex items-center gap-2 text-sm text-slate-500">
                                       {provider.experienceYears && (
                                         <span>{provider.experienceYears} years exp.</span>
                                       )}
@@ -416,14 +416,14 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                                 </div>
                                 {selectedProvider?._id === provider._id && (
                                   <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-4 h-4 text-slate-900" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                     </svg>
                                   </div>
                                 )}
                               </div>
                               {provider.bio && (
-                                <p className="text-gray-400 text-sm mt-2 line-clamp-2">{provider.bio}</p>
+                                <p className="text-slate-500 text-sm mt-2 line-clamp-2">{provider.bio}</p>
                               )}
                             </div>
                           ))}
@@ -431,14 +431,14 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                       )}
 
                       {selectedProvider && (
-                        <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
+                        <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
                           <div className="flex items-center gap-3 mb-2">
                             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                               {selectedProvider.user.fullName.charAt(0)}
                             </div>
                             <div>
-                              <div className="font-medium text-white">Selected: {selectedProvider.user.fullName}</div>
-                              <div className="text-sm text-gray-400">
+                              <div className="font-medium text-slate-900">Selected: {selectedProvider.user.fullName}</div>
+                              <div className="text-sm text-slate-500">
                                 {selectedProvider.experienceYears && `${selectedProvider.experienceYears} years experience • `}
                                 {selectedProvider.averageRating ? `★ ${selectedProvider.averageRating.toFixed(1)}` : 'New provider'}
                               </div>
@@ -452,15 +452,15 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                   {/* Default provider info */}
                   {providers.length <= 1 && selectedProvider && (
                     <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-white mb-3">Your Service Provider</h3>
-                      <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
+                      <h3 className="text-lg font-semibold text-slate-900 mb-3">Your Service Provider</h3>
+                      <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
                         <div className="flex items-center gap-4">
                           <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
                             {selectedProvider.user.fullName.charAt(0)}
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-semibold text-white text-lg">{selectedProvider.user.fullName}</h4>
-                            <div className="flex items-center gap-4 text-sm text-gray-400 mb-2">
+                            <h4 className="font-semibold text-slate-900 text-lg">{selectedProvider.user.fullName}</h4>
+                            <div className="flex items-center gap-4 text-sm text-slate-500 mb-2">
                               {selectedProvider.experienceYears && (
                                 <span>{selectedProvider.experienceYears} years experience</span>
                               )}
@@ -476,7 +476,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                               </div>
                             </div>
                             {selectedProvider.bio && (
-                              <p className="text-gray-300 text-sm">{selectedProvider.bio}</p>
+                              <p className="text-slate-600 text-sm">{selectedProvider.bio}</p>
                             )}
                           </div>
                         </div>

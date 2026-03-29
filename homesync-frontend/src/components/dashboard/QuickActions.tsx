@@ -73,13 +73,13 @@ export function QuickActions({ userRole }: QuickActionsProps) {
   };
 
   return (
-    <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-      <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
+    <div className="bg-white rounded-2xl p-6 border border-slate-200">
+      <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {actions.map((action) => (
           <Link key={action.title} href={action.href}>
-            <div className={`bg-gradient-to-br ${colorClasses[action.color]} rounded-xl p-4 text-white hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer`}>
+            <div className={`bg-gradient-to-br ${colorClasses[action.color]} rounded-xl p-4 text-slate-900 hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer`}>
               <div className="text-2xl mb-2">{action.icon}</div>
               <h4 className="font-semibold mb-1">{action.title}</h4>
               <p className="text-sm opacity-90">{action.description}</p>

@@ -170,7 +170,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
   const messageGroups = groupMessagesByDate(messages);
 
   return (
-    <div className="flex flex-col h-[600px] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -180,20 +180,20 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
             </span>
           </div>
           <div>
-            <h3 className="text-white font-semibold">{otherUserName}</h3>
+            <h3 className="text-slate-900 font-semibold">{otherUserName}</h3>
             <p className="text-blue-100 text-xs">
               {otherUserTyping ? 'Typing...' : 'Booking #' + bookingId.slice(-6)}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="text-white hover:text-gray-200 transition-colors p-2">
+          <button className="text-slate-900 hover:text-gray-200 transition-colors p-2">
             <MoreVertical size={20} />
           </button>
           {onClose && (
             <button
               onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors p-2"
+              className="text-slate-900 hover:text-gray-200 transition-colors p-2"
               aria-label="Close chat"
             >
               <X size={20} />
@@ -203,13 +203,13 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
       </div>
 
       {/* Messages */}
-      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-900 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+          <div className="flex flex-col items-center justify-center h-full text-slate-600">
             <Send size={48} className="mb-2 opacity-50" />
             <p>No messages yet. Start the conversation!</p>
           </div>
@@ -218,7 +218,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
             <div key={date}>
               {/* Date Separator */}
               <div className="flex items-center justify-center my-4">
-                <div className="bg-gray-800 px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-700">
+                <div className="bg-white px-3 py-1 rounded-full text-xs text-slate-500 border border-slate-200">
                   {date}
                 </div>
               </div>
@@ -234,7 +234,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                   >
                     {!isOwnMessage && (
                       <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                        <span className="text-white text-xs font-bold">
+                        <span className="text-slate-900 text-xs font-bold">
                           {msg.sender.fullName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -244,20 +244,20 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                       <div
                         className={`rounded-2xl px-4 py-3 shadow-sm ${
                           isOwnMessage
-                            ? 'bg-blue-500 text-white rounded-br-md'
-                            : 'bg-gray-800 text-gray-100 border border-gray-700 rounded-bl-md'
+                            ? 'bg-blue-500 text-slate-900 rounded-br-md'
+                            : 'bg-white text-gray-100 border border-slate-200 rounded-bl-md'
                         }`}
                       >
                         <p className="text-sm leading-relaxed break-words">{msg.content}</p>
                       </div>
-                      <span className={`text-xs text-gray-500 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
+                      <span className={`text-xs text-slate-600 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
                         {formatTime(msg.createdAt)}
                       </span>
                     </div>
 
                     {isOwnMessage && (
-                      <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center ml-2 mt-1 flex-shrink-0">
-                        <span className="text-white text-xs font-bold">
+                      <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center ml-2 mt-1 flex-shrink-0">
+                        <span className="text-slate-900 text-xs font-bold">
                           {msg.sender.fullName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -272,11 +272,11 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
         {otherUserTyping && (
           <div className="flex justify-start mb-3">
             <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
-              <span className="text-white text-xs font-bold">
+              <span className="text-slate-900 text-xs font-bold">
                 {otherUserName.charAt(0).toUpperCase()}
               </span>
             </div>
-            <div className="bg-gray-800 rounded-2xl rounded-bl-md px-4 py-3 border border-gray-700">
+            <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 border border-slate-200">
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -290,11 +290,11 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 bg-gray-800 border-t border-gray-700">
+      <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-slate-200">
         <div className="flex gap-2 items-center">
           <button
             type="button"
-            className="text-gray-400 hover:text-gray-200 transition-colors p-2"
+            className="text-slate-500 hover:text-gray-200 transition-colors p-2"
             title="Attach file (Coming soon)"
           >
             <Paperclip size={20} />
@@ -303,12 +303,12 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
             value={inputMessage}
             onChange={handleTyping}
             placeholder="Type a message..."
-            className="flex-1 bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="flex-1 bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
           <button
             type="submit"
             disabled={!inputMessage.trim()}
-            className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
+            className="bg-blue-500 hover:bg-[#1e40af] disabled:bg-slate-200 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
           >
             <Send size={20} />
           </button>

@@ -109,16 +109,16 @@ export function CreateServiceForm() {
   };
 
   return (
-    <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 max-w-2xl mx-auto">
+    <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-2xl mx-auto">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">Create New Service</h2>
-        <p className="text-gray-400">Offer your expertise to customers on HomeSync</p>
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Create New Service</h2>
+        <p className="text-slate-500">Offer your expertise to customers on HomeSync</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Name */}
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium text-white">
+          <label htmlFor="name" className="text-sm font-medium text-slate-900">
             Service Name
           </label>
           <Input
@@ -134,7 +134,7 @@ export function CreateServiceForm() {
 
         {/* Category */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-white">Category</label>
+          <label className="text-sm font-medium text-slate-900">Category</label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {serviceCategories.map((category) => (
               <button
@@ -143,8 +143,8 @@ export function CreateServiceForm() {
                 onClick={() => handleCategoryChange(category)}
                 className={`p-3 rounded-lg border text-sm font-medium transition-all duration-200 ${
                   formData.category === category
-                    ? 'border-blue-500 bg-blue-500/20 text-blue-400'
-                    : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-gray-500'
+                    ? 'border-blue-500 bg-blue-500/20 text-[#1e40af]'
+                    : 'border-slate-300 bg-white/50 text-slate-600 hover:border-gray-500'
                 }`}
               >
                 {category}
@@ -163,7 +163,7 @@ export function CreateServiceForm() {
 
         {/* Description */}
         <div className="space-y-2">
-          <label htmlFor="description" className="text-sm font-medium text-white">
+          <label htmlFor="description" className="text-sm font-medium text-slate-900">
             Description
           </label>
           <Textarea
@@ -181,7 +181,7 @@ export function CreateServiceForm() {
         {/* Price and Duration */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label htmlFor="price" className="text-sm font-medium text-white">
+            <label htmlFor="price" className="text-sm font-medium text-slate-900">
               Price (₹)
             </label>
             <Input
@@ -197,14 +197,14 @@ export function CreateServiceForm() {
               className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
             />
             {formData.category && (
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-slate-600">
                 Suggested: ₹{suggestPrice(formData.category)} for {formData.category}
               </p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="duration" className="text-sm font-medium text-white">
+            <label htmlFor="duration" className="text-sm font-medium text-slate-900">
               Duration (minutes)
             </label>
             <select
@@ -213,7 +213,7 @@ export function CreateServiceForm() {
               value={formData.duration}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Select duration</option>
               <option value="30">30 minutes</option>
@@ -237,24 +237,24 @@ export function CreateServiceForm() {
             name="isActive"
             checked={formData.isActive}
             onChange={handleChange}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700 rounded"
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 bg-slate-100 rounded"
           />
-          <label htmlFor="isActive" className="text-sm font-medium text-white">
+          <label htmlFor="isActive" className="text-sm font-medium text-slate-900">
             Make this service active immediately
           </label>
         </div>
 
         {/* Preview */}
         {formData.name && formData.category && formData.price && (
-          <div className="bg-gray-700/50 rounded-xl p-4 border border-gray-600">
-            <h4 className="font-semibold text-white mb-2">Preview</h4>
-            <div className="bg-gray-800 rounded-lg p-4">
-              <h5 className="font-semibold text-white">{formData.name}</h5>
-              <p className="text-sm text-gray-400 mb-2">{formData.category}</p>
+          <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
+            <h4 className="font-semibold text-slate-900 mb-2">Preview</h4>
+            <div className="bg-white rounded-lg p-4">
+              <h5 className="font-semibold text-slate-900">{formData.name}</h5>
+              <p className="text-sm text-slate-500 mb-2">{formData.category}</p>
               <div className="flex justify-between items-center">
-                <span className="text-blue-400 font-bold">₹{formData.price}</span>
+                <span className="text-[#1e40af] font-bold">₹{formData.price}</span>
                 {formData.duration && (
-                  <span className="text-gray-400 text-sm">
+                  <span className="text-slate-500 text-sm">
                     {Number(formData.duration) >= 60 
                       ? `${Math.floor(Number(formData.duration) / 60)}h ${Number(formData.duration) % 60 ? Number(formData.duration) % 60 + 'm' : ''}`
                       : `${formData.duration}m`
@@ -274,7 +274,7 @@ export function CreateServiceForm() {
         >
           {isLoading ? (
             <div className="flex items-center justify-center">
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>

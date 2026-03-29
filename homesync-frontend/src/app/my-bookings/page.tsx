@@ -267,16 +267,16 @@ export default function MyBookingsPage() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white">My Bookings</h1>
-              <p className="text-gray-400 mt-1">
+              <h1 className="text-3xl font-bold text-slate-900">My Bookings</h1>
+              <p className="text-slate-500 mt-1">
                 {isLoading ? 'Loading...' : `${filteredAndSortedBookings.length} of ${bookings.length} bookings`}
               </p>
             </div>
             
             {!isLoading && bookings.length > 0 && (
               <div className="text-right">
-                <p className="text-sm text-gray-400">Last updated</p>
-                <p className="text-white font-medium">{new Date().toLocaleDateString()}</p>
+                <p className="text-sm text-slate-500">Last updated</p>
+                <p className="text-slate-900 font-medium">{new Date().toLocaleDateString()}</p>
               </div>
             )}
           </div>
@@ -286,19 +286,19 @@ export default function MyBookingsPage() {
               {/* Loading Summary */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="bg-gray-800 rounded-2xl p-4 border border-gray-700 animate-pulse">
-                    <div className="h-4 bg-gray-700 rounded mb-2"></div>
-                    <div className="h-6 bg-gray-700 rounded"></div>
+                  <div key={i} className="bg-white rounded-2xl p-4 border border-slate-200 animate-pulse">
+                    <div className="h-4 bg-slate-100 rounded mb-2"></div>
+                    <div className="h-6 bg-slate-100 rounded"></div>
                   </div>
                 ))}
               </div>
               
               {/* Loading Filters */}
-              <div className="bg-gray-800 rounded-2xl border border-gray-700 p-6 animate-pulse">
-                <div className="h-12 bg-gray-700 rounded-xl mb-4"></div>
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 animate-pulse">
+                <div className="h-12 bg-slate-100 rounded-xl mb-4"></div>
                 <div className="flex gap-2">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="h-8 w-20 bg-gray-700 rounded-xl"></div>
+                    <div key={i} className="h-8 w-20 bg-slate-100 rounded-xl"></div>
                   ))}
                 </div>
               </div>
@@ -313,10 +313,10 @@ export default function MyBookingsPage() {
           ) : bookings.length === 0 ? (
             // Empty State
             <div className="text-center py-16">
-              <div className="bg-gray-800 rounded-2xl p-12 border border-gray-700 max-w-md mx-auto">
+              <div className="bg-white rounded-2xl p-12 border border-slate-200 max-w-md mx-auto">
                 <div className="text-6xl mb-4">📋</div>
-                <h2 className="text-xl font-semibold text-white mb-2">No Bookings Yet</h2>
-                <p className="text-gray-400 mb-6">
+                <h2 className="text-xl font-semibold text-slate-900 mb-2">No Bookings Yet</h2>
+                <p className="text-slate-500 mb-6">
                   {user?.role === 'customer' 
                     ? "You haven't made any bookings yet. Start by exploring our services!"
                     : "You haven't received any bookings yet. Make sure your services are active and visible."
@@ -324,7 +324,7 @@ export default function MyBookingsPage() {
                 </p>
                 <button 
                   onClick={() => window.location.href = user?.role === 'customer' ? '/services' : '/partner/services'}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200"
+                  className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-6 py-3 rounded-xl font-medium transition-all duration-200"
                 >
                   {user?.role === 'customer' ? 'Browse Services' : 'Manage Services'}
                 </button>
@@ -345,10 +345,10 @@ export default function MyBookingsPage() {
               {/* Results */}
               {filteredAndSortedBookings.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 max-w-md mx-auto">
+                  <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-md mx-auto">
                     <div className="text-4xl mb-4">🔍</div>
-                    <h3 className="text-lg font-semibold text-white mb-2">No Results Found</h3>
-                    <p className="text-gray-400 mb-4">
+                    <h3 className="text-lg font-semibold text-slate-900 mb-2">No Results Found</h3>
+                    <p className="text-slate-500 mb-4">
                       No bookings match your current filters. Try adjusting your search criteria.
                     </p>
                     <button 
@@ -358,7 +358,7 @@ export default function MyBookingsPage() {
                         sortOrder: 'desc',
                         searchQuery: ''
                       })}
-                      className="text-blue-400 hover:text-blue-300 font-medium"
+                      className="text-[#1e40af] hover:text-blue-300 font-medium"
                     >
                       Clear all filters
                     </button>

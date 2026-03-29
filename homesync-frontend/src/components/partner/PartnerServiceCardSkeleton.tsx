@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 
 export function PartnerServiceCardSkeleton() {
   return (
-    <div className="rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-lg">
+    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-lg">
       <Skeleton 
         height={20} 
         width="80%" 

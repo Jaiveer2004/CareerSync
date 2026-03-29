@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 
 export function BookingCardSkeleton() {
   return (
-    <div className="flex items-center justify-between rounded-lg border border-gray-700 p-4 bg-gray-800 shadow-lg">
+    <div className="flex items-center justify-between rounded-lg border border-slate-200 p-4 bg-white shadow-lg">
       <div className="flex-grow">
         <Skeleton 
           height={20} 

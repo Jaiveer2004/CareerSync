@@ -52,13 +52,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="bg-slate-50 min-h-screen">
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden md:flex md:w-64 md:flex-col">
-          <div className="flex flex-col flex-grow pt-5 bg-gray-800 overflow-y-auto shadow-xl border-r border-gray-700">
+          <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto shadow-xl border-r border-slate-200">
             <div className="flex items-center flex-shrink-0 px-4">
-              <h2 className="text-xl font-bold text-white">HomeSync</h2>
+              <h2 className="text-xl font-bold text-slate-900">HomeSync</h2>
             </div>
             <div className="mt-8 flex-grow flex flex-col">
               <nav className="flex-1 px-2 space-y-1">
@@ -70,8 +70,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                       href={item.href}
                       className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                         isActive
-                          ? 'bg-blue-600 text-white shadow-lg'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                          ? 'bg-[#1e40af] text-white shadow-lg'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
                       <span className="mr-3 text-lg" aria-hidden="true">
@@ -84,19 +84,19 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               </nav>
             </div>
             {/* User info at bottom */}
-            <div className="flex-shrink-0 flex border-t border-gray-700 p-4">
+            <div className="flex-shrink-0 flex border-t border-slate-200 p-4">
               <div className="flex-shrink-0 w-full group block">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold text-sm">
+                  <div className="w-10 h-10 bg-[#1e40af] rounded-full flex items-center justify-center">
+                    <span className="text-slate-900 font-semibold text-sm">
                       {user?.fullName?.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-white group-hover:text-gray-200">
+                    <p className="text-sm font-medium text-slate-900 group-hover:text-gray-200">
                       {user?.fullName}
                     </p>
-                    <p className="text-xs font-medium text-gray-400 group-hover:text-gray-300 capitalize">
+                    <p className="text-xs font-medium text-slate-500 group-hover:text-slate-600 capitalize">
                       {user?.role}
                     </p>
                   </div>
@@ -107,12 +107,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="flex flex-col flex-1">
-          <div className="md:hidden bg-gray-800 shadow-lg p-4 border-b border-gray-700 mt-16">
-            <h2 className="text-xl font-bold text-white">HomeSync</h2>
+          <div className="md:hidden bg-white shadow-lg p-4 border-b border-slate-200 mt-16">
+            <h2 className="text-xl font-bold text-slate-900">HomeSync</h2>
           </div>
           
           {/* Main content area */}
-          <main className="flex-1 bg-gray-900 pt-16">
+          <main className="flex-1 bg-slate-50 pt-16">
             {children}
           </main>
         </div>

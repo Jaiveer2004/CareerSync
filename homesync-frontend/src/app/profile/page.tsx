@@ -154,8 +154,8 @@ export default function ProfilePage() {
         <div className="container mx-auto py-8 px-4 max-w-5xl space-y-6">
           {/* Header */}
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Profile Settings</h1>
-            <p className="text-gray-400">Manage your account information and security settings</p>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Profile Settings</h1>
+            <p className="text-slate-500">Manage your account information and security settings</p>
           </div>
 
           {/* Global Success/Error Messages */}
@@ -176,7 +176,7 @@ export default function ProfilePage() {
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-3">
                   <div className="p-2 bg-blue-500/10 rounded-lg">
-                    <User className="h-6 w-6 text-blue-400" />
+                    <User className="h-6 w-6 text-[#1e40af]" />
                   </div>
                   <div>
                     <CardTitle>Personal Information</CardTitle>
@@ -208,7 +208,7 @@ export default function ProfilePage() {
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
                       <Input
                         id="email"
                         type="email"
@@ -221,7 +221,7 @@ export default function ProfilePage() {
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
                       <Input
                         id="phone"
                         type="tel"
@@ -286,7 +286,7 @@ export default function ProfilePage() {
                 <div className="space-y-2">
                   <Label htmlFor="currentPassword">Current Password</Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
                     <Input
                       id="currentPassword"
                       type={showCurrentPassword ? "text" : "password"}
@@ -298,7 +298,7 @@ export default function ProfilePage() {
                     <button
                       type="button"
                       onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
                     >
                       {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -308,7 +308,7 @@ export default function ProfilePage() {
                 <div className="space-y-2">
                   <Label htmlFor="newPassword">New Password</Label>
                   <div className="relative">
-                    <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
                     <Input
                       id="newPassword"
                       type={showNewPassword ? "text" : "password"}
@@ -320,7 +320,7 @@ export default function ProfilePage() {
                     <button
                       type="button"
                       onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
                     >
                       {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -328,8 +328,8 @@ export default function ProfilePage() {
                 </div>
 
                 {newPassword && (
-                  <div className="space-y-2 p-3 bg-gray-800/50 rounded-lg">
-                    <p className="text-xs font-semibold text-gray-300">Password Requirements:</p>
+                  <div className="space-y-2 p-3 bg-white/50 rounded-lg">
+                    <p className="text-xs font-semibold text-slate-600">Password Requirements:</p>
                     <div className="space-y-1">
                       <PasswordRequirement met={passwordValidation.minLength} text="At least 8 characters" />
                       <PasswordRequirement met={passwordValidation.hasUpperCase} text="One uppercase letter" />
@@ -343,7 +343,7 @@ export default function ProfilePage() {
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword">Confirm New Password</Label>
                   <div className="relative">
-                    <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
                     <Input
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
@@ -355,7 +355,7 @@ export default function ProfilePage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
                     >
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -414,19 +414,19 @@ export default function ProfilePage() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <p className="text-gray-400">Account ID</p>
-                  <p className="text-white font-mono">{user?.id || "N/A"}</p>
+                  <p className="text-slate-500">Account ID</p>
+                  <p className="text-slate-900 font-mono">{user?.id || "N/A"}</p>
                 </div>
                 <div>
-                  <p className="text-gray-400">Account Type</p>
-                  <p className="text-white capitalize">{user?.role || "Customer"}</p>
+                  <p className="text-slate-500">Account Type</p>
+                  <p className="text-slate-900 capitalize">{user?.role || "Customer"}</p>
                 </div>
                 <div>
-                  <p className="text-gray-400">Member Since</p>
-                  <p className="text-white">November 2025</p>
+                  <p className="text-slate-500">Member Since</p>
+                  <p className="text-slate-900">November 2025</p>
                 </div>
                 <div>
-                  <p className="text-gray-400">Email Status</p>
+                  <p className="text-slate-500">Email Status</p>
                   <p className="text-green-400 flex items-center gap-1">
                     <CheckCircle2 className="h-4 w-4" />
                     Verified
@@ -447,9 +447,9 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
       {met ? (
         <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0" />
       ) : (
-        <XCircle className="h-3 w-3 text-gray-500 flex-shrink-0" />
+        <XCircle className="h-3 w-3 text-slate-600 flex-shrink-0" />
       )}
-      <span className={met ? "text-green-400" : "text-gray-400"}>{text}</span>
+      <span className={met ? "text-green-400" : "text-slate-500"}>{text}</span>
     </div>
   );
 }

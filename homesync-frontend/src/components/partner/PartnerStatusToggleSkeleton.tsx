@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 
 export function PartnerStatusToggleSkeleton() {
   return (
-    <div className="flex items-center space-x-3 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-lg">
+    <div className="flex items-center space-x-3 rounded-lg border border-slate-200 bg-white p-4 shadow-lg">
       <Skeleton 
         width={44} 
         height={24} 

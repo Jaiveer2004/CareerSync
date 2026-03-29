@@ -91,12 +91,12 @@ export function RegisterForm() {
           <div className="w-full border-t border-gray-300"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
+          <span className="px-2 bg-white text-slate-500">Or continue with</span>
         </div>
       </div>
       {/* Role Selection */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-white">
+        <label className="text-sm font-medium text-slate-900">
           Join as
         </label>
         <div className="grid grid-cols-2 gap-4">
@@ -104,8 +104,8 @@ export function RegisterForm() {
             type="button"
             onClick={() => setRole('customer')}
             className={`p-4 rounded-lg border transition-all duration-200 ${role === 'customer'
-                ? 'border-blue-500 bg-blue-500/10 text-blue-400'
-                : 'border-gray-600 bg-gray-800 text-gray-300 hover:border-gray-500'
+                ? 'border-blue-500 bg-blue-500/10 text-[#1e40af]'
+                : 'border-slate-300 bg-white text-slate-600 hover:border-gray-500'
               }`}
           >
             <div className="flex flex-col items-center gap-2">
@@ -122,8 +122,8 @@ export function RegisterForm() {
             type="button"
             onClick={() => setRole('partner')}
             className={`p-4 rounded-lg border transition-all duration-200 ${role === 'partner'
-                ? 'border-blue-500 bg-blue-500/10 text-blue-400'
-                : 'border-gray-600 bg-gray-800 text-gray-300 hover:border-gray-500'
+                ? 'border-blue-500 bg-blue-500/10 text-[#1e40af]'
+                : 'border-slate-300 bg-white text-slate-600 hover:border-gray-500'
               }`}
           >
             <div className="flex flex-col items-center gap-2">
@@ -141,7 +141,7 @@ export function RegisterForm() {
 
       {/* Full Name Field */}
       <div className="space-y-2">
-        <label htmlFor="fullName" className="text-sm font-medium text-white">
+        <label htmlFor="fullName" className="text-sm font-medium text-slate-900">
           Full Name
         </label>
         <Input
@@ -158,7 +158,7 @@ export function RegisterForm() {
 
       {/* Email Field */}
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-white">
+        <label htmlFor="email" className="text-sm font-medium text-slate-900">
           Email address
         </label>
         <Input
@@ -175,7 +175,7 @@ export function RegisterForm() {
 
       {/* Password Field */}
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium text-white">
+        <label htmlFor="password" className="text-sm font-medium text-slate-900">
           Password
         </label>
         <div className="relative">
@@ -191,7 +191,7 @@ export function RegisterForm() {
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 transition-colors"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-600 transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -211,7 +211,7 @@ export function RegisterForm() {
         {password && (
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
-              <span className="text-gray-400">Password strength</span>
+              <span className="text-slate-500">Password strength</span>
               <span className={`${passwordStrength.strength === 1 ? 'text-red-400' :
                   passwordStrength.strength === 2 ? 'text-yellow-400' :
                     'text-green-400'
@@ -227,7 +227,7 @@ export function RegisterForm() {
                       ? passwordStrength.strength === 1 ? 'bg-red-400' :
                         passwordStrength.strength === 2 ? 'bg-yellow-400' :
                           'bg-green-400'
-                      : 'bg-gray-600'
+                      : 'bg-slate-200'
                     }`}
                 />
               ))}
@@ -238,7 +238,7 @@ export function RegisterForm() {
 
       {/* Confirm Password Field */}
       <div className="space-y-2">
-        <label htmlFor="confirmPassword" className="text-sm font-medium text-white">
+        <label htmlFor="confirmPassword" className="text-sm font-medium text-slate-900">
           Confirm Password
         </label>
         <div className="relative">
@@ -255,7 +255,7 @@ export function RegisterForm() {
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 transition-colors"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-600 transition-colors"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? (
@@ -282,15 +282,15 @@ export function RegisterForm() {
           name="terms"
           type="checkbox"
           required
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 bg-gray-700 rounded mt-0.5"
+          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 bg-slate-100 rounded mt-0.5"
         />
-        <label htmlFor="terms" className="ml-2 text-sm text-gray-300">
+        <label htmlFor="terms" className="ml-2 text-sm text-slate-600">
           I agree to the{' '}
-          <a href="/terms" className="text-blue-400 hover:text-blue-300 transition-colors">
+          <a href="/terms" className="text-[#1e40af] hover:text-blue-300 transition-colors">
             Terms of Service
           </a>
           {' '}and{' '}
-          <a href="/privacy" className="text-blue-400 hover:text-blue-300 transition-colors">
+          <a href="/privacy" className="text-[#1e40af] hover:text-blue-300 transition-colors">
             Privacy Policy
           </a>
         </label>
@@ -304,7 +304,7 @@ export function RegisterForm() {
       >
         {isLoading ? (
           <div className="flex items-center justify-center">
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-slate-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>

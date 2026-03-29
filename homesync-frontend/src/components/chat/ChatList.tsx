@@ -128,13 +128,13 @@ export function ChatList() {
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-white text-xl font-bold">Messages</h2>
+          <h2 className="text-slate-900 text-xl font-bold">Messages</h2>
           {totalUnread > 0 && (
-            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            <span className="bg-red-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-full">
               {totalUnread}
             </span>
           )}
@@ -142,13 +142,13 @@ export function ChatList() {
         
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500" size={18} />
           <input
             type="text"
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-2 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
+            className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-2 text-slate-900 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
           />
         </div>
       </div>
@@ -160,7 +160,7 @@ export function ChatList() {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
         ) : filteredRooms.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500 p-6">
+          <div className="flex flex-col items-center justify-center h-full text-slate-600 p-6">
             <MessageCircle size={48} className="mb-2 opacity-50" />
             <p className="text-center">
               {searchQuery ? 'No chats found' : 'No conversations yet'}
@@ -178,17 +178,17 @@ export function ChatList() {
                 <button
                   key={room._id}
                   onClick={() => setSelectedRoom(room)}
-                  className="w-full p-4 hover:bg-gray-800 transition-colors text-left flex items-start gap-3"
+                  className="w-full p-4 hover:bg-white transition-colors text-left flex items-start gap-3"
                 >
                   {/* Avatar */}
                   <div className="relative">
                     <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-lg">
+                      <span className="text-slate-900 font-bold text-lg">
                         {otherUser?.fullName.charAt(0).toUpperCase()}
                       </span>
                     </div>
                     {room.unreadCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-slate-900 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                         {room.unreadCount}
                       </span>
                     )}
@@ -197,22 +197,22 @@ export function ChatList() {
                   {/* Content */}
                   <div className="flex-grow min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-white font-semibold truncate">
+                      <h3 className="text-slate-900 font-semibold truncate">
                         {otherUser?.fullName}
                       </h3>
                       {room.lastMessage && (
-                        <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
+                        <span className="text-xs text-slate-600 flex-shrink-0 ml-2">
                           {formatLastMessageTime(room.lastMessage.timestamp)}
                         </span>
                       )}
                     </div>
                     
-                    <p className="text-xs text-blue-400 mb-1">
+                    <p className="text-xs text-[#1e40af] mb-1">
                       {room.bookingId.service?.name || `Booking #${room.bookingId._id.slice(-6)}`}
                     </p>
                     
                     {room.lastMessage && (
-                      <p className={`text-sm truncate ${room.unreadCount > 0 ? 'text-white font-medium' : 'text-gray-400'}`}>
+                      <p className={`text-sm truncate ${room.unreadCount > 0 ? 'text-slate-900 font-medium' : 'text-slate-500'}`}>
                         {room.lastMessage.text}
                       </p>
                     )}

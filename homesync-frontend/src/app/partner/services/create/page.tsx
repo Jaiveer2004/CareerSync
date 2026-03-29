@@ -9,7 +9,7 @@ export default function CreateServicePage() {
         <PartnerRoute>
             <DashboardLayout>
                 <div className="container mx-auto py-8">
-                    <h1 className="text-3xl font-bold mb-8 text-white">Create New Service</h1>
+                    <h1 className="text-3xl font-bold mb-8 text-slate-900">Create New Service</h1>
                     <div className="max-w-2xl mx-auto">
                         <CreateServiceForm />
                     </div>

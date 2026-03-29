@@ -88,7 +88,7 @@ export default function ResetPasswordForm() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
-              <XCircle className="h-8 w-8 text-white" />
+              <XCircle className="h-8 w-8 text-slate-900" />
             </div>
             <CardTitle className="text-3xl font-bold">Invalid Link</CardTitle>
             <CardDescription>
@@ -114,7 +114,7 @@ export default function ResetPasswordForm() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-              <CheckCircle2 className="h-8 w-8 text-white" />
+              <CheckCircle2 className="h-8 w-8 text-slate-900" />
             </div>
             <CardTitle className="text-3xl font-bold">Password Reset!</CardTitle>
             <CardDescription>
@@ -156,7 +156,7 @@ export default function ResetPasswordForm() {
             <div className="space-y-2">
               <Label htmlFor="newPassword">New Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="newPassword"
                   type={showPassword ? "text" : "password"}
@@ -168,7 +168,7 @@ export default function ResetPasswordForm() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -176,8 +176,8 @@ export default function ResetPasswordForm() {
             </div>
 
             {newPassword && (
-              <div className="space-y-2 p-3 bg-gray-800/50 rounded-lg">
-                <p className="text-xs font-semibold text-gray-300">Password Requirements:</p>
+              <div className="space-y-2 p-3 bg-white/50 rounded-lg">
+                <p className="text-xs font-semibold text-slate-600">Password Requirements:</p>
                 <div className="space-y-1">
                   <PasswordRequirement
                     met={passwordValidation.minLength}
@@ -206,7 +206,7 @@ export default function ResetPasswordForm() {
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
@@ -218,7 +218,7 @@ export default function ResetPasswordForm() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-600"
                 >
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -256,9 +256,9 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
       {met ? (
         <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0" />
       ) : (
-        <XCircle className="h-3 w-3 text-gray-500 flex-shrink-0" />
+        <XCircle className="h-3 w-3 text-slate-600 flex-shrink-0" />
       )}
-      <span className={met ? "text-green-400" : "text-gray-400"}>{text}</span>
+      <span className={met ? "text-green-400" : "text-slate-500"}>{text}</span>
     </div>
   );
 }

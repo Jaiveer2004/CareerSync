@@ -26,7 +26,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
   const [isExpanded, setIsExpanded] = useState(false);
 
   const statusOptions = [
-    { value: 'all', label: 'All Bookings', count: bookingCounts.total, color: 'bg-gray-600' },
+    { value: 'all', label: 'All Bookings', count: bookingCounts.total, color: 'bg-slate-200' },
     { value: 'pending', label: 'Pending', count: bookingCounts.pending, color: 'bg-yellow-500' },
     { value: 'confirmed', label: 'Confirmed', count: bookingCounts.confirmed, color: 'bg-blue-500' },
     { value: 'completed', label: 'Completed', count: bookingCounts.completed, color: 'bg-green-500' },
@@ -66,7 +66,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
   };
 
   return (
-    <div className="bg-gray-800 rounded-2xl border border-gray-700 p-6 mb-6">
+    <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
       {/* Search Bar */}
       <div className="mb-4">
         <div className="relative">
@@ -75,10 +75,10 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
             placeholder="Search bookings by service name, location, or booking ID..."
             value={filters.searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 pl-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 pl-10 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <svg 
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" 
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
 
       {/* Status Filter Pills */}
       <div className="mb-4">
-        <h3 className="text-sm font-medium text-gray-300 mb-3">Filter by Status</h3>
+        <h3 className="text-sm font-medium text-slate-600 mb-3">Filter by Status</h3>
         <div className="flex flex-wrap gap-2">
           {statusOptions.map((option) => (
             <button
@@ -98,13 +98,13 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
               onClick={() => handleStatusChange(option.value)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                 filters.status === option.value
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
+                  ? 'bg-[#1e40af] text-white shadow-lg'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
               }`}
             >
               <div className={`w-2 h-2 rounded-full ${option.color}`}></div>
               {option.label}
-              <span className="bg-gray-600 text-xs px-2 py-1 rounded-full">{option.count}</span>
+              <span className="bg-slate-200 text-xs px-2 py-1 rounded-full">{option.count}</span>
             </button>
           ))}
         </div>
@@ -114,7 +114,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition-colors"
+          className="text-[#1e40af] hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition-colors"
         >
           {isExpanded ? '👆' : '👇'} {isExpanded ? 'Less' : 'More'} Filters
         </button>
@@ -124,7 +124,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
             size="sm"
             variant="outline"
             onClick={clearFilters}
-            className="border-gray-600 text-gray-400 hover:text-white hover:border-gray-500"
+            className="border-slate-300 text-slate-500 hover:text-slate-900 hover:border-gray-500"
           >
             Clear Filters
           </Button>
@@ -133,13 +133,13 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
 
       {/* Advanced Filters */}
       {isExpanded && (
-        <div className="mt-4 pt-4 border-t border-gray-700 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Sort By</label>
+            <label className="block text-sm font-medium text-slate-600 mb-2">Sort By</label>
             <select
               value={filters.sortBy}
               onChange={(e) => handleSortChange('sortBy', e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -150,11 +150,11 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Sort Order</label>
+            <label className="block text-sm font-medium text-slate-600 mb-2">Sort Order</label>
             <select
               value={filters.sortOrder}
               onChange={(e) => handleSortChange('sortOrder', e.target.value)}
-              className="w-full bg-gray-700 border border-gray-600 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="desc">Newest First</option>
               <option value="asc">Oldest First</option>

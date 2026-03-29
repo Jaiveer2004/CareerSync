@@ -40,8 +40,8 @@ export default function SecuritySettingsPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Security Settings</h1>
-          <p className="text-gray-400">Manage your account security and privacy settings</p>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Security Settings</h1>
+          <p className="text-slate-500">Manage your account security and privacy settings</p>
         </div>
 
         {/* Two-Factor Authentication */}
@@ -50,7 +50,7 @@ export default function SecuritySettingsPage() {
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-3">
                 <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <Shield className="h-6 w-6 text-blue-400" />
+                  <Shield className="h-6 w-6 text-[#1e40af]" />
                 </div>
                 <div>
                   <CardTitle>Two-Factor Authentication</CardTitle>
@@ -114,10 +114,10 @@ export default function SecuritySettingsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white/50 rounded-lg">
                 <div>
-                  <p className="font-medium text-white">Current Device</p>
-                  <p className="text-sm text-gray-400">Last active: Just now</p>
+                  <p className="font-medium text-slate-900">Current Device</p>
+                  <p className="text-sm text-slate-500">Last active: Just now</p>
                 </div>
                 <Button variant="ghost" size="sm">Revoke</Button>
               </div>
@@ -175,22 +175,22 @@ export default function SecuritySettingsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 p-3 bg-gray-800/30 rounded-lg">
+              <div className="flex items-start gap-3 p-3 bg-white/30 rounded-lg">
                 <div className="p-2 bg-green-500/10 rounded-lg">
                   <Lock className="h-4 w-4 text-green-400" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-white">Password changed</p>
-                  <p className="text-xs text-gray-400">2 days ago • Chrome on Windows</p>
+                  <p className="text-sm font-medium text-slate-900">Password changed</p>
+                  <p className="text-xs text-slate-500">2 days ago • Chrome on Windows</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 bg-gray-800/30 rounded-lg">
+              <div className="flex items-start gap-3 p-3 bg-white/30 rounded-lg">
                 <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <Shield className="h-4 w-4 text-blue-400" />
+                  <Shield className="h-4 w-4 text-[#1e40af]" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-white">2FA enabled</p>
-                  <p className="text-xs text-gray-400">1 week ago • Chrome on Windows</p>
+                  <p className="text-sm font-medium text-slate-900">2FA enabled</p>
+                  <p className="text-xs text-slate-500">1 week ago • Chrome on Windows</p>
                 </div>
               </div>
             </div>

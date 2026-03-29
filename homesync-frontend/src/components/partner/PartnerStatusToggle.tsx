@@ -72,9 +72,9 @@ export function PartnerStatusToggle() {
   if (isLoading) return <PartnerStatusToggleSkeleton />;
 
   return (
-    <div className="flex items-center space-x-3 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-lg">
+    <div className="flex items-center space-x-3 rounded-lg border border-slate-200 bg-white p-4 shadow-lg">
       <Switch id="online-status" checked={isOnline} onCheckedChange={handleToggle} />
-      <label htmlFor="online-status" className="font-medium text-white">
+      <label htmlFor="online-status" className="font-medium text-slate-900">
         You are currently <span className={`${isOnline ? 'text-green-400' : 'text-red-400'} font-semibold`}>
           {isOnline ? "Online" : "Offline"}
         </span>

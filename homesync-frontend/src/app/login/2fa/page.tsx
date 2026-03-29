@@ -22,7 +22,7 @@ function TwoFactorPageContent() {
   if (!email) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="text-white">Loading...</div>
+        <div className="text-slate-900">Loading...</div>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function TwoFactorPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="text-white">Loading...</div>
+        <div className="text-slate-900">Loading...</div>
       </div>
     }>
       <TwoFactorPageContent />

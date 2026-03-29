@@ -29,13 +29,13 @@ export function StatsCard({
   };
 
   return (
-    <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:shadow-lg">
+    <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-slate-300 transition-all duration-300 hover:shadow-lg">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-gray-400 text-sm font-medium">{title}</p>
-          <p className="text-2xl font-bold text-white mt-1">{value}</p>
+          <p className="text-slate-500 text-sm font-medium">{title}</p>
+          <p className="text-2xl font-bold text-slate-900 mt-1">{value}</p>
           {description && (
-            <p className="text-gray-500 text-xs mt-1">{description}</p>
+            <p className="text-slate-600 text-xs mt-1">{description}</p>
           )}
           {trend && (
             <div className="flex items-center mt-2">
@@ -44,11 +44,11 @@ export function StatsCard({
               }`}>
                 {trend.isPositive ? '↗' : '↘'} {Math.abs(trend.value)}%
               </span>
-              <span className="text-gray-500 text-xs ml-1">from last month</span>
+              <span className="text-slate-600 text-xs ml-1">from last month</span>
             </div>
           )}
         </div>
-        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex items-center justify-center text-white text-xl`}>
+        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex items-center justify-center text-slate-900 text-xl`}>
           {icon}
         </div>
       </div>

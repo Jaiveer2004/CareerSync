@@ -91,14 +91,14 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-gray-800 rounded-2xl p-4 border border-gray-700 hover:border-gray-600 transition-all duration-300"
+          className="bg-white rounded-2xl p-4 border border-slate-200 hover:border-slate-300 transition-all duration-300"
         >
           <div className="flex items-center justify-between">
             <div className="flex-1">
-              <p className="text-gray-400 text-sm font-medium">{stat.title}</p>
-              <p className="text-xl font-bold text-white mt-1">{stat.value}</p>
+              <p className="text-slate-500 text-sm font-medium">{stat.title}</p>
+              <p className="text-xl font-bold text-slate-900 mt-1">{stat.value}</p>
             </div>
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white text-lg`}>
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-slate-900 text-lg`}>
               {stat.icon}
             </div>
           </div>

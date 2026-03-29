@@ -60,10 +60,10 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
   // Show loading while checking auth or if partner is being redirected
   if (authLoading || (user?.role === 'partner')) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <div className="text-white">
+          <div className="text-slate-900">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
   }
 
   if (isLoading) return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       <div className="pt-24">
         <ServiceDetailSkeleton />
@@ -81,30 +81,30 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
   );
   
   if (!service) return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
-      <div className="text-center py-10 pt-24 text-white">Service not found.</div>
+      <div className="text-center py-10 pt-24 text-slate-900">Service not found.</div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       
       <main className="container mx-auto py-8 pt-24 px-4">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
-            <p className="text-sm text-gray-400">{service.category}</p>
-            <h1 className="text-4xl font-bold mt-2 text-white">{service.name}</h1>
-            <p className="text-lg mt-4 text-gray-300">{service.description}</p>
+            <p className="text-sm text-slate-500">{service.category}</p>
+            <h1 className="text-4xl font-bold mt-2 text-slate-900">{service.name}</h1>
+            <p className="text-lg mt-4 text-slate-600">{service.description}</p>
           </div>
           <div>
-            <div className="rounded-lg border border-gray-700 bg-gray-800 p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-white">Offered by</h3>
-              <p className="mt-2 font-medium text-white">{service.partner.user.fullName}</p>
-              <p className="text-sm text-gray-400 mt-1">{service.partner.bio}</p>
-              <hr className="my-4 border-gray-600" />
-              <p className="text-3xl font-bold text-center text-blue-400">₹{service.price}</p>
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
+              <h3 className="text-xl font-semibold text-slate-900">Offered by</h3>
+              <p className="mt-2 font-medium text-slate-900">{service.partner.user.fullName}</p>
+              <p className="text-sm text-slate-500 mt-1">{service.partner.bio}</p>
+              <hr className="my-4 border-slate-300" />
+              <p className="text-3xl font-bold text-center text-[#1e40af]">₹{service.price}</p>
               <Link href={`/book/${service._id}`}>
                 <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
                   Book Now

@@ -38,7 +38,7 @@ export default function ForgotPasswordForm() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-              <CheckCircle2 className="h-8 w-8 text-white" />
+              <CheckCircle2 className="h-8 w-8 text-slate-900" />
             </div>
             <CardTitle className="text-3xl font-bold">Check Your Email</CardTitle>
             <CardDescription>
@@ -64,14 +64,14 @@ export default function ForgotPasswordForm() {
                 Back to Login
               </Button>
 
-              <p className="text-sm text-gray-400 text-center">
+              <p className="text-sm text-slate-500 text-center">
                 Didn&apos;t receive the email?{" "}
                 <button
                   onClick={() => {
                     setSuccess(false);
                     setEmail("");
                   }}
-                  className="text-blue-400 hover:text-blue-300 font-medium"
+                  className="text-[#1e40af] hover:text-blue-300 font-medium"
                 >
                   Try again
                 </button>
@@ -105,7 +105,7 @@ export default function ForgotPasswordForm() {
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                 <Input
                   id="email"
                   type="email"

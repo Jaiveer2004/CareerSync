@@ -60,11 +60,11 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
         <CardHeader className="space-y-1">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-3 bg-blue-500/10 rounded-lg">
-              <Shield className="h-6 w-6 text-blue-400" />
+              <Shield className="h-6 w-6 text-[#1e40af]" />
             </div>
             <div>
               <CardTitle className="text-2xl font-bold">Two-Factor Authentication</CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardDescription className="text-slate-500">
                 {useBackupCode
                   ? "Enter one of your backup codes"
                   : "Enter the 6-digit code from your authenticator app"}
@@ -84,7 +84,7 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
               <div className="space-y-2">
                 <Label htmlFor="token">Authentication Code</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                   <Input
                     id="token"
                     type="text"
@@ -96,7 +96,7 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-400 text-center">
+                <p className="text-xs text-slate-500 text-center">
                   Open your authenticator app to get your code
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
               <div className="space-y-2">
                 <Label htmlFor="backupCode">Backup Code</Label>
                 <div className="relative">
-                  <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                   <Input
                     id="backupCode"
                     type="text"
@@ -115,7 +115,7 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-500">
                   Each backup code can only be used once
                 </p>
               </div>
@@ -136,10 +136,10 @@ export default function TwoFactorLogin({ email, onBack }: TwoFactorLoginProps) {
           <div className="space-y-3">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gray-700" />
+                <span className="w-full border-t border-slate-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-gray-900 px-2 text-gray-400">or</span>
+                <span className="bg-slate-50 px-2 text-slate-500">or</span>
               </div>
             </div>
 

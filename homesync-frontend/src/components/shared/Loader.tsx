@@ -41,16 +41,16 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
   }, [onLoadingComplete, loadingSteps.length]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50">
       <div className="text-center">
         {/* Logo */}
         <div className="mb-12">
           <div className="flex items-center justify-center mb-6">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">F</span>
+              <span className="text-slate-900 font-bold text-lg">F</span>
             </div>
           </div>
-          <h1 className="text-2xl font-light text-white tracking-wide">
+          <h1 className="text-2xl font-light text-slate-900 tracking-wide">
             HomeSync
           </h1>
         </div>
@@ -59,7 +59,7 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
         <div className="mb-8">
           <div className="relative w-32 h-32 mx-auto">
             {/* Background Circle */}
-            <div className="absolute inset-0 rounded-full border border-gray-700"></div>
+            <div className="absolute inset-0 rounded-full border border-slate-200"></div>
             
             {/* Progress Circle */}
             <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
@@ -90,7 +90,7 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
 
             {/* Center Percentage */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-medium text-white">
+              <span className="text-sm font-medium text-slate-900">
                 {Math.round(progress)}%
               </span>
             </div>
@@ -99,13 +99,13 @@ export function Loader({ onLoadingComplete }: LoaderProps) {
 
         {/* Loading Text */}
         <div className="mb-8">
-          <p className="text-sm font-medium text-gray-300 mb-2">
+          <p className="text-sm font-medium text-slate-600 mb-2">
             {loadingSteps[currentStep]}
           </p>
           
           {/* Progress Bar */}
           <div className="w-48 mx-auto">
-            <div className="w-full bg-gray-700 rounded-full h-0.5">
+            <div className="w-full bg-slate-100 rounded-full h-0.5">
               <div 
                 className="h-full bg-blue-500 rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}

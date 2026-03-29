@@ -54,7 +54,7 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
   };
 
   return (
-    <div className="flex flex-col h-[500px] w-[380px] bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden">
+    <div className="flex flex-col h-[500px] w-[380px] bg-slate-50 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -62,14 +62,14 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
             <span className="text-blue-600 font-bold text-sm">AI</span>
           </div>
           <div>
-            <h3 className="text-white font-semibold">HomeSync Assistant</h3>
+            <h3 className="text-slate-900 font-semibold">HomeSync Assistant</h3>
             <p className="text-blue-100 text-xs">Online • Ready to help</p>
           </div>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="text-white hover:text-gray-200 transition-colors"
+            className="text-slate-900 hover:text-gray-200 transition-colors"
             aria-label="Close chat"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,24 +80,24 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
       </div>
 
       {/* Messages */}
-      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-900 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
         {messages.map((msg, index) => (
           <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
             {msg.sender === 'ai' && (
               <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                <span className="text-white text-xs font-bold">AI</span>
+                <span className="text-slate-900 text-xs font-bold">AI</span>
               </div>
             )}
             <div className={`rounded-2xl px-4 py-3 max-w-[80%] shadow-sm ${
               msg.sender === 'user' 
-                ? 'bg-blue-500 text-white rounded-br-md' 
-                : 'bg-gray-800 text-gray-100 border border-gray-700 rounded-bl-md'
+                ? 'bg-blue-500 text-slate-900 rounded-br-md' 
+                : 'bg-white text-gray-100 border border-slate-200 rounded-bl-md'
             }`}>
               <p className="text-sm leading-relaxed">{msg.text}</p>
             </div>
             {msg.sender === 'user' && (
-              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center ml-2 mt-1 flex-shrink-0">
-                <span className="text-white text-xs font-bold">U</span>
+              <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center ml-2 mt-1 flex-shrink-0">
+                <span className="text-slate-900 text-xs font-bold">U</span>
               </div>
             )}
           </div>
@@ -106,9 +106,9 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
         {isLoading && (
           <div className="flex justify-start">
             <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1">
-              <span className="text-white text-xs font-bold">AI</span>
+              <span className="text-slate-900 text-xs font-bold">AI</span>
             </div>
-            <div className="bg-gray-800 rounded-2xl rounded-bl-md px-4 py-3 border border-gray-700">
+            <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 border border-slate-200">
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
@@ -120,19 +120,19 @@ export function ChatWindow({ onClose }: ChatWindowProps) {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 bg-gray-800 border-t border-gray-700">
+      <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-slate-200">
         <div className="flex gap-2">
           <input
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Ask about our services..."
             disabled={isLoading}
-            className="flex-1 bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="flex-1 bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
+            className="bg-blue-500 hover:bg-[#1e40af] disabled:bg-slate-200 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

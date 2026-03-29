@@ -117,7 +117,7 @@ export default function OTPLoginForm() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                   <Input
                     id="email"
                     type="email"
@@ -146,7 +146,7 @@ export default function OTPLoginForm() {
               <div className="space-y-2">
                 <Label htmlFor="otp">One-Time Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500" />
                   <Input
                     id="otp"
                     type="text"
@@ -158,7 +158,7 @@ export default function OTPLoginForm() {
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-400 text-center">
+                <p className="text-xs text-slate-500 text-center">
                   OTP expires in 10 minutes
                 </p>
               </div>
@@ -188,12 +188,12 @@ export default function OTPLoginForm() {
             </form>
           )}
 
-          <div className="text-center text-sm text-gray-400">
+          <div className="text-center text-sm text-slate-500">
             Back to{" "}
             <button
               type="button"
               onClick={() => router.push("/login")}
-              className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+              className="text-[#1e40af] hover:text-blue-300 font-medium transition-colors"
             >
               Password Login
             </button>

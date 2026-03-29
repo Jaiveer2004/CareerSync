@@ -84,12 +84,12 @@ export function OnboardingForm() {
   const renderStep1 = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-semibold text-white mb-2">Tell us about yourself</h3>
-        <p className="text-gray-400 mb-6">Share your professional background and experience</p>
+        <h3 className="text-xl font-semibold text-slate-900 mb-2">Tell us about yourself</h3>
+        <p className="text-slate-500 mb-6">Share your professional background and experience</p>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="bio" className="text-sm font-medium text-white">
+        <label htmlFor="bio" className="text-sm font-medium text-slate-900">
           Professional Bio
         </label>
         <Textarea
@@ -101,12 +101,12 @@ export function OnboardingForm() {
           rows={4}
           className="resize-none"
         />
-        <p className="text-xs text-gray-500">This will be shown to customers when they view your profile</p>
+        <p className="text-xs text-slate-600">This will be shown to customers when they view your profile</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label htmlFor="experience" className="text-sm font-medium text-white">
+          <label htmlFor="experience" className="text-sm font-medium text-slate-900">
             Years of Experience
           </label>
           <Input
@@ -122,7 +122,7 @@ export function OnboardingForm() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm font-medium text-white">
+          <label htmlFor="phone" className="text-sm font-medium text-slate-900">
             Phone Number
           </label>
           <Input
@@ -137,7 +137,7 @@ export function OnboardingForm() {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="areas" className="text-sm font-medium text-white">
+        <label htmlFor="areas" className="text-sm font-medium text-slate-900">
           Service Areas
         </label>
         <Input
@@ -147,7 +147,7 @@ export function OnboardingForm() {
           onChange={(e) => setFormData(prev => ({ ...prev, serviceAreas: e.target.value }))}
           required
         />
-        <p className="text-xs text-gray-500">List the cities or areas where you provide services</p>
+        <p className="text-xs text-slate-600">List the cities or areas where you provide services</p>
       </div>
     </div>
   );
@@ -155,8 +155,8 @@ export function OnboardingForm() {
   const renderStep2 = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-semibold text-white mb-2">Your Skills & Services</h3>
-        <p className="text-gray-400 mb-6">Select the services you can provide</p>
+        <h3 className="text-xl font-semibold text-slate-900 mb-2">Your Skills & Services</h3>
+        <p className="text-slate-500 mb-6">Select the services you can provide</p>
       </div>
 
       <div className="space-y-4">
@@ -168,8 +168,8 @@ export function OnboardingForm() {
               onClick={() => handleSkillToggle(skill)}
               className={`p-3 rounded-lg border text-sm font-medium transition-all duration-200 ${
                 formData.skillsAndExpertise.includes(skill)
-                  ? 'border-blue-500 bg-blue-500/20 text-blue-400'
-                  : 'border-gray-600 bg-gray-800/50 text-gray-300 hover:border-gray-500 hover:bg-gray-700/50'
+                  ? 'border-blue-500 bg-blue-500/20 text-[#1e40af]'
+                  : 'border-slate-300 bg-white/50 text-slate-600 hover:border-gray-500 hover:bg-slate-100/50'
               }`}
             >
               {skill}
@@ -183,7 +183,7 @@ export function OnboardingForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3">
-          <label className="text-sm font-medium text-white">Price Range</label>
+          <label className="text-sm font-medium text-slate-900">Price Range</label>
           <div className="space-y-2">
             {[
               { value: 'budget', label: 'Budget Friendly', desc: '₹200-500/hour' },
@@ -200,8 +200,8 @@ export function OnboardingForm() {
                   className="text-blue-500 focus:ring-blue-500"
                 />
                 <div>
-                  <div className="text-white font-medium">{option.label}</div>
-                  <div className="text-gray-400 text-sm">{option.desc}</div>
+                  <div className="text-slate-900 font-medium">{option.label}</div>
+                  <div className="text-slate-500 text-sm">{option.desc}</div>
                 </div>
               </label>
             ))}
@@ -209,7 +209,7 @@ export function OnboardingForm() {
         </div>
 
         <div className="space-y-3">
-          <label className="text-sm font-medium text-white">Availability</label>
+          <label className="text-sm font-medium text-slate-900">Availability</label>
           <div className="space-y-2">
             {[
               { value: 'flexible', label: 'Flexible', desc: 'Available anytime' },
@@ -227,8 +227,8 @@ export function OnboardingForm() {
                   className="text-blue-500 focus:ring-blue-500"
                 />
                 <div>
-                  <div className="text-white font-medium">{option.label}</div>
-                  <div className="text-gray-400 text-sm">{option.desc}</div>
+                  <div className="text-slate-900 font-medium">{option.label}</div>
+                  <div className="text-slate-500 text-sm">{option.desc}</div>
                 </div>
               </label>
             ))}
@@ -239,14 +239,14 @@ export function OnboardingForm() {
   );
 
   return (
-    <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 max-w-4xl mx-auto">
+    <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-4xl mx-auto">
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-400">Step {currentStep} of 2</span>
-          <span className="text-sm font-medium text-gray-400">{currentStep === 1 ? 'Basic Info' : 'Skills & Preferences'}</span>
+          <span className="text-sm font-medium text-slate-500">Step {currentStep} of 2</span>
+          <span className="text-sm font-medium text-slate-500">{currentStep === 1 ? 'Basic Info' : 'Skills & Preferences'}</span>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-2">
+        <div className="w-full bg-slate-100 rounded-full h-2">
           <div 
             className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300"
             style={{ width: `${(currentStep / 2) * 100}%` }}
@@ -258,7 +258,7 @@ export function OnboardingForm() {
         {currentStep === 1 ? renderStep1() : renderStep2()}
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between mt-8 pt-6 border-t border-gray-700">
+        <div className="flex justify-between mt-8 pt-6 border-t border-slate-200">
           {currentStep > 1 && (
             <Button
               type="button"
@@ -288,7 +288,7 @@ export function OnboardingForm() {
               >
                 {isLoading ? (
                   <div className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-slate-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
