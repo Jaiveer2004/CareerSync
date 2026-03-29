@@ -106,7 +106,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b border-gray-700-2 border-b border-gray-700lue-500 mx-auto mb-4"></div>
           <div className="text-white">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
@@ -120,7 +120,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-900">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8 pt-24">
           <div className="animate-pulse">
@@ -128,7 +128,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
             <div className="h-4 bg-gray-200 rounded w-96 mb-8"></div>
             <div className="grid gap-6 md:grid-cols-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-white rounded-lg p-6 shadow-sm">
+                <div key={i} className="bg-gray-800 rounded-lg p-6 shadow-sm">
                   <div className="h-6 bg-gray-200 rounded mb-4"></div>
                   <div className="h-4 bg-gray-200 rounded mb-2"></div>
                   <div className="h-4 bg-gray-200 rounded mb-4 w-2/3"></div>
@@ -144,11 +144,11 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
   if (!serviceData) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-900">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8 pt-24 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Not Found</h1>
-          <p className="text-gray-600 mb-6">The service you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="text-2xl font-bold text-white mb-4">Service Not Found</h1>
+          <p className="text-gray-400 mb-6">The service you&apos;re looking for doesn&apos;t exist.</p>
           <Link href="/services">
             <Button>Back to Services</Button>
           </Link>
@@ -158,21 +158,21 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900">
       <Navbar />
       
       {/* Header Section */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-gray-800 shadow-sm border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-6 pt-24">
           <div className="flex items-center gap-2 text-gray-500 mb-2 text-sm">
-            <Link href="/services" className="hover:text-purple-600">Services</Link>
+            <Link href="/services" className="hover:text-blue-400">Services</Link>
             <span>→</span>
             <span>{serviceName}</span>
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{serviceName}</h1>
-              <p className="text-gray-600 mt-1">Choose from {serviceData.totalProviders} verified professionals</p>
+              <h1 className="text-3xl font-bold text-white">{serviceName}</h1>
+              <p className="text-gray-400 mt-1">Choose from {serviceData.totalProviders} verified professionals</p>
             </div>
             <div className="text-right">
               <div className="text-sm text-gray-500">Starting from</div>
@@ -193,7 +193,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-white">
                     Available Now ({availableProviders.length})
                   </h2>
                 </div>
@@ -202,7 +202,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   {availableProviders.map((service, index) => (
                     <div 
                       key={service.serviceId}
-                      className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200 p-6"
+                      className="bg-gray-800 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200 p-6"
                     >
                       <div className="flex items-start gap-4">
                         {/* Provider Image */}
@@ -215,7 +215,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             className="rounded-full object-cover"
                           />
                           <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                            <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
                           </div>
                         </div>
 
@@ -223,8 +223,8 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h3 className="text-lg font-semibold text-gray-900">{service.provider.name}</h3>
-                              <p className="text-gray-600 text-sm">{service.description}</p>
+                              <h3 className="text-lg font-semibold text-white">{service.provider.name}</h3>
+                              <p className="text-gray-400 text-sm">{service.description}</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
                                 <span className="flex items-center gap-1">
                                   <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -238,14 +238,14 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             </div>
                             
                             <div className="text-right">
-                              <div className="text-2xl font-bold text-gray-900">₹{service.price}</div>
+                              <div className="text-2xl font-bold text-white">₹{service.price}</div>
                               <div className="text-sm text-gray-500">per service</div>
                             </div>
                           </div>
 
                           {/* Recent Review */}
                           {service.provider.recentReviews.length > 0 && (
-                            <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                            <div className="mt-4 p-3 bg-gray-900 rounded-lg">
                               <div className="flex items-center gap-2 mb-1">
                                 <div className="flex">
                                   {Array.from({ length: 5 }).map((_, i) => (
@@ -258,7 +258,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                                 </div>
                                 <span className="text-sm font-medium text-gray-700">{service.provider.recentReviews[0].customer.fullName}</span>
                               </div>
-                              <p className="text-sm text-gray-600">{service.provider.recentReviews[0].comment}</p>
+                              <p className="text-sm text-gray-400">{service.provider.recentReviews[0].comment}</p>
                             </div>
                           )}
 
@@ -290,7 +290,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
             {/* Offline Providers Section */}
             {offlineProviders.length > 0 && (
               <section>
-                <h2 className="text-xl font-bold text-gray-900 mb-6">
+                <h2 className="text-xl font-bold text-white mb-6">
                   All Professionals ({offlineProviders.length})
                 </h2>
                 
@@ -298,7 +298,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   {offlineProviders.map((service, index) => (
                     <div 
                       key={service.serviceId}
-                      className="bg-white rounded-lg shadow-sm border p-4 opacity-75"
+                      className="bg-gray-800 rounded-lg shadow-sm border p-4 opacity-75"
                     >
                       <div className="flex items-center gap-3">
                         <Image
@@ -309,8 +309,8 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                           className="rounded-full object-cover"
                         />
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{service.provider.name}</h3>
-                          <p className="text-sm text-gray-600">{service.description}</p>
+                          <h3 className="font-semibold text-white">{service.provider.name}</h3>
+                          <p className="text-sm text-gray-400">{service.description}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-sm text-yellow-600">⭐ {service.provider.averageRating.toFixed(1)}</span>
                             <span className="text-sm text-gray-500">₹{service.price}</span>
@@ -327,13 +327,13 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Types of {serviceName}</h3>
+            <div className="bg-gray-800 rounded-lg shadow-sm border p-6 sticky top-4">
+              <h3 className="text-lg font-bold text-white mb-4">Types of {serviceName}</h3>
               
               {/* Service Types */}
               <div className="space-y-3">
                 {Array.from(new Set(serviceData.providers.map(p => p.serviceName))).slice(0, 6).map((serviceType, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-900 cursor-pointer">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                         <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -341,7 +341,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                         </svg>
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">{serviceType}</div>
+                        <div className="font-medium text-white">{serviceType}</div>
                         <div className="text-sm text-gray-500">
                           {serviceData.providers.filter(p => p.serviceName === serviceType).length} professionals
                         </div>
@@ -370,7 +370,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
       {/* Provider Detail Modal */}
       {selectedProvider && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
+          <div className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
@@ -382,8 +382,8 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                     className="rounded-full object-cover"
                   />
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{selectedProvider.provider.name}</h3>
-                    <p className="text-gray-600">{selectedProvider.description}</p>
+                    <h3 className="text-xl font-bold text-white">{selectedProvider.provider.name}</h3>
+                    <p className="text-gray-400">{selectedProvider.description}</p>
                     <div className="flex items-center gap-1 mt-1">
                       <span className="text-yellow-500">⭐</span>
                       <span className="font-medium">{selectedProvider.provider.averageRating.toFixed(1)}</span>
@@ -393,7 +393,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                 </div>
                 <button 
                   onClick={() => setSelectedProvider(null)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 hover:text-gray-400"
                 >
                   ✕
                 </button>
@@ -401,20 +401,20 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
 
               {/* Provider Bio */}
               <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-2">About</h4>
-                <p className="text-gray-600">{selectedProvider.provider.bio}</p>
+                <h4 className="font-semibold text-white mb-2">About</h4>
+                <p className="text-gray-400">{selectedProvider.provider.bio}</p>
               </div>
 
               {/* Service Details */}
               <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3">Service Details</h4>
+                <h4 className="font-semibold text-white mb-3">Service Details</h4>
                 <div className="border rounded-lg p-4">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h5 className="font-medium text-gray-900">{selectedProvider.serviceName}</h5>
-                      <p className="text-sm text-gray-600">{selectedProvider.duration} minutes</p>
+                      <h5 className="font-medium text-white">{selectedProvider.serviceName}</h5>
+                      <p className="text-sm text-gray-400">{selectedProvider.duration} minutes</p>
                     </div>
-                    <span className="font-semibold text-gray-900">₹{selectedProvider.price}</span>
+                    <span className="font-semibold text-white">₹{selectedProvider.price}</span>
                   </div>
                 </div>
               </div>
@@ -422,15 +422,15 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               {/* Reviews */}
               {selectedProvider.provider.recentReviews.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Recent Reviews</h4>
+                  <h4 className="font-semibold text-white mb-3">Recent Reviews</h4>
                   <div className="space-y-3">
                     {selectedProvider.provider.recentReviews.slice(0, 3).map((review, index) => (
-                      <div key={index} className="border-l-4 border-blue-200 pl-4">
+                      <div key={index} className="border-l-4 border-b border-gray-700lue-200 pl-4">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-gray-900">{review.customer.fullName}</span>
+                          <span className="font-medium text-white">{review.customer.fullName}</span>
                           <span className="text-yellow-500">⭐ {review.rating}</span>
                         </div>
-                        <p className="text-gray-600 text-sm">{review.comment}</p>
+                        <p className="text-gray-400 text-sm">{review.comment}</p>
                       </div>
                     ))}
                   </div>
