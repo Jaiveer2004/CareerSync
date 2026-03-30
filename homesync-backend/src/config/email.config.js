@@ -22,30 +22,12 @@ const createTransporter = () => {
 
   try {
     const config = {
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.EMAIL_PORT || '587'),
-      secure: process.env.EMAIL_PORT === '465' || parseInt(process.env.EMAIL_PORT) === 465, 
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: false, // Set to false to avoid certificate issues in some environments
-      },
-      connectionTimeout: 60000, // 60 seconds
-      greetingTimeout: 30000, // 30 seconds
-      socketTimeout: 60000, // 60 seconds
-      pool: true,
-      maxConnections: 1, // Useful for free tier
+      }
     };
-
-    // If using default gmail, using the service option is often more reliable
-    if (!process.env.EMAIL_HOST || process.env.EMAIL_HOST.includes('gmail')) {
-      config.service = 'gmail';
-      delete config.host;
-      delete config.port;
-      delete config.secure;
-    }
 
     return nodemailer.createTransport(config);
   } catch (error) {
