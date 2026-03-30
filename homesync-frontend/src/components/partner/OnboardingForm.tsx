@@ -12,10 +12,12 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
 const serviceCategories = [
-  'Plumbing', 'Electrical', 'Cleaning', 'Home Repair', 'Appliance Repair',
-  'HVAC', 'Painting', 'Gardening', 'Moving', 'Pest Control', 'IT Support',
-  'Tutoring', 'Personal Training', 'Beauty & Wellness', 'Event Planning',
-  'Photography', 'Catering', 'Pet Care', 'Automotive', 'Other'
+  'Software Engineering', 'Data Science', 'DevOps', 'Product Management',
+  'UI/UX Design', 'QA & Testing', 'Cybersecurity', 'Cloud Computing',
+  'Mobile Development', 'Frontend Development', 'Backend Development',
+  'Full Stack Development', 'AI/Machine Learning', 'Data Engineering',
+  'Systems Architecture', 'Technical Support', 'Developer Relations',
+  'Engineering Management', 'Other'
 ];
 
 export function OnboardingForm() {
@@ -60,7 +62,7 @@ export function OnboardingForm() {
       });
 
       await toast.promise(promise, {
-        loading: 'Setting up your partner profile...',
+        loading: 'Setting up your company profile...',
         success: () => {
           // Update user role in auth context
           if (user) {
@@ -70,7 +72,7 @@ export function OnboardingForm() {
           }
           
           router.push('/dashboard');
-          return <b>Welcome to HomeSync! Your partner profile is now active.</b>;
+          return <b>Welcome to CareerSync! Your company profile is now active.</b>;
         },
         error: (err) => <b>{err.response?.data?.message || "Profile setup failed!"}</b>,
       });
@@ -84,24 +86,24 @@ export function OnboardingForm() {
   const renderStep1 = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-semibold text-slate-900 mb-2">Tell us about yourself</h3>
-        <p className="text-slate-500 mb-6">Share your professional background and experience</p>
+        <h3 className="text-xl font-semibold text-slate-900 mb-2">Tell us about your company</h3>
+        <p className="text-slate-500 mb-6">Share your company mission and what you are looking for</p>
       </div>
 
       <div className="space-y-2">
         <label htmlFor="bio" className="text-sm font-medium text-slate-900">
-          Professional Bio
+          Company Bio
         </label>
         <Textarea
           id="bio"
-          placeholder="Describe your professional background, specialties, and what makes you stand out..."
+          placeholder="Describe your company background, culture, and projects..."
           value={formData.bio}
           onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
           required
           rows={4}
           className="resize-none"
         />
-        <p className="text-xs text-slate-600">This will be shown to customers when they view your profile</p>
+        <p className="text-xs text-slate-600">This will be shown to candidates when they view your profile</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

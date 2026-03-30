@@ -26,14 +26,14 @@ export function Navbar() {
     { name: 'Home', href: '/' },
     ...(user?.role === 'partner' ? [
       { name: 'Dashboard', href: '/dashboard' },
-      { name: 'My Services', href: '/partner/services' },
-      { name: 'Bookings', href: '/my-bookings' },
+      { name: 'My Job Postings', href: '/partner/services' },
+      { name: 'Applications', href: '/my-bookings' },
     ] : user?.role === 'customer' ? [
-      { name: 'Services', href: '/services' },
+      { name: 'Find Jobs', href: '/services' },
       { name: 'Dashboard', href: '/dashboard' },
-      { name: 'My Bookings', href: '/my-bookings' },
+      { name: 'My Applications', href: '/my-bookings' },
     ] : [
-      { name: 'Services', href: '/services' },
+      { name: 'Find Jobs', href: '/services' },
     ])
   ];
 
@@ -54,7 +54,7 @@ export function Navbar() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
           </div>
-          HomeSync
+          CareerSync
         </Link>
 
         {/* Desktop Navigation */}

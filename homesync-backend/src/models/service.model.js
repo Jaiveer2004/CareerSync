@@ -24,7 +24,7 @@ const serviceSchema = new Schema({
   category: {
     type: String,
     required: [true, 'Category is required'],
-    // Example categories: 'Plumbing', 'Cleaning', 'Electrical', 'Tutoring'
+    // Example categories: 'Software Engineering', 'Data Science', 'DevOps', 'Product Management'
   },
 
   price: {

@@ -26,17 +26,17 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
   const [isExpanded, setIsExpanded] = useState(false);
 
   const statusOptions = [
-    { value: 'all', label: 'All Bookings', count: bookingCounts.total, color: 'bg-slate-200' },
-    { value: 'pending', label: 'Pending', count: bookingCounts.pending, color: 'bg-yellow-500' },
-    { value: 'confirmed', label: 'Confirmed', count: bookingCounts.confirmed, color: 'bg-blue-500' },
-    { value: 'completed', label: 'Completed', count: bookingCounts.completed, color: 'bg-green-500' },
-    { value: 'cancelled', label: 'Cancelled', count: bookingCounts.cancelled, color: 'bg-red-500' },
+    { value: 'all', label: 'All Applications', count: bookingCounts.total, color: 'bg-slate-200' },
+    { value: 'pending', label: 'Under Review', count: bookingCounts.pending, color: 'bg-yellow-500' },
+    { value: 'confirmed', label: 'Interview Scheduled', count: bookingCounts.confirmed, color: 'bg-blue-500' },
+    { value: 'completed', label: 'Hired', count: bookingCounts.completed, color: 'bg-green-500' },
+    { value: 'cancelled', label: 'Rejected', count: bookingCounts.cancelled, color: 'bg-red-500' },
   ];
 
   const sortOptions = [
-    { value: 'bookingDate', label: 'Booking Date' },
+    { value: 'bookingDate', label: 'Application Date' },
     { value: 'createdAt', label: 'Date Created' },
-    { value: 'totalPrice', label: 'Price' },
+    { value: 'totalPrice', label: 'Expected Salary' },
     { value: 'status', label: 'Status' },
   ];
 
@@ -72,7 +72,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
         <div className="relative">
           <input
             type="text"
-            placeholder="Search bookings by service name, location, or booking ID..."
+            placeholder="Search applications by job title, location, or application ID..."
             value={filters.searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 pl-10 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"

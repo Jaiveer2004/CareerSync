@@ -14,7 +14,7 @@ interface NavigationItem {
 
 const navigation: NavigationItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: '🏠' },
-  { name: 'My Bookings', href: '/my-bookings', icon: '📅' },
+  { name: 'My Applications', href: '/my-bookings', icon: '📅' },
   { name: 'Messages', href: '/messages', icon: '💬' },
   { 
     name: 'Browse Services', 
@@ -58,7 +58,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <div className="hidden md:flex md:w-64 md:flex-col">
           <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto shadow-xl border-r border-slate-200">
             <div className="flex items-center flex-shrink-0 px-4">
-              <h2 className="text-xl font-bold text-slate-900">HomeSync</h2>
+              <h2 className="text-xl font-bold text-slate-900">CareerSync</h2>
             </div>
             <div className="mt-8 flex-grow flex flex-col">
               <nav className="flex-1 px-2 space-y-1">
@@ -108,7 +108,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
         <div className="flex flex-col flex-1">
           <div className="md:hidden bg-white shadow-lg p-4 border-b border-slate-200 mt-16">
-            <h2 className="text-xl font-bold text-slate-900">HomeSync</h2>
+            <h2 className="text-xl font-bold text-slate-900">CareerSync</h2>
           </div>
           
           {/* Main content area */}

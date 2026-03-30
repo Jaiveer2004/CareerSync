@@ -7,8 +7,8 @@ import { Toaster } from "react-hot-toast";
 import 'react-loading-skeleton/dist/skeleton.css';
 
 export const metadata: Metadata = {
-  title: "HomeSync - Home Services Platform",
-  description: "Book trusted home service professionals for all your needs",
+  title: "CareerSync - Tech Recruitment Platform",
+  description: "Your Next Engineering Role, Synchronized",
 };
 
 export default function RootLayout({

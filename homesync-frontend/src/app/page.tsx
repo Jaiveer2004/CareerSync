@@ -62,27 +62,27 @@ export default function Home() {
   const serviceCategories = [
     {
       id: 1,
-      title: "Cleaning & Pest Control",
-      icon: "🧽",
-      services: ["Home Cleaning", "Bathroom Cleaning", "Kitchen Cleaning", "Pest Control"]
+      title: "Software Engineering",
+      icon: "💻",
+      services: ["Frontend Developer", "Backend Developer", "Full Stack Engineer", "DevOps Engineer"]
     },
     {
       id: 2,
-      title: "Appliance Repair",
-      icon: "🔧",
-      services: ["AC Service", "Washing Machine", "TV Repair", "Refrigerator"]
+      title: "Data & AI",
+      icon: "🧠",
+      services: ["Data Scientist", "Data Engineer", "Machine Learning", "AI Researcher"]
     },
     {
       id: 3,
-      title: "Home Repair & Installation",
-      icon: "🔨",
-      services: ["Plumber", "Electrician", "Carpenter", "Painter"]
+      title: "Product & Design",
+      icon: "🎨",
+      services: ["Product Manager", "UI/UX Designer", "Product Designer", "User Researcher"]
     },
     {
       id: 4,
-      title: "Beauty & Wellness",
-      icon: "💄",
-      services: ["Salon for Women", "Spa Services", "Men's Grooming", "Massage"]
+      title: "Infrastructure & Security",
+      icon: "🛡️",
+      services: ["Cloud Architect", "Security Engineer", "SRE", "Network Engineer"]
     }
   ];
 
@@ -94,10 +94,10 @@ export default function Home() {
   // Get services by category
   const getServicesByCategory = (categoryName: string) => {
     const categoryMap: { [key: string]: string[] } = {
-      'Cleaning & Pest Control': ['Cleaning', 'Pest Control'],
-      'Appliance Repair': ['Appliance'],
-      'Home Repair & Installation': ['Home Repair'],
-      'Beauty & Wellness': ['Beauty']
+      'Software Engineering': ['Development', 'Engineering'],
+      'Data & AI': ['Data', 'Machine Learning'],
+      'Product & Design': ['Product', 'Design'],
+      'Infrastructure & Security': ['Cloud', 'Security', 'DevOps']
     };
     
     const categories = categoryMap[categoryName] || [];
@@ -121,25 +121,25 @@ export default function Home() {
       <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto text-center max-w-4xl">
           <p className="text-sm font-semibold tracking-widest text-[#1e40af] uppercase mb-4">
-            Reliable Household Professionals
+            Top Tech Talent at Your Fingertips
           </p>
           <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 font-serif leading-tight">
-            Premium home services,<br />
-            <span className="text-[#1e40af]">scheduled in minutes</span>
+            Your Next Engineering Role,<br />
+            <span className="text-[#1e40af]">Synchronized</span>
           </h1>
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            From emergency repairs to recurring maintenance, HomeSync connects you with verified experts and transparent pricing.
+            From junior developers to lead architects, CareerSync connects you with top-tier tech opportunities using our advanced ATS platform.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
             <Link href="/services">
               <Button className="w-full sm:w-auto px-8 py-6 text-lg bg-[#1e40af] hover:bg-blue-900 text-white rounded-lg shadow-md transition-all">
-                Book a Service
+                Find a Job
               </Button>
             </Link>
             <Link href="#categories">
               <Button variant="outline" className="w-full sm:w-auto px-8 py-6 text-lg border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg transition-all">
-                Explore Categories
+                Explore Roles
               </Button>
             </Link>
           </div>
@@ -152,11 +152,11 @@ export default function Home() {
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-6 px-10 shadow-sm w-full sm:w-auto flex-1 max-w-[240px]">
               <div className="text-4xl font-bold text-[#1e40af] mb-2">50K+</div>
-              <div className="text-slate-500 font-medium">Satisfied Customers</div>
+              <div className="text-slate-500 font-medium">Hired Candidates</div>
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-6 px-10 shadow-sm w-full sm:w-auto flex-1 max-w-[240px]">
               <div className="text-4xl font-bold text-[#1e40af] mb-2">1,200+</div>
-              <div className="text-slate-500 font-medium">Verified Partners</div>
+              <div className="text-slate-500 font-medium">Verified Companies</div>
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function Home() {
       {/* Service Categories */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">What are you looking for?</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">What role are you looking for?</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {serviceCategories.map((category) => (
               <Link key={category.id} href="/services" className="group">
@@ -188,7 +188,7 @@ export default function Home() {
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-slate-900">Most booked services</h2>
+            <h2 className="text-3xl font-bold text-slate-900">Highest paying tech roles</h2>
             <Link href="/services" className="text-[#1e40af] hover:text-blue-300 font-medium">
               See all →
             </Link>
@@ -345,7 +345,7 @@ export default function Home() {
             Ready to get started?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust HomeSync for their home service needs
+            Join thousands of satisfied candidates who discovered their next big role on CareerSync
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {user ? (
@@ -363,7 +363,7 @@ export default function Home() {
                 </Link>
                 <Link href="/partner/onboard">
                   <Button size="lg" variant="outline" className="border-white text-slate-900 hover:bg-white hover:text-blue-600 px-8 py-3 text-lg font-semibold">
-                    Become a Partner
+                    Post a Role
                   </Button>
                 </Link>
               </>
@@ -383,10 +383,10 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
-                <span className="text-xl font-bold text-slate-900">HomeSync</span>
+                <span className="text-xl font-bold text-slate-900">CareerSync</span>
               </div>
               <p className="text-slate-500 mb-4">
-                Your trusted platform for professional home services. Quality guaranteed.
+                Your trusted platform for top tech opportunities. Quality guaranteed.
               </p>
             </div>
             
@@ -400,25 +400,25 @@ export default function Home() {
             </div>
             
             <div>
-              <h3 className="text-slate-900 font-semibold mb-4">For Customers</h3>
+              <h3 className="text-slate-900 font-semibold mb-4">For Candidates</h3>
               <ul className="space-y-2 text-slate-500">
-                <li><Link href="/services" className="hover:text-slate-900 transition-colors">All Services</Link></li>
-                <li><Link href="/reviews" className="hover:text-slate-900 transition-colors">Reviews</Link></li>
-                <li><Link href="/help" className="hover:text-slate-900 transition-colors">Help Center</Link></li>
+                <li><Link href="/services" className="hover:text-slate-900 transition-colors">All Roles</Link></li>
+                <li><Link href="/reviews" className="hover:text-slate-900 transition-colors">Company Reviews</Link></li>
+                <li><Link href="/help" className="hover:text-slate-900 transition-colors">Career Advice</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="text-slate-900 font-semibold mb-4">For Partners</h3>
-              <ul className="space-y-2 text-slate-500">
-                <li><Link href="/partner/onboard" className="hover:text-slate-900 transition-colors">Join as Partner</Link></li>
-                <li><Link href="/partner/support" className="hover:text-slate-900 transition-colors">Partner Support</Link></li>
+              <h3 className="text-slate-900 font-semibold mb-4">For Companies</h3>
+              <ul className="space-y-3 text-slate-600">
+                <li><Link href="/partner/onboard" className="hover:text-slate-900 transition-colors">Join as Recruiter</Link></li>
+                <li><Link href="/partner/support" className="hover:text-slate-900 transition-colors">Company Support</Link></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-slate-200 mt-8 pt-8 text-center text-slate-500">
-            <p>&copy; 2025 HomeSync. All rights reserved.</p>
+            <p>&copy; 2025 CareerSync. All rights reserved.</p>
           </div>
         </div>
       </footer>

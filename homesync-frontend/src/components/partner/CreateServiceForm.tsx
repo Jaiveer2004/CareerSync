@@ -1,4 +1,4 @@
-// Enhanced service creation form with modern design and better UX
+// Enhanced job posting creation form with modern design and better UX
 
 "use client";
 
@@ -11,10 +11,12 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
 const serviceCategories = [
-  'Plumbing', 'Electrical', 'Cleaning', 'Home Repair', 'Appliance Repair',
-  'HVAC', 'Painting', 'Gardening', 'Moving', 'Pest Control', 'IT Support',
-  'Tutoring', 'Personal Training', 'Beauty & Wellness', 'Event Planning',
-  'Photography', 'Catering', 'Pet Care', 'Automotive', 'Other'
+  'Software Engineering', 'Data Science', 'DevOps', 'Product Management',
+  'UI/UX Design', 'QA & Testing', 'Cybersecurity', 'Cloud Computing',
+  'Mobile Development', 'Frontend Development', 'Backend Development',
+  'Full Stack Development', 'AI/Machine Learning', 'Data Engineering',
+  'Systems Architecture', 'Technical Support', 'Developer Relations',
+  'Engineering Management', 'Other'
 ];
 
 export function CreateServiceForm() {
@@ -52,10 +54,10 @@ export function CreateServiceForm() {
       });
 
       await toast.promise(promise, {
-        loading: 'Creating your service...',
+        loading: 'Creating your job posting...',
         success: () => {
           setTimeout(() => router.push('/partner/services'), 1500);
-          return <b>Service created successfully!</b>;
+          return <b>Job posting created successfully!</b>;
         },
         error: (err) => {
           const errorMessage = err instanceof Error && 'response' in err && 
@@ -63,12 +65,12 @@ export function CreateServiceForm() {
             'data' in err.response && err.response.data && 
             typeof err.response.data === 'object' && 'message' in err.response.data
             ? String(err.response.data.message)
-            : "Failed to create service!";
+            : "Failed to create job posting!";
           return <b>{errorMessage}</b>;
         },
       });
     } catch (error) {
-      console.error("Service creation failed", error);
+      console.error("Job posting creation failed", error);
     } finally {
       setIsLoading(false);
     }
@@ -76,28 +78,20 @@ export function CreateServiceForm() {
 
   const suggestPrice = (category: string) => {
     const suggestions: Record<string, number> = {
-      'Plumbing': 800,
-      'Electrical': 900,
-      'Cleaning': 500,
-      'Home Repair': 700,
-      'Appliance Repair': 1000,
-      'HVAC': 1200,
-      'Painting': 600,
-      'Gardening': 400,
-      'Moving': 1500,
-      'Pest Control': 800,
-      'IT Support': 1200,
-      'Tutoring': 500,
-      'Personal Training': 800,
-      'Beauty & Wellness': 700,
-      'Event Planning': 2000,
-      'Photography': 2500,
-      'Catering': 1800,
-      'Pet Care': 600,
-      'Automotive': 1000
+      'Software Engineering': 120000,
+      'Data Science': 130000,
+      'DevOps': 125000,
+      'Product Management': 140000,
+      'UI/UX Design': 110000,
+      'QA & Testing': 90000,
+      'Cybersecurity': 135000,
+      'Cloud Computing': 140000,
+      'Frontend Development': 115000,
+      'Backend Development': 125000,
+      'Other': 100000
     };
     
-    return suggestions[category] || 500;
+    return suggestions[category] || 100000;
   };
 
   const handleCategoryChange = (category: string) => {
@@ -111,20 +105,20 @@ export function CreateServiceForm() {
   return (
     <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-2xl mx-auto">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Create New Service</h2>
-        <p className="text-slate-500">Offer your expertise to customers on HomeSync</p>
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Create New Job Posting</h2>
+        <p className="text-slate-500">Post an open role to candidates on CareerSync</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Name */}
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium text-slate-900">
-            Service Name
+            Job Title
           </label>
           <Input
             id="name"
             name="name"
-            placeholder="e.g., Professional Home Plumbing Repair"
+            placeholder="e.g., Senior Full Stack Engineer"
             value={formData.name}
             onChange={handleChange}
             required

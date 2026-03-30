@@ -136,7 +136,7 @@ export function EnhancedBookingCard({
             </div>
             
             {userRole === 'partner' && booking.customer && (
-              <p className="text-slate-500 text-sm">Customer: {booking.customer.fullName}</p>
+              <p className="text-slate-500 text-sm">Candidate: {booking.customer.fullName}</p>
             )}
             
             {userRole === 'customer' && booking.partner?.user && (
@@ -194,7 +194,7 @@ export function EnhancedBookingCard({
               onClick={() => onConfirmClick(booking._id)}
               className="bg-green-600 hover:bg-green-700 text-slate-900"
             >
-              ✅ Confirm Booking
+              ✅ Accept Application
             </Button>
           )}
           
@@ -205,7 +205,7 @@ export function EnhancedBookingCard({
               onClick={() => onRejectClick(booking._id)}
               className="border-red-600 text-red-400 hover:text-red-300 hover:border-red-500"
             >
-              ❌ Reject Booking
+              ❌ Reject Application
             </Button>
           )}
           
@@ -237,7 +237,7 @@ export function EnhancedBookingCard({
               onClick={() => onContactClick(booking)}
               className="border-slate-300 text-slate-600 hover:text-slate-900 hover:border-gray-500"
             >
-              💬 Contact {userRole === 'customer' ? 'Partner' : 'Customer'}
+              💬 Contact {userRole === 'customer' ? 'Company' : 'Candidate'}
             </Button>
           )}
           
@@ -267,7 +267,7 @@ export function EnhancedBookingCard({
           <div className="border-t border-slate-200 pt-4 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-slate-500">Booking ID:</span>
+                <span className="text-slate-500">Application ID:</span>
                 <p className="text-slate-900 font-mono text-xs">{booking._id}</p>
               </div>
               <div>

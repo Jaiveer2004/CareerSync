@@ -267,9 +267,9 @@ export default function MyBookingsPage() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">My Bookings</h1>
-              <p className="text-slate-500 mt-1">
-                {isLoading ? 'Loading...' : `${filteredAndSortedBookings.length} of ${bookings.length} bookings`}
+              <h1 className="text-3xl font-bold text-slate-900">My Applications</h1>
+              <p className="text-slate-500 mt-2">
+                {isLoading ? 'Loading...' : `${filteredAndSortedBookings.length} of ${bookings.length} applications`}
               </p>
             </div>
             
@@ -315,11 +315,11 @@ export default function MyBookingsPage() {
             <div className="text-center py-16">
               <div className="bg-white rounded-2xl p-12 border border-slate-200 max-w-md mx-auto">
                 <div className="text-6xl mb-4">📋</div>
-                <h2 className="text-xl font-semibold text-slate-900 mb-2">No Bookings Yet</h2>
-                <p className="text-slate-500 mb-6">
+                <h2 className="text-xl font-semibold text-slate-900 mb-2">No Applications Yet</h2>
+                <p className="text-slate-500 mb-8 max-w-md mx-auto">
                   {user?.role === 'customer' 
-                    ? "You haven't made any bookings yet. Start by exploring our services!"
-                    : "You haven't received any bookings yet. Make sure your services are active and visible."
+                    ? "You haven't made any applications yet. Start by exploring our job postings!"
+                    : "You haven't received any applications yet. Make sure your job postings are active and visible."
                   }
                 </p>
                 <button 
@@ -349,7 +349,7 @@ export default function MyBookingsPage() {
                     <div className="text-4xl mb-4">🔍</div>
                     <h3 className="text-lg font-semibold text-slate-900 mb-2">No Results Found</h3>
                     <p className="text-slate-500 mb-4">
-                      No bookings match your current filters. Try adjusting your search criteria.
+                      No applications match your current filters. Try adjusting your search criteria.
                     </p>
                     <button 
                       onClick={() => setFilters({

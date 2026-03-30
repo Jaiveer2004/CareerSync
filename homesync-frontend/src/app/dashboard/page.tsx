@@ -83,9 +83,9 @@ export default function DashboardPage() {
     return (bookings || []).map(booking => ({
       id: booking._id,
       type: 'booking' as const,
-      title: booking.service?.name || 'Service Booking',
+      title: booking.service?.name || 'Job Application',
       description: user?.role === 'partner' 
-        ? `Booking from ${booking.customer?.fullName || 'Customer'}`
+        ? `Application from ${booking.customer?.fullName || 'Candidate'}`
         : `Booked ${booking.service?.name || 'service'}`,
       time: formatTimeAgo(booking.createdAt),
       icon: '📅',
@@ -108,10 +108,10 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">🚀 Ready to start earning?</h3>
-                  <p className="text-blue-100 mb-4">Create your first service and start accepting bookings from customers.</p>
+                  <p className="text-blue-100 mb-4">Create your first service and start receiving applications from candidates.</p>
                   <Link href="/partner/services/create">
                     <Button className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-6 py-3">
-                      Create Your First Service
+                      Post Your First Role
                     </Button>
                   </Link>
                 </div>
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                 <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-slate-900 hover:from-green-700 hover:to-green-800 transition-all duration-200 cursor-pointer group">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-lg font-semibold mb-1">Create New Service</h4>
+                      <h4 className="text-lg font-semibold mb-1">Post New Role</h4>
                       <p className="text-green-100">Add another service to your portfolio</p>
                     </div>
                     <div className="text-2xl group-hover:scale-110 transition-transform">➕</div>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
                 <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-6 text-slate-900 hover:from-purple-700 hover:to-purple-800 transition-all duration-200 cursor-pointer group">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-lg font-semibold mb-1">Manage Services</h4>
+                      <h4 className="text-lg font-semibold mb-1">Manage Jobs</h4>
                       <p className="text-purple-100">Edit or update your existing services</p>
                     </div>
                     <div className="text-2xl group-hover:scale-110 transition-transform">🛠️</div>
@@ -172,21 +172,21 @@ export default function DashboardPage() {
               // Customer stats
               <>
                 <StatsCard
-                  title="Total Bookings"
+                  title="Total Applications"
                   value={stats.totalBookings || 0}
-                  icon="📅"
-                  description="All time bookings"
+                  icon="📋"
+                  description="All time applications"
                   color="blue"
                 />
                 <StatsCard
-                  title="Pending Bookings"
+                  title="Pending Applications"
                   value={stats.pendingBookings || 0}
                   icon="⏳"
                   description="Awaiting confirmation"
                   color="orange"
                 />
                 <StatsCard
-                  title="Completed Services"
+                  title="Hired Candidates"
                   value={stats.completedBookings || 0}
                   icon="✅"
                   description="Successfully completed"
@@ -204,14 +204,14 @@ export default function DashboardPage() {
               // Partner stats
               <>
                 <StatsCard
-                  title="Total Services"
+                  title="Total Job Postings"
                   value={stats.totalServices || 0}
                   icon="🛠️"
                   description={`${stats.activeServices || 0} active`}
                   color="blue"
                 />
                 <StatsCard
-                  title="Total Bookings"
+                  title="Total Applications"
                   value={stats.totalBookings || 0}
                   icon="📋"
                   description={`${stats.completedBookings || 0} completed`}
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                 <div className="bg-slate-100/50 rounded-xl p-4">
                   <div className="text-2xl mb-2">⚡</div>
                   <h4 className="font-semibold text-slate-900 mb-1">Stay Online</h4>
-                  <p className="text-slate-500 text-sm">Online partners get 3x more bookings</p>
+                  <p className="text-slate-500 text-sm">Active companies get 3x more applications</p>
                 </div>
                 <div className="bg-slate-100/50 rounded-xl p-4">
                   <div className="text-2xl mb-2">💬</div>
@@ -285,7 +285,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="bg-slate-100/50 rounded-xl p-4">
                   <div className="text-2xl mb-2">🎯</div>
-                  <h4 className="font-semibold text-slate-900 mb-1">Complete Services</h4>
+                  <h4 className="font-semibold text-slate-900 mb-1">Complete Placements</h4>
                   <p className="text-slate-500 text-sm">Higher completion rates boost visibility</p>
                 </div>
               </div>
