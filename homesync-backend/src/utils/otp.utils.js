@@ -127,7 +127,7 @@ const incrementOTPAttempts = async (email, plainOTP, type) => {
 
 // Load email template
 const loadEmailTemplate = (templateName) => {
-  const templatePath = path.join(__dirname, '../templates/emails', `${templateName}.html`);
+  const templatePath = path.join(__dirname, '../emails', `${templateName}.html`);
   const templateSource = fs.readFileSync(templatePath, 'utf8');
   return handlebars.compile(templateSource);
 };
