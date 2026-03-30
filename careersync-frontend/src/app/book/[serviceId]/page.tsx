@@ -172,70 +172,27 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
     if (!service) return toast.error("Service details not loaded.");
     if (!selectedProvider) return toast.error("Please select a service provider.");
 
-    const toastId = toast.loading("Preparing your booking...");
+    const toastId = toast.loading("Submitting your application...");
 
     try {
-      // Step 1: Create the Razorpay order
-      const orderResponse = await createPaymentOrder(serviceId);
-      const order = orderResponse.data;
+      await createBooking({
+        ...bookingDetails,
+        serviceId: serviceId,
+        providerId: selectedProvider._id
+      } as any);
       toast.dismiss(toastId);
-
-      // Step 2: Open Razorpay checkout
-      const options: RazorpayOptions = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: "CareerSync",
-        description: `Payment for ${service.name}`,
-        order_id: order.id,
-        handler: async function (response: RazorpayResponse) {
-          // Step 3: Verify payment and create booking
-          const verificationToast = toast.loading("Verifying payment...");
-          try {
-            await verifyPayment({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              bookingDetails: {
-                ...bookingDetails,
-                serviceId: serviceId,
-                providerId: selectedProvider._id
-              }
-            });
-            toast.success("Application submitted successfully!", { id: verificationToast });
-            router.push('/my-bookings');
-          } catch (error) {
-            console.error("Payment verification failed:", error);
-            const errorMessage = error instanceof Error && 'response' in error && 
-              error.response && typeof error.response === 'object' && 
-              'data' in error.response && error.response.data && 
-              typeof error.response.data === 'object' && 'message' in error.response.data
-              ? String(error.response.data.message)
-              : "Payment verification failed!";
-            toast.error(errorMessage, { id: verificationToast });
-          }
-        },
-        prefill: {
-          name: user?.fullName,
-          email: user?.email,
-        },
-        theme: {
-          color: "#3399cc"
-        }
-      };
-
-      const rzp = new (window as unknown as { Razorpay: new (options: RazorpayOptions) => { open: () => void } }).Razorpay(options);
-      rzp.open();
-
+      toast.success("Application submitted successfully!");
+      router.push("/my-bookings");
     } catch (error) {
-      console.error("Failed to create order:", error);
-      const errorMessage = error instanceof Error && 'response' in error && 
-        error.response && typeof error.response === 'object' && 
-        'data' in error.response && error.response.data && 
-        typeof error.response.data === 'object' && 'message' in error.response.data
-        ? String(error.response.data.message)
-        : "Could not create payment order. Please try again.";
-      toast.error(errorMessage, { id: toastId });
+      console.error("Application submission failed:", error);
+      toast.dismiss(toastId);
+      const errorMessage = error instanceof Error && "response" in error &&
+        (error as any).response && typeof (error as any).response === "object" &&
+        "data" in (error as any).response && (error as any).response.data &&
+        typeof (error as any).response.data === "object" && "message" in (error as any).response.data
+        ? String((error as any).response.data.message)
+        : "Failed to submit application.";
+      toast.error(errorMessage);
     }
   };
 
