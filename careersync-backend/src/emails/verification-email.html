@@ -1,42 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Your Email - CareerSync</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-        .button { display: inline-block; padding: 12px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-        .code { font-size: 32px; font-weight: bold; color: #667eea; letter-spacing: 5px; padding: 20px; background: white; border-radius: 5px; text-align: center; margin: 20px 0; }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            color: #0f172a;
+        }
+        .wrapper {
+            width: 100%;
+            background: #f8fafc;
+            padding: 24px 12px;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            padding: 32px 28px;
+            color: #ffffff;
+        }
+        .brand {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .subtitle {
+            margin: 8px 0 0;
+            color: #dbeafe;
+            font-size: 14px;
+        }
+        .content {
+            padding: 28px;
+        }
+        .title {
+            margin: 0 0 12px;
+            font-size: 22px;
+            color: #0f172a;
+        }
+        p {
+            margin: 0 0 14px;
+            line-height: 1.65;
+            color: #334155;
+            font-size: 15px;
+        }
+        .code-box {
+            margin: 20px 0;
+            padding: 16px;
+            text-align: center;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+        }
+        .code-label {
+            margin: 0 0 8px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .code {
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 6px;
+            font-weight: 800;
+            color: #1e40af;
+        }
+        .button-wrap {
+            margin: 22px 0;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            background: #1e40af;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 10px;
+        }
+        .meta {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .notice {
+            margin-top: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+        .footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 16px 24px 20px;
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+            background: #f8fafc;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="wrapper">
+      <div class="container">
         <div class="header">
-            <h1>Welcome to CareerSync!</h1>
+            <h1 class="brand">CareerSync</h1>
+            <p class="subtitle">Account Security and Verification</p>
         </div>
         <div class="content">
-            <h2>Verify Your Email Address</h2>
-            <p>Hi {{fullName}},</p>
-            <p>Thank you for signing up with CareerSync. To complete your registration and activate your account, please verify your email address.</p>
-            
-            <p>Your verification code is:</p>
-            <div class="code">{{verificationCode}}</div>
-            
-            <p>Or click the button below:</p>
-            <a href="{{verificationLink}}" class="button">Verify Email Address</a>
-            
-            <p><strong>This code will expire in {{expiryHours}} hours.</strong></p>
-            
-            <p>If you didn't create an account with CareerSync, please ignore this email.</p>
-            
-            <p>Best regards,<br>The CareerSync Team</p>
+            <h2 class="title">Verify Your Email Address</h2>
+            <p>Hi {{#if fullName}}{{fullName}}{{else}}{{userName}}{{/if}},</p>
+            <p>Thanks for joining CareerSync. Please confirm your email to activate your account and start using the platform securely.</p>
+
+            <div class="code-box">
+                <p class="code-label">Verification Code</p>
+                <p class="code">{{verificationCode}}</p>
+            </div>
+
+            <div class="button-wrap">
+                <a href="{{verificationLink}}" class="button">Verify Email</a>
+            </div>
+
+            <p class="meta">This code and link expire in {{expiryHours}} hours.</p>
+            <p class="notice">
+                If you did not create a CareerSync account, you can safely ignore this email.
+            </p>
         </div>
         <div class="footer">
-            <p>© 2025 CareerSync. All rights reserved.</p>
-            <p>This is an automated email, please do not reply.</p>
+            <p>© {{#if year}}{{year}}{{else}}2026{{/if}} CareerSync. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
         </div>
+      </div>
     </div>
 </body>
 </html>

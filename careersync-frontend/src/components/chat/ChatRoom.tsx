@@ -170,30 +170,30 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
   const messageGroups = groupMessagesByDate(messages);
 
   return (
-    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#1e40af] to-[#1d4ed8] p-4 flex items-center justify-between border-b border-blue-700/30">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-            <span className="text-blue-600 font-bold text-lg">
+          <div className="w-10 h-10 bg-white/95 rounded-full flex items-center justify-center shadow-sm">
+            <span className="text-[#1e40af] font-bold text-lg">
               {otherUserName.charAt(0).toUpperCase()}
             </span>
           </div>
           <div>
-            <h3 className="text-slate-900 font-semibold">{otherUserName}</h3>
+            <h3 className="text-white font-semibold tracking-tight">{otherUserName}</h3>
             <p className="text-blue-100 text-xs">
-              {otherUserTyping ? 'Typing...' : 'Booking #' + bookingId.slice(-6)}
+              {otherUserTyping ? 'Typing...' : 'Application #' + bookingId.slice(-6)}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button className="text-slate-900 hover:text-gray-200 transition-colors p-2">
+          <button className="text-blue-100 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
             <MoreVertical size={20} />
           </button>
           {onClose && (
             <button
               onClick={onClose}
-              className="text-slate-900 hover:text-gray-200 transition-colors p-2"
+              className="text-blue-100 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
               aria-label="Close chat"
             >
               <X size={20} />
@@ -203,7 +203,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
       </div>
 
       {/* Messages */}
-      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
@@ -234,7 +234,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                   >
                     {!isOwnMessage && (
                       <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                        <span className="text-slate-900 text-xs font-bold">
+                        <span className="text-white text-xs font-bold">
                           {msg.sender.fullName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -244,13 +244,13 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                       <div
                         className={`rounded-2xl px-4 py-3 shadow-sm ${
                           isOwnMessage
-                            ? 'bg-blue-500 text-slate-900 rounded-br-md'
-                            : 'bg-white text-gray-100 border border-slate-200 rounded-bl-md'
+                            ? 'bg-[#2563eb] text-white rounded-br-md'
+                            : 'bg-white text-slate-800 border border-slate-200 rounded-bl-md'
                         }`}
                       >
                         <p className="text-sm leading-relaxed break-words">{msg.content}</p>
                       </div>
-                      <span className={`text-xs text-slate-600 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
+                      <span className={`text-xs text-slate-500 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
                         {formatTime(msg.createdAt)}
                       </span>
                     </div>
@@ -272,7 +272,7 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
         {otherUserTyping && (
           <div className="flex justify-start mb-3">
             <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
-              <span className="text-slate-900 text-xs font-bold">
+              <span className="text-white text-xs font-bold">
                 {otherUserName.charAt(0).toUpperCase()}
               </span>
             </div>
@@ -291,10 +291,10 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
 
       {/* Input */}
       <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-slate-200">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center rounded-2xl border border-slate-200 bg-slate-50 px-2 py-1">
           <button
             type="button"
-            className="text-slate-500 hover:text-gray-200 transition-colors p-2"
+            className="text-slate-500 hover:text-slate-700 transition-colors p-2"
             title="Attach file (Coming soon)"
           >
             <Paperclip size={20} />
@@ -303,12 +303,12 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
             value={inputMessage}
             onChange={handleTyping}
             placeholder="Type a message..."
-            className="flex-1 bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+            className="flex-1 bg-transparent border-0 rounded-xl px-3 py-3 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-0 transition-all"
           />
           <button
             type="submit"
             disabled={!inputMessage.trim()}
-            className="bg-blue-500 hover:bg-[#1e40af] disabled:bg-slate-200 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
+            className="bg-[#2563eb] hover:bg-[#1d4ed8] disabled:bg-slate-300 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
           >
             <Send size={20} />
           </button>

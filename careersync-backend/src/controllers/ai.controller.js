@@ -1,4 +1,3 @@
-// src/controllers/ai.controller.js
 const OpenAI = require('openai');
 
 const generateChatResponse = async (req, res) => {
@@ -8,7 +7,6 @@ const generateChatResponse = async (req, res) => {
       return res.status(400).json({ message: "Message is required" });
     }
 
-    // Configure the client to point to OpenRouter's API endpoint
     const openrouter = new OpenAI({
       apiKey: process.env.OPENROUTER_API_KEY,
       baseURL: 'https://openrouter.ai/api/v1',
@@ -19,7 +17,6 @@ const generateChatResponse = async (req, res) => {
     });
 
     const completion = await openrouter.chat.completions.create({
-      // Choose a reliable model from OpenRouter
       model: "google/gemini-2.5-flash",
       max_tokens: 1000,
       messages: [
@@ -36,7 +33,6 @@ const generateChatResponse = async (req, res) => {
 
     const reply = completion.choices[0]?.message?.content || "I apologize, but I couldn't generate a response. Please try again.";
     
-    // Validate that we have a proper response
     if (!reply || reply.trim() === '') {
       return res.status(500).json({ message: "Empty response received from AI" });
     }
@@ -47,7 +43,6 @@ const generateChatResponse = async (req, res) => {
     console.error("OpenRouter API error:", error);
     console.error("Error details:", error.response?.data || error.message);
     
-    // Check if it's a rate limit error from OpenRouter's free tier
     const isRateLimit = error.status === 429 || error.message.includes('429');
     
     res.status(isRateLimit ? 429 : 500).json({ 

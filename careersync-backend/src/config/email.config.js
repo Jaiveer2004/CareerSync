@@ -21,13 +21,28 @@ const createTransporter = () => {
   }
 
   try {
-    const config = {
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      }
-    };
+    const emailHost = process.env.EMAIL_HOST;
+    const emailPort = Number(process.env.EMAIL_PORT || 587);
+    const forceSecure = (process.env.EMAIL_SECURE || '').toLowerCase() === 'true';
+
+    // Prefer explicit SMTP host/port when provided, otherwise fallback to Gmail service.
+    const config = emailHost
+      ? {
+          host: emailHost,
+          port: emailPort,
+          secure: forceSecure || emailPort === 465,
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        }
+      : {
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        };
 
     return nodemailer.createTransport(config);
   } catch (error) {
@@ -42,6 +57,17 @@ const transporter = createTransporter();
 // This prevents blocking or slowing down app startup
 if (transporter) {
   console.log('✅ Email transporter configured (not verified yet)');
+
+  if ((process.env.EMAIL_VERIFY_ON_STARTUP || '').toLowerCase() === 'true') {
+    transporter
+      .verify()
+      .then(() => {
+        console.log('✅ Email transporter connection verified successfully');
+      })
+      .catch((error) => {
+        console.error('❌ Email transporter verification failed:', error.message);
+      });
+  }
 } else {
   console.log('ℹ️  Email service disabled - app will continue without email functionality');
 }

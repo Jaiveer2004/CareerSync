@@ -23,9 +23,9 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
   const completionRate = totalBookings > 0 ? (completedBookings / totalBookings) * 100 : 0;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -33,27 +33,27 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
   const stats = userRole === 'customer' 
     ? [
         {
-          title: 'Total Bookings',
+          title: 'Total Applications',
           value: totalBookings,
-          icon: '📊',
+          icon: 'AP',
           color: 'from-blue-500 to-blue-600'
         },
         {
-          title: 'Completed',
+          title: 'Hired',
           value: completedBookings,
-          icon: '✅',
+          icon: 'OK',
           color: 'from-green-500 to-green-600'
         },
         {
-          title: 'Pending',
+          title: 'Under Review',
           value: pendingBookings,
-          icon: '⏳',
+          icon: 'RV',
           color: 'from-yellow-500 to-yellow-600'
         },
         {
-          title: 'Total Spent',
+          title: 'Expected CTC',
           value: formatCurrency(totalSpent),
-          icon: '💰',
+          icon: 'INR',
           color: 'from-purple-500 to-purple-600'
         }
       ]
@@ -61,25 +61,25 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
         {
           title: 'Total Bookings',
           value: totalBookings,
-          icon: '📊',
+          icon: 'AP',
           color: 'from-blue-500 to-blue-600'
         },
         {
           title: 'Completed',
           value: completedBookings,
-          icon: '✅',
+          icon: 'OK',
           color: 'from-green-500 to-green-600'
         },
         {
           title: 'Completion Rate',
           value: `${completionRate.toFixed(1)}%`,
-          icon: '📈',
+          icon: 'RT',
           color: 'from-orange-500 to-orange-600'
         },
         {
           title: 'Total Earned',
           value: formatCurrency(totalSpent),
-          icon: '💰',
+          icon: 'INR',
           color: 'from-purple-500 to-purple-600'
         }
       ];
@@ -87,18 +87,18 @@ export function BookingSummary({ bookings, userRole = 'customer' }: BookingSumma
   if (totalBookings === 0) return null;
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-white rounded-2xl p-4 border border-slate-200 hover:border-slate-300 transition-all duration-300"
+          className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300"
         >
           <div className="flex items-center justify-between">
             <div className="flex-1">
-              <p className="text-slate-500 text-sm font-medium">{stat.title}</p>
-              <p className="text-xl font-bold text-slate-900 mt-1">{stat.value}</p>
+              <p className="text-slate-600 text-xs font-semibold uppercase tracking-wide">{stat.title}</p>
+              <p className="text-2xl font-semibold text-slate-900 mt-2">{stat.value}</p>
             </div>
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-slate-900 text-lg`}>
+            <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white text-[11px] font-bold tracking-wide`}>
               {stat.icon}
             </div>
           </div>

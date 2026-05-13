@@ -66,7 +66,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-6">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
       {/* Search Bar */}
       <div className="mb-4">
         <div className="relative">
@@ -75,10 +75,10 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
             placeholder="Search applications by job title, location, or application ID..."
             value={filters.searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 pl-10 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pl-10 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <svg 
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" 
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-600" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
 
       {/* Status Filter Pills */}
       <div className="mb-4">
-        <h3 className="text-sm font-medium text-slate-600 mb-3">Filter by Status</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-3">Filter by Status</h3>
         <div className="flex flex-wrap gap-2">
           {statusOptions.map((option) => (
             <button
@@ -98,13 +98,15 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
               onClick={() => handleStatusChange(option.value)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                 filters.status === option.value
-                  ? 'bg-[#1e40af] text-white shadow-lg'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                  ? 'bg-[#1e40af] text-white shadow-sm'
+                  : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
               }`}
             >
               <div className={`w-2 h-2 rounded-full ${option.color}`}></div>
               {option.label}
-              <span className="bg-slate-200 text-xs px-2 py-1 rounded-full">{option.count}</span>
+              <span className={`${filters.status === option.value ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'} text-xs px-2 py-1 rounded-full`}>
+                {option.count}
+              </span>
             </button>
           ))}
         </div>
@@ -114,9 +116,9 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
       <div className="flex items-center justify-between">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-[#1e40af] hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition-colors"
+          className="text-[#1e40af] hover:text-blue-700 text-sm font-medium flex items-center gap-2 transition-colors"
         >
-          {isExpanded ? '👆' : '👇'} {isExpanded ? 'Less' : 'More'} Filters
+          {isExpanded ? 'Hide' : 'Show'} Advanced Filters
         </button>
         
         {(filters.searchQuery || filters.status !== 'all' || filters.sortBy !== 'bookingDate' || filters.sortOrder !== 'desc') && (
@@ -124,7 +126,7 @@ export function BookingFilters({ filters, onFiltersChange, bookingCounts }: Book
             size="sm"
             variant="outline"
             onClick={clearFilters}
-            className="border-slate-300 text-slate-500 hover:text-slate-900 hover:border-gray-500"
+            className="border-slate-300 text-slate-700 hover:text-slate-900 hover:border-gray-500"
           >
             Clear Filters
           </Button>

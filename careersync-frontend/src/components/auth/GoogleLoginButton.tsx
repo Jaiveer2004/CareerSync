@@ -11,8 +11,9 @@ export default function GoogleLoginButton({
 }: GoogleLoginButtonProps) {
   const handleGoogleLogin = () => {
     // Redirect to backend Google OAuth endpoint
-    const backendURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    window.location.href = `${backendURL}/auth/google`;
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+    const normalizedApiBase = apiBase.replace(/\/$/, '');
+    window.location.href = `${normalizedApiBase}/auth/google`;
   };
 
   return (

@@ -93,7 +93,7 @@ const sendPasswordResetEmail = async (to, token, userName) => {
   const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
   
   const html = loadTemplate('password-reset', {
-    userName,
+    fullName: userName,
     resetLink,
     year: new Date().getFullYear(),
   });

@@ -263,19 +263,19 @@ export default function MyBookingsPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="container mx-auto py-8 px-4 space-y-6">
+        <div className="max-w-7xl mx-auto py-8 px-4 space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">My Applications</h1>
-              <p className="text-slate-500 mt-2">
+              <h1 className="text-4xl font-semibold text-slate-900">My Applications</h1>
+              <p className="text-slate-600 mt-1">
                 {isLoading ? 'Loading...' : `${filteredAndSortedBookings.length} of ${bookings.length} applications`}
               </p>
             </div>
             
             {!isLoading && bookings.length > 0 && (
               <div className="text-right">
-                <p className="text-sm text-slate-500">Last updated</p>
+                <p className="text-sm text-slate-600">Last updated</p>
                 <p className="text-slate-900 font-medium">{new Date().toLocaleDateString()}</p>
               </div>
             )}
@@ -313,10 +313,10 @@ export default function MyBookingsPage() {
           ) : bookings.length === 0 ? (
             // Empty State
             <div className="text-center py-16">
-              <div className="bg-white rounded-2xl p-12 border border-slate-200 max-w-md mx-auto">
+              <div className="bg-white rounded-2xl p-12 border border-slate-200 shadow-sm max-w-md mx-auto">
                 <div className="text-6xl mb-4">📋</div>
                 <h2 className="text-xl font-semibold text-slate-900 mb-2">No Applications Yet</h2>
-                <p className="text-slate-500 mb-8 max-w-md mx-auto">
+                <p className="text-slate-600 mb-8 max-w-md mx-auto">
                   {user?.role === 'customer' 
                     ? "You haven't made any applications yet. Start by exploring our job postings!"
                     : "You haven't received any applications yet. Make sure your job postings are active and visible."
@@ -345,10 +345,10 @@ export default function MyBookingsPage() {
               {/* Results */}
               {filteredAndSortedBookings.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-md mx-auto">
+                  <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm max-w-md mx-auto">
                     <div className="text-4xl mb-4">🔍</div>
                     <h3 className="text-lg font-semibold text-slate-900 mb-2">No Results Found</h3>
-                    <p className="text-slate-500 mb-4">
+                    <p className="text-slate-600 mb-4">
                       No applications match your current filters. Try adjusting your search criteria.
                     </p>
                     <button 

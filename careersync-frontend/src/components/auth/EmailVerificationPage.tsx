@@ -18,8 +18,8 @@ export default function EmailVerificationPage() {
 
   useEffect(() => {
     const verifyEmailToken = async () => {
-      const token = searchParams.get("token");
-      const code = searchParams.get("code");
+      const token = searchParams.get("token") || searchParams.get("amp;token");
+      const code = searchParams.get("code") || searchParams.get("amp;code");
       const userEmail = searchParams.get("email");
 
       if (userEmail) setEmail(userEmail);

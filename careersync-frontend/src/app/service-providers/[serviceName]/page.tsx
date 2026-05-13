@@ -48,6 +48,14 @@ interface ServiceProvidersResponse {
   providers: ServiceProvider[];
 }
 
+const formatINR = (amount: number) => {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
 // Professional service provider placeholder images
 const getProviderImage = (name: string, index: number) => {
   // Generate consistent placeholder images for service providers
@@ -106,7 +114,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b border-slate-200-2 border-b border-slate-200lue-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-slate-300 border-t-indigo-600 mx-auto mb-4"></div>
           <div className="text-slate-900">
             {authLoading ? 'Loading...' : 'Redirecting to your services...'}
           </div>
@@ -177,7 +185,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
             <div className="text-right">
               <div className="text-sm text-slate-600">Starting from</div>
               <div className="text-2xl font-bold text-green-600">
-                ${Math.min(...serviceData.providers.map(p => p.price))}
+                {formatINR(Math.min(...serviceData.providers.map((p) => p.price)))}
               </div>
             </div>
           </div>
@@ -202,7 +210,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   {availableProviders.map((service, index) => (
                     <div 
                       key={service.serviceId}
-                      className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200 p-6"
+                      className="bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 p-6"
                     >
                       <div className="flex items-start gap-4">
                         {/* Provider Image */}
@@ -223,8 +231,13 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <h3 className="text-lg font-semibold text-slate-900">{service.provider.name}</h3>
-                              <p className="text-slate-500 text-sm">{service.description}</p>
+                              <h3 className="text-lg font-semibold text-slate-900">{service.serviceName}</h3>
+                              <p className="text-sm text-slate-600 mt-1">
+                                {service.description?.length > 135
+                                  ? `${service.description.slice(0, 132)}...`
+                                  : service.description}
+                              </p>
+                              <p className="text-xs text-slate-500 mt-2">Hiring Company: {service.provider.name}</p>
                               <div className="flex items-center gap-4 mt-2 text-sm text-slate-600">
                                 <span className="flex items-center gap-1">
                                   <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -233,13 +246,34 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                                   {service.provider.averageRating.toFixed(1)}
                                 </span>
                                 <span>({service.provider.reviewCount} reviews)</span>
-                                <span>{service.duration} Interview Type</span>
+                                <span>{service.duration} mins process</span>
                               </div>
                             </div>
                             
                             <div className="text-right">
-                              <div className="text-2xl font-bold text-slate-900">${service.price}</div>
+                              <div className="text-2xl font-bold text-slate-900">{formatINR(service.price)}</div>
                               <div className="text-sm text-slate-600">/ year</div>
+                            </div>
+                          </div>
+
+                          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+                            <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                              <p className="text-[11px] uppercase tracking-wide text-slate-500">Compensation</p>
+                              <p className="text-sm font-semibold text-slate-900">{formatINR(service.price)}</p>
+                            </div>
+                            <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                              <p className="text-[11px] uppercase tracking-wide text-slate-500">Process Time</p>
+                              <p className="text-sm font-semibold text-slate-900">{service.duration} mins</p>
+                            </div>
+                            <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                              <p className="text-[11px] uppercase tracking-wide text-slate-500">Applications Today</p>
+                              <p className="text-sm font-semibold text-slate-900">{service.provider.totalBookingsToday}</p>
+                            </div>
+                            <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                              <p className="text-[11px] uppercase tracking-wide text-slate-500">Review Status</p>
+                              <p className="text-sm font-semibold text-slate-900">
+                                {service.provider.isAvailable ? 'Reviewing now' : `Next: ${service.provider.nextAvailableSlot}`}
+                              </p>
                             </div>
                           </div>
 
@@ -265,7 +299,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                           {/* Action Buttons */}
                           <div className="flex items-center gap-3 mt-4">
                             <Button 
-                              className="bg-purple-600 hover:bg-purple-700 text-slate-900 px-6"
+                              className="bg-slate-900 hover:bg-slate-700 text-white px-6"
                               onClick={() => setSelectedProvider(service)}
                             >
                               Company Details
@@ -273,9 +307,9 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                             <Link href={`/book/${service.serviceId}`}>
                               <Button 
                                 variant="outline" 
-                                className="border-purple-600 text-[#1e40af] hover:bg-purple-50"
+                                className="border-slate-300 text-slate-900 hover:bg-slate-50"
                               >
-                                Apply Now
+                                Apply for Role
                               </Button>
                             </Link>
                           </div>
@@ -313,7 +347,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                           <p className="text-sm text-slate-500">{service.description}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-sm text-yellow-600">⭐ {service.provider.averageRating.toFixed(1)}</span>
-                            <span className="text-sm text-slate-600">${service.price}</span>
+                            <span className="text-sm text-slate-600">{formatINR(service.price)}</span>
                           </div>
                         </div>
                         <div className="text-xs text-slate-600">{service.provider.nextAvailableSlot ? "Next Review:" : "Active:"}: {service.provider.nextAvailableSlot}</div>
@@ -352,23 +386,6 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                     </svg>
                   </div>
                 ))}
-              </div>
-
-              {/* Quick Apply Section */}
-              <div className="mt-6 p-4 bg-blue-900/20 rounded-lg">
-                <h4 className="font-semibold text-[#1e40af] mb-2">Quick Apply</h4>
-                <p className="text-sm text-slate-500 mb-3">Submit your profile directly to hiring managers</p>
-                <Button 
-                  onClick={() => {
-                    const firstProvider = serviceData?.providers?.[0];
-                    if (firstProvider) {
-                      router.push(`/book/${firstProvider.serviceId}`);
-                    }
-                  }}
-                  className="w-full bg-[#1e40af] hover:bg-[#1e3a8a] text-white"
-                >
-                  Apply Instantly
-                </Button>
               </div>
             </div>
           </div>
@@ -422,7 +439,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                       <h5 className="font-medium text-slate-900">{selectedProvider.serviceName}</h5>
                       <p className="text-sm text-slate-500">{selectedProvider.duration} minutes</p>
                     </div>
-                    <span className="font-semibold text-slate-900">${selectedProvider.price}</span>
+                    <span className="font-semibold text-slate-900">{formatINR(selectedProvider.price)}</span>
                   </div>
                 </div>
               </div>
@@ -433,7 +450,7 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
                   <h4 className="font-semibold text-slate-900 mb-3">Candidate Feedback</h4>
                   <div className="space-y-3">
                     {selectedProvider.provider.recentReviews.slice(0, 3).map((review, index) => (
-                      <div key={index} className="border-l-4 border-b border-slate-200lue-200 pl-4">
+                      <div key={index} className="border-l-4 border-blue-200 pl-4">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-medium text-slate-900">{review.customer.fullName}</span>
                           <span className="text-yellow-500">⭐ {review.rating}</span>
@@ -448,12 +465,16 @@ export default function ServiceProvidersPage({ params }: { params: Promise<{ ser
               <div className="flex gap-3">
                 <Link href={`/book/${selectedProvider.serviceId}`} className="flex-1">
                   <Button className="w-full bg-[#1e40af] hover:bg-[#1e3a8a] text-white">
-                    Book This Professional
+                    Apply for This Role
                   </Button>
                 </Link>
-                <Button variant="outline" className="border-blue-600 text-[#1e40af] hover:bg-[#1e40af]/10">
-                  Contact
-                </Button>
+                <Link
+                  href={`/messages?provider=${encodeURIComponent(selectedProvider.provider.name)}&role=${encodeURIComponent(selectedProvider.serviceName)}`}
+                >
+                  <Button variant="outline" className="border-blue-600 text-[#1e40af] hover:bg-[#1e40af]/10">
+                    Message HR
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

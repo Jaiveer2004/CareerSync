@@ -21,15 +21,15 @@ export function StatsCard({
   color = 'blue' 
 }: StatsCardProps) {
   const colorClasses = {
-    blue: 'bg-indigo-50 text-indigo-700 border border-indigo-100',
+    blue: 'bg-blue-50 text-blue-700 border border-blue-100',
     green: 'bg-emerald-50 text-emerald-700 border border-emerald-100',
-    purple: 'bg-slate-800 text-white border border-slate-700',
-    orange: 'bg-yellow-50 text-yellow-700 border border-yellow-100',
+    purple: 'bg-slate-900 text-white border border-slate-700',
+    orange: 'bg-orange-50 text-orange-700 border border-orange-100',
     red: 'bg-rose-50 text-rose-700 border border-rose-100'
   };
 
   return (
-    <div className="bg-white rounded-none p-6 border border-slate-200 hover:border-indigo-300 transition-all duration-300 hover:shadow-md">
+    <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">{title}</p>
@@ -48,7 +48,7 @@ export function StatsCard({
             </div>
           )}
         </div>
-        <div className={`w-14 h-14 rounded-none flex items-center justify-center text-2xl ${colorClasses[color]} shadow-sm`}>
+        <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl ${colorClasses[color]} shadow-sm`}>
           {icon}
         </div>
       </div>

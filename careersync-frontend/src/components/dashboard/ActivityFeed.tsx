@@ -15,16 +15,20 @@ interface ActivityFeedProps {
 }
 
 export function ActivityFeed({ activities }: ActivityFeedProps) {
+  const formatStatus = (status: string) => {
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  };
+
   const getStatusColor = (status?: string) => {
     switch (status) {
       case 'completed':
-        return 'text-green-400 bg-green-400/10';
+        return 'text-emerald-700 bg-emerald-100';
       case 'pending':
-        return 'text-yellow-400 bg-yellow-400/10';
+        return 'text-orange-700 bg-orange-100';
       case 'cancelled':
-        return 'text-red-400 bg-red-400/10';
+        return 'text-rose-700 bg-rose-100';
       default:
-        return 'text-[#1e40af] bg-blue-400/10';
+        return 'text-blue-700 bg-blue-100';
     }
   };
 
@@ -44,7 +48,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   };
 
   return (
-    <div className="bg-white rounded-none p-6 border border-slate-200">
+    <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
       <h3 className="text-xl font-serif font-bold text-slate-900 mb-4">Recent Activity</h3>
       
       {activities.length === 0 ? (
@@ -56,9 +60,9 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
       ) : (
         <div className="space-y-4">
           {activities.map((activity) => (
-            <div key={activity.id} className="flex items-start space-x-3">
+            <div key={activity.id} className="flex items-start space-x-3 rounded-xl border border-slate-100 p-3 hover:border-slate-200 transition-colors">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm">
+                <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-sm">
                   {activity.icon || getTypeIcon(activity.type)}
                 </div>
               </div>
@@ -71,7 +75,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
                   <div className="flex items-center space-x-2">
                     {activity.status && (
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(activity.status)}`}>
-                        {activity.status}
+                        {formatStatus(activity.status)}
                       </span>
                     )}
                     <p className="text-xs text-slate-500 flex-shrink-0">

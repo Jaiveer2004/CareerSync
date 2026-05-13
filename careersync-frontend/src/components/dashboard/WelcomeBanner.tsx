@@ -13,6 +13,12 @@ interface WelcomeBannerProps {
 
 export function WelcomeBanner({ stats }: WelcomeBannerProps) {
   const { user } = useAuth();
+  const indiaDate = new Intl.DateTimeFormat('en-IN', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'Asia/Kolkata',
+  }).format(new Date());
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -23,19 +29,22 @@ export function WelcomeBanner({ stats }: WelcomeBannerProps) {
 
   const getWelcomeMessage = () => {
     if (user?.role === 'partner') {
-      return "Ready to find some great talent today?";
+      return "Ready to hire top talent across India today?";
     }
-    return "Ready to find your next tech role?";
+    return "Ready to land your next tech role in India?";
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 rounded-none p-8 text-white shadow-xl">
-      <div className="flex items-center justify-between">
+    <div className="relative overflow-hidden rounded-3xl p-8 text-white shadow-xl bg-gradient-to-r from-slate-900 via-blue-900 to-emerald-900">
+      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-orange-300/20 blur-3xl" />
+      <div className="absolute -left-10 -bottom-10 h-36 w-36 rounded-full bg-emerald-300/20 blur-2xl" />
+      <div className="relative flex items-center justify-between">
         <div className="flex-1">
+          <p className="text-xs uppercase tracking-[0.2em] text-orange-200 mb-2">{indiaDate} • IST</p>
           <h1 className="text-3xl font-bold mb-2">
-            {getGreeting()}, {user?.fullName?.split(' ')[0]}! 👋
+            {getGreeting()}, {user?.fullName?.split(' ')[0]}! Namaste 🙏
           </h1>
-          <p className="text-indigo-200 text-lg mb-4">
+          <p className="text-blue-100 text-lg mb-4">
             {getWelcomeMessage()}
           </p>
           
@@ -60,7 +69,7 @@ export function WelcomeBanner({ stats }: WelcomeBannerProps) {
         </div>
         
         <div className="hidden lg:block">
-          <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
+          <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
             <span className="text-6xl">
               {user?.role === 'partner' ? '🏢' : '🚀'}
             </span>

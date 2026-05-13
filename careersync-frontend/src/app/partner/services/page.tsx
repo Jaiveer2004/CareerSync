@@ -41,13 +41,13 @@ export default function PartnerServicePage() {
         const response = await getPartnerServices();
         setServices(response.data);
       } catch (error) {
-        console.error('Failed to fetch services:', error);
+        console.error('Failed to fetch roles:', error);
         const errorMessage = error instanceof Error && 'response' in error && 
           error.response && typeof error.response === 'object' && 
           'data' in error.response && error.response.data && 
           typeof error.response.data === 'object' && 'message' in error.response.data
           ? String(error.response.data.message)
-          : 'Failed to load services';
+          : 'Failed to load roles';
         setError(errorMessage);
       } finally {
         setIsLoading(false);
@@ -78,8 +78,8 @@ export default function PartnerServicePage() {
           : service
       ));
     } catch (error) {
-      console.error('Failed to toggle service status:', error);
-      alert('Failed to update service status');
+      console.error('Failed to toggle role status:', error);
+      alert('Failed to update role status');
     } finally {
       setActionLoading(null);
     }
@@ -95,8 +95,8 @@ export default function PartnerServicePage() {
       await deleteService(serviceId);
       setServices(prev => prev.filter(service => service._id !== serviceId));
     } catch (error) {
-      console.error('Failed to delete service:', error);
-      alert('Failed to delete service');
+      console.error('Failed to delete role:', error);
+      alert('Failed to delete role');
     } finally {
       setActionLoading(null);
     }
@@ -105,7 +105,7 @@ export default function PartnerServicePage() {
   // Get unique categories
   const categories = ['All', ...new Set(services.map(service => service.category))];
 
-  // Filter services
+  // Filter roles
   const filteredServices = services.filter(service => {
     const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          service.category.toLowerCase().includes(searchTerm.toLowerCase());
@@ -117,7 +117,7 @@ export default function PartnerServicePage() {
   });
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'short',
       year: 'numeric'
@@ -125,9 +125,9 @@ export default function PartnerServicePage() {
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -138,7 +138,7 @@ export default function PartnerServicePage() {
         <DashboardLayout>
           <div className="container mx-auto py-8">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-4 text-slate-900">Your Services</h1>
+              <h1 className="text-3xl font-bold mb-4 text-slate-900">Your Roles</h1>
               {error.includes('Partner profile not found') ? (
                 <div>
                   <p className="text-slate-500 mb-4">You need to complete your partner onboarding first.</p>
@@ -166,9 +166,9 @@ export default function PartnerServicePage() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-bold text-slate-900 mb-2">My Services</h1>
+              <h1 className="text-4xl font-bold text-slate-900 mb-2">Manage Roles</h1>
               <p className="text-slate-500 text-lg">
-                Manage your service offerings and track performance
+                Manage your open positions and monitor performance
               </p>
             </div>
             <Link href="/partner/services/create">
@@ -176,7 +176,7 @@ export default function PartnerServicePage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
-                Create New Service
+                Create New Role
               </Button>
             </Link>
           </div>
@@ -189,16 +189,16 @@ export default function PartnerServicePage() {
                   <div className="text-2xl">📊</div>
                   <div className="text-2xl font-bold text-slate-900">{services.length}</div>
                 </div>
-                <div className="text-slate-500 text-sm">Total Services</div>
+                <div className="text-slate-500 text-sm">Total Roles</div>
               </div>
               <div className="bg-white rounded-2xl p-6 border border-slate-200">
                 <div className="flex items-center justify-between mb-2">
                   <div className="text-2xl">✅</div>
-                  <div className="text-2xl font-bold text-green-400">
+                  <div className="text-2xl font-bold text-emerald-600">
                     {services.filter(s => s.isActive !== false).length}
                   </div>
                 </div>
-                <div className="text-slate-500 text-sm">Active Services</div>
+                <div className="text-slate-500 text-sm">Active Roles</div>
               </div>
               <div className="bg-white rounded-2xl p-6 border border-slate-200">
                 <div className="flex items-center justify-between mb-2">
@@ -207,12 +207,12 @@ export default function PartnerServicePage() {
                     {formatCurrency(Math.max(...services.map(s => s.price)))}
                   </div>
                 </div>
-                <div className="text-slate-500 text-sm">Highest Price</div>
+                <div className="text-slate-500 text-sm">Highest Compensation</div>
               </div>
               <div className="bg-white rounded-2xl p-6 border border-slate-200">
                 <div className="flex items-center justify-between mb-2">
                   <div className="text-2xl">🎯</div>
-                  <div className="text-2xl font-bold text-purple-400">{categories.length - 1}</div>
+                  <div className="text-2xl font-bold text-violet-600">{categories.length - 1}</div>
                 </div>
                 <div className="text-slate-500 text-sm">Categories</div>
               </div>
@@ -230,7 +230,7 @@ export default function PartnerServicePage() {
                     </svg>
                     <input
                       type="text"
-                      placeholder="Search services..."
+                      placeholder="Search roles..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 bg-slate-100 text-slate-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -263,7 +263,7 @@ export default function PartnerServicePage() {
             </div>
           )}
 
-          {/* Services Grid */}
+          {/* Roles Grid */}
           {isLoading ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => <PartnerServiceCardSkeleton key={i} />)}
@@ -273,7 +273,7 @@ export default function PartnerServicePage() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredServices.map((service) => (
                   <div key={service._id} className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-slate-300 transition-all duration-200 shadow-lg hover:shadow-xl group">
-                    {/* Service Header */}
+                    {/* Role Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <h3 className="font-semibold text-slate-900 text-lg mb-2 group-hover:text-[#1e40af] transition-colors">
@@ -287,7 +287,7 @@ export default function PartnerServicePage() {
                         {/* Edit Button */}
                         <button 
                           className="p-2 text-slate-500 hover:text-[#1e40af] hover:bg-blue-400/10 rounded-lg transition-all"
-                          title="Edit Service"
+                          title="Edit Role"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -298,11 +298,11 @@ export default function PartnerServicePage() {
                         <button 
                           onClick={() => handleDeleteService(service._id, service.name)}
                           disabled={actionLoading === service._id}
-                          className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all disabled:opacity-50"
-                          title="Delete Service"
+                          className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-all disabled:opacity-50"
+                          title="Delete Role"
                         >
                           {actionLoading === service._id ? (
-                            <div className="w-4 h-4 animate-spin rounded-full border-2 border-gray-400 border-t-red-400"></div>
+                            <div className="w-4 h-4 animate-spin rounded-full border-2 border-gray-400 border-t-red-600"></div>
                           ) : (
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16" />
@@ -312,7 +312,7 @@ export default function PartnerServicePage() {
                       </div>
                     </div>
 
-                    {/* Service Description */}
+                    {/* Role Description */}
                     {service.description && (
                       <p className="text-slate-500 text-sm mb-4 line-clamp-2">
                         {service.description}
@@ -321,7 +321,7 @@ export default function PartnerServicePage() {
                     
                     {/* Price and Duration */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-green-400">
+                      <span className="text-2xl font-bold text-emerald-600">
                         {formatCurrency(service.price)}
                       </span>
                       {service.duration && (
@@ -334,16 +334,16 @@ export default function PartnerServicePage() {
                       )}
                     </div>
 
-                    {/* Service Stats */}
+                    {/* Role Stats */}
                     <div className="flex items-center justify-between mb-4 text-sm">
                       <div className="flex items-center gap-4">
                         {service.bookingCount !== undefined && (
                           <span className="text-slate-500">
-                            📅 {service.bookingCount} bookings
+                            📅 {service.bookingCount} applications
                           </span>
                         )}
                         {service.rating && (
-                          <span className="text-yellow-400">
+                          <span className="text-amber-500">
                             ⭐ {service.rating.toFixed(1)}
                           </span>
                         )}
@@ -353,8 +353,8 @@ export default function PartnerServicePage() {
                     {/* Status and Actions */}
                     <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                       <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${service.isActive !== false ? 'bg-green-400' : 'bg-red-400'}`} />
-                        <span className={`text-sm font-medium ${service.isActive !== false ? 'text-green-400' : 'text-red-400'}`}>
+                        <div className={`w-2 h-2 rounded-full ${service.isActive !== false ? 'bg-emerald-600' : 'bg-rose-600'}`} />
+                        <span className={`text-sm font-medium ${service.isActive !== false ? 'text-emerald-700' : 'text-rose-700'}`}>
                           {service.isActive !== false ? 'Active' : 'Inactive'}
                         </span>
                       </div>
@@ -364,8 +364,8 @@ export default function PartnerServicePage() {
                         disabled={actionLoading === service._id}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                           service.isActive !== false
-                            ? 'bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-600/30'
-                            : 'bg-green-600/20 text-green-400 hover:bg-green-600/30 border border-green-600/30'
+                            ? 'bg-rose-100 text-rose-700 hover:bg-rose-200 border border-rose-200'
+                            : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border border-emerald-200'
                         } disabled:opacity-50`}
                       >
                         {service.isActive !== false ? 'Deactivate' : 'Activate'}
@@ -386,7 +386,7 @@ export default function PartnerServicePage() {
             ) : (
               <div className="text-center py-12">
                 <div className="text-slate-500 text-lg mb-4">
-                  No services match your filters
+                  No roles match your filters
                 </div>
                 <button
                   onClick={() => {
@@ -405,11 +405,11 @@ export default function PartnerServicePage() {
               <div className="text-6xl mb-6">🚀</div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to start earning?</h3>
               <p className="text-slate-500 text-lg mb-8 max-w-md mx-auto">
-                Create your first service and start accepting bookings from customers in your area.
+                Create your first role and start receiving applications from candidates.
               </p>
               <Link href="/partner/services/create">
                 <Button className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-8 py-4 rounded-xl font-semibold text-lg">
-                  Create Your First Service
+                  Create Your First Role
                 </Button>
               </Link>
             </div>

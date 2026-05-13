@@ -1,8 +1,14 @@
-// This file will handle the business logic for registering and logging in users.
-
 const User = require("../models/user.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
+const Booking = require('../models/booking.model');
+const ServicePartner = require('../models/servicePartner.model');
+const Service = require('../models/service.model');
+const Review = require('../models/review.model');
+const ChatRoom = require('../models/chatRoom.model');
+const Message = require('../models/message.model');
+const OTP = require('../models/otp.model');
+const LoginHistory = require('../models/loginHistory.model');
 const { generateVerificationToken, sendVerificationEmail } = require('../utils/otp.utils');
 const { hashWithSHA256 } = require('../utils/crypto.utils');
 
@@ -50,7 +56,12 @@ const registerUser = async (req, res) => {
       emailVerificationExpiry: verificationExpiry,
     });
 
-    await sendVerificationEmail(email, verificationCode, verificationToken, fullName);
+    const emailResult = await sendVerificationEmail(email, verificationCode, verificationToken, fullName);
+    if (!emailResult?.success) {
+      return res.status(500).json({
+        message: 'Failed to send verification email. Please try again later.',
+      });
+    }
 
     res.status(201).json({
       message: 'Registration successful! Please check your email to verify your account.',
@@ -68,7 +79,8 @@ const registerUser = async (req, res) => {
 
 const verifyEmail = async (req, res) => {
   try {
-    const { token, code } = req.body;
+    const token = (req.body?.token || req.query?.token || '').toString().trim();
+    const code = (req.body?.code || req.query?.code || '').toString().trim();
 
     if (!code || !token) {
       return res.status(400).json({ message: 'Verification token and code are required' });
@@ -150,7 +162,12 @@ const resendVerificationEmail = async (req, res) => {
     await user.save();
 
     // Send email
-    await sendVerificationEmail(email, verificationCode, verificationToken, user.fullName);
+    const emailResult = await sendVerificationEmail(email, verificationCode, verificationToken, user.fullName);
+    if (!emailResult?.success) {
+      return res.status(500).json({
+        message: 'Failed to send verification email. Please try again later.',
+      });
+    }
 
     res.status(200).json({
       message: 'Verification email sent successfully!',
@@ -262,10 +279,82 @@ const googleAuthCallback = async (req, res) => {
   }
 };
 
+const deleteAccount = async (req, res) => {
+  try {
+    const { password } = req.body;
+    const userId = req.user._id;
+
+    if (!password || !password.trim()) {
+      return res.status(400).json({ message: 'Password is required to delete account.' });
+    }
+
+    const user = await User.findById(userId).select('+password');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    if (!user.password) {
+      return res.status(400).json({
+        message: 'This account does not have a local password. Please set a password first before deleting your account.'
+      });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return res.status(401).json({ message: 'Invalid password.' });
+    }
+
+    // Remove partner-related data first to avoid dangling references.
+    const partnerProfile = await ServicePartner.findOne({ user: userId }).select('_id');
+    const partnerId = partnerProfile?._id;
+
+    const customerBookings = await Booking.find({ customer: userId }).select('_id');
+    const partnerBookings = partnerId
+      ? await Booking.find({ partner: partnerId }).select('_id')
+      : [];
+
+    const bookingIds = [...customerBookings, ...partnerBookings].map((b) => b._id);
+
+    const chatRooms = await ChatRoom.find({
+      $or: [
+        { bookingId: { $in: bookingIds } },
+        { 'participants.userId': userId }
+      ]
+    }).select('_id');
+    const chatRoomIds = chatRooms.map((room) => room._id);
+
+    if (chatRoomIds.length > 0) {
+      await Message.deleteMany({ chatRoomId: { $in: chatRoomIds } });
+      await ChatRoom.deleteMany({ _id: { $in: chatRoomIds } });
+    }
+
+    await Booking.deleteMany({ customer: userId });
+    await Review.deleteMany({ customer: userId });
+
+    if (partnerId) {
+      await Booking.deleteMany({ partner: partnerId });
+      await Review.deleteMany({ partner: partnerId });
+      await Service.deleteMany({ partner: partnerId });
+      await ServicePartner.deleteOne({ _id: partnerId });
+    }
+
+    await OTP.deleteMany({ userId });
+    await LoginHistory.deleteMany({ userId });
+    await User.deleteOne({ _id: userId });
+
+    res.status(200).json({ message: 'Account deleted successfully.' });
+  } catch (error) {
+    console.error('Delete account error:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   googleAuthCallback,
   verifyEmail,
   resendVerificationEmail,
+  deleteAccount,
 };

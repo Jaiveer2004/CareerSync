@@ -57,30 +57,30 @@ export function EnhancedBookingCard({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-500/10 text-green-400 border-green-500/20';
+        return 'bg-green-50 text-green-700 border-green-200';
       case 'confirmed':
-        return 'bg-blue-500/10 text-[#1e40af] border-blue-500/20';
+        return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'pending':
-        return 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20';
+        return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'cancelled':
-        return 'bg-red-500/10 text-red-400 border-red-500/20';
+        return 'bg-red-50 text-red-700 border-red-200';
       default:
-        return 'bg-gray-500/10 text-slate-500 border-gray-500/20';
+        return 'bg-slate-50 text-slate-700 border-slate-200';
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':
-        return '✅';
+        return 'Closed';
       case 'confirmed':
-        return '🔄';
+        return 'Scheduled';
       case 'pending':
-        return '⏳';
+        return 'Pending';
       case 'cancelled':
-        return '❌';
+        return 'Rejected';
       default:
-        return '📋';
+        return 'Open';
     }
   };
 
@@ -100,9 +100,9 @@ export function EnhancedBookingCard({
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -122,31 +122,31 @@ export function EnhancedBookingCard({
   const canCancelAsCustomer = userRole === 'customer' && (booking.status === 'pending' || booking.status === 'confirmed');
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 transition-all duration-300 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
       {/* Main Card Content */}
       <div className="p-6">
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="text-lg font-semibold text-slate-900">{booking.service?.name || 'Unknown Service'}</h3>
+              <h3 className="text-xl font-semibold text-slate-900">{booking.service?.name || 'Unknown Role'}</h3>
               <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(booking.status)}`}>
-                {getStatusIcon(booking.status)} {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                {getStatusIcon(booking.status)}
               </span>
             </div>
             
             {userRole === 'partner' && booking.customer && (
-              <p className="text-slate-500 text-sm">Candidate: {booking.customer.fullName}</p>
+              <p className="text-slate-600 text-sm">Candidate: {booking.customer.fullName}</p>
             )}
             
             {userRole === 'customer' && booking.partner?.user && (
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                  <span className="text-slate-900 text-xs font-bold">
+                    <span className="text-white text-xs font-bold">
                     {booking.partner.user.fullName?.charAt(0) || 'P'}
                   </span>
                 </div>
-                <span className="text-slate-500 text-sm">{booking.partner.user.fullName}</span>
+                <span className="text-slate-600 text-sm">{booking.partner.user.fullName}</span>
                 {booking.partner.averageRating && (
                   <span className="text-yellow-400 text-sm">
                     ⭐ {booking.partner.averageRating.toFixed(1)}
@@ -158,8 +158,8 @@ export function EnhancedBookingCard({
           
           <div className="text-right">
             <p className="text-xl font-bold text-slate-900">{formatCurrency(booking.totalPrice)}</p>
-            <p className={`text-xs ${booking.paymentStatus === 'paid' ? 'text-green-400' : 'text-yellow-400'}`}>
-              {booking.paymentStatus === 'paid' ? '💳 Paid' : '⏳ Payment Pending'}
+            <p className={`text-xs ${booking.paymentStatus === 'paid' ? 'text-green-600' : 'text-amber-600'}`}>
+              {booking.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
             </p>
           </div>
         </div>
@@ -172,7 +172,7 @@ export function EnhancedBookingCard({
               <span className="text-sm font-medium text-slate-600">Scheduled</span>
             </div>
             <p className="text-slate-900 font-semibold">{date}</p>
-            <p className="text-slate-500 text-sm">{time}</p>
+            <p className="text-slate-600 text-sm">{time}</p>
           </div>
           
           <div className="bg-slate-100/50 rounded-xl p-3">
@@ -181,7 +181,7 @@ export function EnhancedBookingCard({
               <span className="text-sm font-medium text-slate-600">Location</span>
             </div>
             <p className="text-slate-900 text-sm">{booking.address.street}</p>
-            <p className="text-slate-500 text-xs">{booking.address.city}, {booking.address.postalCode}</p>
+            <p className="text-slate-600 text-xs">{booking.address.city}, {booking.address.postalCode}</p>
           </div>
         </div>
 
@@ -192,9 +192,9 @@ export function EnhancedBookingCard({
             <Button
               size="sm"
               onClick={() => onConfirmClick(booking._id)}
-              className="bg-green-600 hover:bg-green-700 text-slate-900"
+              className="bg-green-600 hover:bg-green-700 text-white"
             >
-              ✅ Accept Application
+              Accept Application
             </Button>
           )}
           
@@ -203,9 +203,9 @@ export function EnhancedBookingCard({
               size="sm"
               variant="outline"
               onClick={() => onRejectClick(booking._id)}
-              className="border-red-600 text-red-400 hover:text-red-300 hover:border-red-500"
+              className="border-red-300 text-red-700 hover:text-red-800 hover:border-red-400"
             >
-              ❌ Reject Application
+              Reject Application
             </Button>
           )}
           
@@ -215,7 +215,7 @@ export function EnhancedBookingCard({
               onClick={() => onStatusUpdate(booking._id, 'completed')}
               className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white"
             >
-              🏁 Mark Complete
+              Mark Complete
             </Button>
           )}
 
@@ -226,7 +226,7 @@ export function EnhancedBookingCard({
               onClick={() => onReviewClick(booking._id)}
               className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white"
             >
-              ⭐ Leave Review
+              Leave Review
             </Button>
           )}
           
@@ -237,7 +237,7 @@ export function EnhancedBookingCard({
               onClick={() => onContactClick(booking)}
               className="border-slate-300 text-slate-600 hover:text-slate-900 hover:border-gray-500"
             >
-              💬 Contact {userRole === 'customer' ? 'Company' : 'Candidate'}
+              Contact {userRole === 'customer' ? 'Company' : 'Candidate'}
             </Button>
           )}
           
@@ -246,9 +246,9 @@ export function EnhancedBookingCard({
               size="sm"
               variant="outline"
               onClick={() => onCancelClick(booking._id)}
-              className="border-red-600 text-red-400 hover:text-red-300 hover:border-red-500"
+              className="border-red-300 text-red-700 hover:text-red-800 hover:border-red-400"
             >
-              ❌ Cancel
+              Cancel
             </Button>
           )}
           
@@ -256,9 +256,9 @@ export function EnhancedBookingCard({
             size="sm"
             variant="outline"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="border-slate-300 text-slate-500 hover:text-slate-600 hover:border-gray-500"
+            className="border-slate-300 text-slate-700 hover:text-slate-900 hover:border-gray-500"
           >
-            {isExpanded ? '👆 Less Details' : '👇 More Details'}
+            {isExpanded ? 'Less Details' : 'More Details'}
           </Button>
         </div>
 
@@ -267,17 +267,17 @@ export function EnhancedBookingCard({
           <div className="border-t border-slate-200 pt-4 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-slate-500">Application ID:</span>
+                <span className="text-slate-600">Application ID:</span>
                 <p className="text-slate-900 font-mono text-xs">{booking._id}</p>
               </div>
               <div>
-                <span className="text-slate-500">Booked on:</span>
+                <span className="text-slate-600">Booked on:</span>
                 <p className="text-slate-900">{createdDate}</p>
               </div>
             </div>
             
             <div>
-              <span className="text-slate-500 text-sm">Full Address:</span>
+              <span className="text-slate-600 text-sm">Full Address:</span>
               <p className="text-slate-900">
                 {booking.address.street}, {booking.address.city}, {booking.address.postalCode}
               </p>
@@ -288,13 +288,13 @@ export function EnhancedBookingCard({
               <h4 className="text-sm font-medium text-slate-600 mb-2">Service Progress</h4>
               <div className="flex items-center space-x-2">
                 <div className={`w-3 h-3 rounded-full ${booking.status !== 'cancelled' ? 'bg-green-400' : 'bg-gray-500'}`}></div>
-                <span className="text-xs text-slate-500">Booked</span>
+                <span className="text-xs text-slate-600">Booked</span>
                 <div className="flex-1 h-px bg-slate-200"></div>
                 <div className={`w-3 h-3 rounded-full ${['confirmed', 'completed'].includes(booking.status) ? 'bg-green-400' : 'bg-gray-500'}`}></div>
-                <span className="text-xs text-slate-500">Confirmed</span>
+                <span className="text-xs text-slate-600">Confirmed</span>
                 <div className="flex-1 h-px bg-slate-200"></div>
                 <div className={`w-3 h-3 rounded-full ${booking.status === 'completed' ? 'bg-green-400' : 'bg-gray-500'}`}></div>
-                <span className="text-xs text-slate-500">Completed</span>
+                <span className="text-xs text-slate-600">Completed</span>
               </div>
             </div>
           </div>

@@ -1,7 +1,4 @@
 const User = require('../models/user.model');
-const crypto = require('crypto');
-const bcrypt = require('bcryptjs');
-const transporter = require('../config/email.config');
 const {
   generateSecureRandom,
   hashWithSHA256
@@ -36,7 +33,13 @@ const requestPasswordReset = async (req, res) => {
     const emailResult = await sendPasswordResetEmail(email, resetToken, user.firstName || 'User');
     
     if (emailResult && !emailResult.success) {
-      console.warn('Failed to send email:', emailResult.error);
+      user.passwordResetTokenHash = undefined;
+      user.passwordResetExpiry = undefined;
+      await user.save();
+
+      return res.status(500).json({
+        message: 'Failed to send password reset email. Please try again later.',
+      });
     }
 
     res.status(200).json({
