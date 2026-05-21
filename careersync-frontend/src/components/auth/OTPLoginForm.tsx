@@ -29,8 +29,13 @@ export default function OTPLoginForm() {
 
     try {
       const response = await requestOTPLogin({ email });
-      setSuccess(response.data.message || "OTP sent to your email!");
-      setStep("otp");
+      const serverMessage = response.data.message || "If this email is registered, you will receive an OTP shortly.";
+      setSuccess(serverMessage);
+
+      // Only proceed to OTP input when backend confirms OTP dispatch.
+      if (response?.data?.otpSent === true) {
+        setStep("otp");
+      }
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
       setError(error.response?.data?.message || "Failed to send OTP. Please try again.");
