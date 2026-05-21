@@ -153,7 +153,7 @@ const sendOTPEmail = async (email, plainOTP, fullName, type = 'login', device = 
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_FROM,
+      from: process.env.EMAIL_FROM || `"CareerSync" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: `Your CareerSync Login OTP - ${plainOTP}`,
       html,
@@ -179,7 +179,14 @@ const sendVerificationEmail = async (email, verificationCode, verificationToken,
     const template = loadEmailTemplate('verification-email');
 
     const expiryHours = parseInt(process.env.EMAIL_VERIFICATION_EXPIRY_HOURS) || 24;
-    const verificationLink = `${process.env.EMAIL_VERIFICATION_URL}?token=${verificationToken}&code=${verificationCode}`;
+    const baseVerificationUrl =
+      process.env.EMAIL_VERIFICATION_URL ||
+      `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify-email`;
+    const verificationUrl = new URL(baseVerificationUrl);
+    verificationUrl.searchParams.set('token', verificationToken);
+    verificationUrl.searchParams.set('code', verificationCode);
+    verificationUrl.searchParams.set('email', email);
+    const verificationLink = verificationUrl.toString();
 
     const html = template({
       fullName,
@@ -189,7 +196,7 @@ const sendVerificationEmail = async (email, verificationCode, verificationToken,
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_FROM,
+      from: process.env.EMAIL_FROM || `"CareerSync" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Verify Your CareerSync Account',
       html,
