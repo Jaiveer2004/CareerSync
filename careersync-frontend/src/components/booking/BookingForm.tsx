@@ -29,7 +29,6 @@ interface Provider {
 
 interface BookingDetails {
   bookingDate: string;
-  bookingTime: string;
   address: {
     street: string;
     city: string;
@@ -45,18 +44,17 @@ interface BookingFormProps {
 }
 
 export function BookingForm({ service, selectedProvider, onFormSubmit }: BookingFormProps) {
-  const [bookingDate, setBookingDate] = useState('');
-  const [bookingTime, setBookingTime] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [notes, setNotes] = useState('');
+  const [resumeFileName, setResumeFileName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -70,17 +68,6 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
     return `${duration}m`;
   };
 
-  // Get minimum date (today)
-  const today = new Date().toISOString().split('T')[0];
-
-  // Generate time slots
-  const timeSlots = [
-    '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-    '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
-    '18:00', '18:30', '19:00', '19:30', '20:00'
-  ];
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -92,10 +79,9 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
     setIsLoading(true);
     try {
       await onFormSubmit({
-        bookingDate: `${bookingDate}T${bookingTime}:00.000Z`,
-        bookingTime,
+        bookingDate: new Date().toISOString(),
         address: { street, city, postalCode },
-        notes
+        notes: `${notes}${resumeFileName ? `\nResume: ${resumeFileName}` : ''}`
       });
     } finally {
       setIsLoading(false);
@@ -105,9 +91,9 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
   return (
     <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Submit Application</h2>
-        <p className="text-blue-100">Provide your availability and location to process your application.</p>
+      <div className="bg-slate-900 p-6">
+        <h2 className="text-2xl font-bold text-white mb-2">Submit Application</h2>
+        <p className="text-slate-300">Provide your details to process this role application.</p>
       </div>
 
       {/* Form Content */}
@@ -116,9 +102,9 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
         <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-semibold text-slate-900">{service.name}</h3>
-            <span className="text-2xl font-bold text-green-400">{formatCurrency(service.price)}</span>
+            <span className="text-2xl font-bold text-emerald-600">{formatCurrency(service.price)}</span>
           </div>
-          <div className="flex items-center gap-4 text-sm text-slate-500">
+          <div className="flex items-center gap-4 text-sm text-slate-600">
             <span className="bg-[#1e40af]/20 text-[#1e40af] px-2 py-1 rounded border border-blue-600/30">
               {service.category}
             </span>
@@ -137,51 +123,16 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
                 <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-semibold">
                   {selectedProvider.user.fullName.charAt(0)}
                 </div>
-                <span className="text-slate-600">Provider: {selectedProvider.user.fullName}</span>
+                <span className="text-slate-600">Hiring Team: {selectedProvider.user.fullName}</span>
                 {selectedProvider.isOnline && (
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span className="text-green-400 text-xs">Online</span>
+                    <span className="text-green-600 text-xs">Online</span>
                   </div>
                 )}
               </div>
             </div>
           )}
-        </div>
-
-        {/* Date Selection */}
-        <div>
-          <label className="block text-sm font-medium text-slate-600 mb-2">
-            Preferred Interview Date
-          </label>
-          <Input 
-            type="date" 
-            value={bookingDate} 
-            onChange={e => setBookingDate(e.target.value)} 
-            min={today}
-            required 
-            className="bg-slate-100 border-slate-300 text-slate-900 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Time Selection */}
-        <div>
-          <label className="block text-sm font-medium text-slate-600 mb-2">
-            Preferred Interview Time
-          </label>
-          <select 
-            value={bookingTime} 
-            onChange={e => setBookingTime(e.target.value)} 
-            required
-            className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-100 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Select a time</option>
-            {timeSlots.map(time => (
-              <option key={time} value={time}>
-                {time} ({new Date(`2000-01-01T${time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})
-              </option>
-            ))}
-          </select>
         </div>
 
         {/* Address Section */}
@@ -243,6 +194,27 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
           />
         </div>
 
+        {/* Resume Upload */}
+        <div>
+          <label className="block text-sm font-medium text-slate-600 mb-2">
+            Upload Resume
+          </label>
+          <Input
+            type="file"
+            accept=".pdf,.doc,.docx"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              setResumeFileName(file ? file.name : '');
+            }}
+            className="bg-slate-100 border-slate-300 text-slate-900 file:mr-4 file:rounded-md file:border-0 file:bg-slate-900 file:px-3 file:py-1.5 file:text-sm file:text-white"
+          />
+          {resumeFileName ? (
+            <p className="mt-2 text-xs text-slate-600">Selected: {resumeFileName}</p>
+          ) : (
+            <p className="mt-2 text-xs text-slate-600">Accepted formats: PDF, DOC, DOCX</p>
+          )}
+        </div>
+
         {/* Pricing Summary */}
         <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-300">
           <div className="space-y-2">
@@ -256,8 +228,8 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
             </div>
             <div className="border-t border-slate-300 pt-2 mt-2">
               <div className="flex justify-between text-lg font-bold text-slate-900">
-                <span>Total Amount</span>
-                <span className="text-green-400">{formatCurrency(service.price)}</span>
+                <span>Compensation</span>
+                <span className="text-emerald-600">{formatCurrency(service.price)}</span>
               </div>
             </div>
           </div>
@@ -280,21 +252,10 @@ export function BookingForm({ service, selectedProvider, onFormSubmit }: Booking
         </Button>
 
         {!selectedProvider && (
-          <p className="text-red-400 text-sm text-center">
+          <p className="text-red-600 text-sm text-center">
             Please select a service provider to proceed with application
           </p>
         )}
-
-        {/* Security Notice */}
-        <div className="text-center text-xs text-slate-500">
-          <div className="flex items-center justify-center gap-1 mb-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            <span>Secure Payment</span>
-          </div>
-          <p>Your payment information is encrypted and secure</p>
-        </div>
       </form>
     </div>
   );
