@@ -65,6 +65,10 @@ interface PasswordResetData {
     newPassword: string;
 }
 
+interface DeleteAccountData {
+    password: string;
+}
+
 // ========================================
 // AUTH SERVICE - Basic Authentication
 // ========================================
@@ -141,10 +145,15 @@ export const resetPassword = (data: PasswordResetData) => {
     return api.post('/password/reset', data);
 };
 
+export const deleteAccount = (data: DeleteAccountData) => {
+    return api.delete('/auth/delete-account', { data });
+};
+
 // ========================================
 // GOOGLE OAUTH
 // ========================================
 
 export const getGoogleAuthURL = () => {
-    return `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+    return `${apiBase.replace(/\/$/, '')}/auth/google`;
 };

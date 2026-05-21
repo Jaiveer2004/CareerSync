@@ -32,6 +32,14 @@ export function CreateServiceForm() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const formatINR = (value: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
@@ -110,7 +118,7 @@ export function CreateServiceForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Service Name */}
+        {/* Role Name */}
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium text-slate-900">
             Job Title
@@ -163,7 +171,7 @@ export function CreateServiceForm() {
           <Textarea
             id="description"
             name="description"
-            placeholder="Describe your service in detail. What's included? What makes you special?"
+            placeholder="Describe this role in detail. Responsibilities, expectations, and ideal candidate profile."
             value={formData.description}
             onChange={handleChange}
             required
@@ -176,23 +184,24 @@ export function CreateServiceForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label htmlFor="price" className="text-sm font-medium text-slate-900">
-              Price ($)
+              Compensation (INR)
             </label>
             <Input
               id="price"
               name="price"
               type="number"
-              placeholder="500"
+              placeholder="120000"
               value={formData.price}
               onChange={handleChange}
               required
-              min="50"
-              max="10000"
+              min="10000"
+              max="10000000"
+              step="500"
               className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
             />
             {formData.category && (
               <p className="text-xs text-slate-600">
-                Suggested: ${suggestPrice(formData.category)} for {formData.category}
+                Suggested: {formatINR(suggestPrice(formData.category))} for {formData.category}
               </p>
             )}
           </div>
@@ -223,7 +232,7 @@ export function CreateServiceForm() {
           </div>
         </div>
 
-        {/* Service Status */}
+        {/* Role Status */}
         <div className="flex items-center space-x-3">
           <input
             type="checkbox"
@@ -234,7 +243,7 @@ export function CreateServiceForm() {
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 bg-slate-100 rounded"
           />
           <label htmlFor="isActive" className="text-sm font-medium text-slate-900">
-            Make this service active immediately
+            Make this role active immediately
           </label>
         </div>
 
@@ -246,7 +255,7 @@ export function CreateServiceForm() {
               <h5 className="font-semibold text-slate-900">{formData.name}</h5>
               <p className="text-sm text-slate-500 mb-2">{formData.category}</p>
               <div className="flex justify-between items-center">
-                <span className="text-[#1e40af] font-bold">${formData.price}</span>
+                <span className="text-[#1e40af] font-bold">{formatINR(Number(formData.price))}</span>
                 {formData.duration && (
                   <span className="text-slate-500 text-sm">
                     {Number(formData.duration) >= 60 
@@ -272,10 +281,10 @@ export function CreateServiceForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Creating service...
+              Creating role...
             </div>
           ) : (
-            'Create Service'
+            'Create Role'
           )}
         </Button>
       </form>
