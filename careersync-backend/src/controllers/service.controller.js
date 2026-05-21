@@ -13,9 +13,10 @@ const createService = async (req, res) => {
       return res.status(403).json({ message: 'Forbidden: Only partners can create service' });
     }
 
-    const partnerProfile = await ServicePartner.findOne({ user: req.user._id });
+    let partnerProfile = await ServicePartner.findOne({ user: req.user._id });
     if (!partnerProfile) {
-      return res.status(404).json({ message: 'Service partner profile not found ' });
+      // Create a minimal partner profile so first-time partners can post roles immediately.
+      partnerProfile = await ServicePartner.create({ user: req.user._id });
     }
 
     // 3. Extract service data from request body:
