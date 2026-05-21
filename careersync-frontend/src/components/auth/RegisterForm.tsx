@@ -6,9 +6,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { registerUser } from "@/services/apiService";
+import { registerUser } from "@/services/authService";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 export function RegisterForm() {
@@ -22,8 +21,6 @@ export function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const router = useRouter();
-  const { login } = useAuth();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -46,14 +43,15 @@ export function RegisterForm() {
       await toast.promise(promise, {
         loading: 'Creating your account...',
         success: (response) => {
-          login(response.data.user, response.data.token);
+          const requiresVerification = Boolean(response?.data?.requiresVerification);
+          const targetEmail = response?.data?.email || email;
 
-          // Redirect based on role
-          if (role === 'partner') {
-            router.push('/partner/onboard');
-          } else {
-            router.push('/dashboard');
+          if (requiresVerification) {
+            router.push(`/verify-email?email=${encodeURIComponent(targetEmail)}`);
+            return <b>Account created. Check your inbox to verify your email.</b>;
           }
+
+          router.push('/login');
 
           return <b>Welcome to CareerSync!</b>;
         },
