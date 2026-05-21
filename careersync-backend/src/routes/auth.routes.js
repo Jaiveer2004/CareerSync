@@ -5,10 +5,12 @@ const {
   loginUser,
   googleAuthCallback,
   verifyEmail,
-  resendVerificationEmail
+  resendVerificationEmail,
+  deleteAccount
 } = require('../controllers/auth.controller');
 
 const { authLimiter } = require('../middlewares/rateLimit.middleware');
+const { protect } = require('../middlewares/auth.middleware');
 
 const passport = require('../config/passport');
 
@@ -16,7 +18,9 @@ const router = Router();
 router.post('/register', registerUser);
 router.post('/login', authLimiter, loginUser);
 router.post('/verify-email', verifyEmail);
+router.get('/verify-email', verifyEmail);
 router.post('/resend-verification', resendVerificationEmail);
+router.delete('/delete-account', protect, deleteAccount);
 
 router.get(
   '/google',
