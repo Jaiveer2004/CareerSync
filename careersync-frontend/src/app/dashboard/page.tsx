@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 import { DashboardLayout } from "@/components/layouts/DashboardLayout";
@@ -11,7 +10,6 @@ import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { PartnerStatusToggle } from "@/components/partner/PartnerStatusToggle";
 import { getDashboardStats } from "@/services/apiService";
-import { Button } from "@/components/ui/button";
 import Skeleton from "react-loading-skeleton";
 
 interface DashboardStats {
@@ -29,6 +27,15 @@ interface DashboardStats {
   averageRating?: number;
   isOnline?: boolean;
 }
+
+const toAmount = (value: number | string | undefined, fallback: number) => {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    const normalized = Number(value.replace(/[^\d.-]/g, ''));
+    if (Number.isFinite(normalized)) return normalized;
+  }
+  return fallback;
+};
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -50,12 +57,17 @@ export default function DashboardPage() {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+  const formatCurrency = (amount: number | string | undefined, fallback = 0) => {
+    const parsedAmount = toAmount(amount, fallback);
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       maximumFractionDigits: 0,
-    }).format(amount);
+    }).format(parsedAmount);
+  };
+
+  const formatNumber = (value: number) => {
+    return new Intl.NumberFormat('en-IN').format(value);
   };
 
   // Mock activity data for now - would normally come from backend
@@ -63,17 +75,17 @@ export default function DashboardPage() {
     {
       id: '1',
       type: 'booking' as const,
-      title: 'Senior Frontend Engineer Application',
-      description: 'Your application has been received and is under review.',
-      time: '2 hours ago',
+      title: 'Frontend Engineer application sent to Bengaluru startup',
+      description: 'Your profile was shortlisted for the first technical round.',
+      time: '2 hrs ago',
       icon: '🚀',
       status: 'pending' as const
     },
     {
       id: '2',
       type: 'review' as const,
-      title: 'Company Profile Updated',
-      description: 'You successfully updated your recruitment bio.',
+      title: 'Resume updated with latest React project',
+      description: 'Hiring teams can now see your updated portfolio and skills.',
       time: '1 day ago',
       icon: '🏢',
       status: 'completed' as const
@@ -83,14 +95,14 @@ export default function DashboardPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-gradient-to-b from-orange-50/40 via-white to-emerald-50/40">
           <WelcomeBanner stats={stats || undefined} />
 
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {loading ? (
               Array(4).fill(0).map((_, i) => (
-                <div key={i} className="bg-white rounded-none p-6 border border-slate-200">
+                <div key={i} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
                   <Skeleton count={2} />
                   <Skeleton className="mt-4" height={32} width={80} />
                 </div>
@@ -101,30 +113,30 @@ export default function DashboardPage() {
                 <>
                   <StatsCard
                     title="Active Applications"
-                    value={stats.totalBookings || 0}
+                    value={formatNumber(stats.totalBookings || 0)}
                     icon="📋"
-                    description="Total submitted apps"
+                    description="Total applications sent"
                     color="blue"
                   />
                   <StatsCard
                     title="In Review"
-                    value={stats.pendingBookings || 0}
+                    value={formatNumber(stats.pendingBookings || 0)}
                     icon="⏳"
-                    description="Awaiting feedback"
+                    description="Companies reviewing now"
                     color="orange"
                   />
                   <StatsCard
                     title="Offers Received"
-                    value={stats.completedBookings || 0}
+                    value={formatNumber(stats.completedBookings || 0)}
                     icon="✅"
-                    description="Successful placements"
+                    description="Confirmed interview outcomes"
                     color="green"
                   />
                   <StatsCard
-                    title="Target Salary Expected"
-                    value={formatCurrency(stats.totalSpent || 120000)}
+                    title="Expected CTC"
+                    value={formatCurrency(stats.totalSpent, 1200000)}
                     icon="💰"
-                    description="Average job board value"
+                    description="Annual salary target in INR"
                     color="purple"
                   />
                 </>
@@ -133,23 +145,23 @@ export default function DashboardPage() {
                 <>
                   <StatsCard
                     title="Total Job Postings"
-                    value={stats.totalServices || 0}
+                    value={formatNumber(stats.totalServices || 0)}
                     icon="📋"
-                    description={`${stats.activeServices || 0} active roles`}
+                    description={`${formatNumber(stats.activeServices || 0)} active roles`}
                     color="blue"
                   />
                   <StatsCard
                     title="Total Applicants"
-                    value={stats.totalBookings || 0}
+                    value={formatNumber(stats.totalBookings || 0)}
                     icon="👥"
-                    description={`${stats.completedBookings || 0} screened`}
+                    description={`${formatNumber(stats.completedBookings || 0)} screened`}
                     color="green"
                   />
                   <StatsCard
                     title="Total Hiring Budget"
-                    value={formatCurrency(stats.totalEarnings || 500000)}
+                    value={formatCurrency(stats.totalEarnings, 5000000)}
                     icon="💰"
-                    description="Allocated compensation"
+                    description="Allocated annual compensation in INR"
                     color="purple"
                   />
                   <StatsCard
@@ -164,13 +176,27 @@ export default function DashboardPage() {
             ) : null}
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { city: 'Bengaluru', role: 'Frontend', demand: 'High demand' },
+              { city: 'Hyderabad', role: 'Full Stack', demand: 'Fast growing' },
+              { city: 'Pune', role: 'Backend', demand: 'Consistent hiring' },
+            ].map((item) => (
+              <div key={item.city} className="rounded-2xl border border-orange-100 bg-white/90 p-4 shadow-sm">
+                <p className="text-xs uppercase tracking-wide text-slate-500">India Job Pulse</p>
+                <p className="text-lg font-semibold text-slate-900 mt-1">{item.city}</p>
+                <p className="text-sm text-slate-600 mt-1">{item.role} roles: {item.demand}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
               <ActivityFeed activities={recentActivity} />
             </div>
             <div className="space-y-8">
               {user?.role === 'partner' && (
-                <div className="bg-white rounded-none p-6 border border-slate-200">
+                <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
                   <h3 className="text-xl font-bold font-serif text-slate-900 mb-6">Recruitment Status</h3>
                   <PartnerStatusToggle />
                   <p className="text-sm text-slate-500 mt-4 leading-relaxed">
