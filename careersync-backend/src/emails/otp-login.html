@@ -1,48 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login OTP - CareerSync</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-        .otp { font-size: 36px; font-weight: bold; color: #667eea; letter-spacing: 8px; padding: 20px; background: white; border-radius: 5px; text-align: center; margin: 20px 0; }
-        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-        .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 20px 0; }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            color: #0f172a;
+        }
+        .wrapper {
+            width: 100%;
+            background: #f8fafc;
+            padding: 24px 12px;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            padding: 32px 28px;
+            color: #ffffff;
+        }
+        .brand {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .subtitle {
+            margin: 8px 0 0;
+            color: #dbeafe;
+            font-size: 14px;
+        }
+        .content {
+            padding: 28px;
+        }
+        .title {
+            margin: 0 0 12px;
+            font-size: 22px;
+            color: #0f172a;
+        }
+        p {
+            margin: 0 0 14px;
+            line-height: 1.65;
+            color: #334155;
+            font-size: 15px;
+        }
+        .otp-box {
+            margin: 20px 0;
+            padding: 16px;
+            text-align: center;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+        }
+        .otp-label {
+            margin: 0 0 8px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .otp {
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 8px;
+            font-weight: 800;
+            color: #1e40af;
+        }
+        .warning {
+            margin-top: 20px;
+            background: #fff7ed;
+            border: 1px solid #fdba74;
+            border-radius: 10px;
+            padding: 12px;
+            color: #9a3412;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+        .meta {
+            margin-top: 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.65;
+        }
+        .meta strong {
+            color: #0f172a;
+        }
+        .footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 16px 24px 20px;
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+            background: #f8fafc;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="wrapper">
+      <div class="container">
         <div class="header">
-            <h1>Login Verification</h1>
+            <h1 class="brand">CareerSync</h1>
+            <p class="subtitle">Secure Login Verification</p>
         </div>
         <div class="content">
-            <h2>Your One-Time Password</h2>
-            <p>Hi {{fullName}},</p>
-            <p>You requested to login to your CareerSync account. Use the following OTP to complete your login:</p>
-            
-            <div class="otp">{{otp}}</div>
-            
-            <p><strong>This OTP is valid for {{expiryMinutes}} minutes.</strong></p>
+            <h2 class="title">Your One-Time Password</h2>
+            <p>Hi {{#if fullName}}{{fullName}}{{else}}{{userName}}{{/if}},</p>
+            <p>Use this OTP to complete your CareerSync login:</p>
+
+            <div class="otp-box">
+                <p class="otp-label">Login OTP</p>
+                <p class="otp">{{otp}}</p>
+            </div>
+
+            <p><strong>This OTP is valid for {{#if expiryMinutes}}{{expiryMinutes}}{{else}}10{{/if}} minutes.</strong></p>
             
             <div class="warning">
-                <strong>Security Note:</strong> Never share this OTP with anyone. CareerSync will never ask for your OTP via phone or email.
+                <strong>Security Note:</strong> Never share this OTP. CareerSync will never ask for your OTP by phone or email.
             </div>
-            
-            <p>If you didn't request this OTP, please ignore this email or contact our support team immediately.</p>
-            
-            <p>Login Details:</p>
-            <ul>
-                <li><strong>Time:</strong> {{timestamp}}</li>
-                <li><strong>Device:</strong> {{device}}</li>
-                <li><strong>Location:</strong> {{location}}</li>
-            </ul>
-            
-            <p>Best regards,<br>The CareerSync Team</p>
+
+            <div class="meta">
+                <strong>Request Time:</strong> {{#if timestamp}}{{timestamp}}{{else}}N/A{{/if}}<br />
+                <strong>Device:</strong> {{#if device}}{{device}}{{else}}Unknown Device{{/if}}<br />
+                <strong>Location:</strong> {{#if location}}{{location}}{{else}}Unknown Location{{/if}}
+            </div>
         </div>
         <div class="footer">
-            <p>© 2025 CareerSync. All rights reserved.</p>
+            <p>© {{#if year}}{{year}}{{else}}2026{{/if}} CareerSync. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
         </div>
+      </div>
     </div>
 </body>
 </html>
