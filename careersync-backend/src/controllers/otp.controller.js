@@ -39,6 +39,7 @@ const requestLoginOTP = async (req, res) => {
     if (!user) {
       return res.status(200).json({
         message: 'If this email is registered, you will receive an OTP shortly.',
+        otpSent: false,
       });
     }
 
@@ -68,14 +69,20 @@ const requestLoginOTP = async (req, res) => {
     const device = req.headers['user-agent'] || 'Unknown Device';
     const ipAddress = req.ip || req.connection?.remoteAddress || 'Unknown';
 
-    // Send OTP to user's email
-    await sendOTPEmail(email, otp, user.fullName, 'login', device, ipAddress);
+    // Send OTP to user's email and fail fast if delivery fails
+    const emailResult = await sendOTPEmail(email, otp, user.fullName, 'login', device, ipAddress);
+    if (!emailResult?.success) {
+      return res.status(500).json({
+        message: 'Failed to send OTP email. Please try again later.',
+      });
+    }
 
     // Send success response to client with expiry info
     return res.status(200).json({
       message: 'OTP sent successfully! Please check your email.',
       email,
       expiryMinutes,
+      otpSent: true,
     });
 
   } catch (error) {
