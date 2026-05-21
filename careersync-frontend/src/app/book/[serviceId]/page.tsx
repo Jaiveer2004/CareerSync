@@ -6,7 +6,6 @@ import { BookingPageSkeleton } from "@/components/booking/BookingPageSkeleton";
 import { getServiceById, getServiceProviders, createBooking } from "@/services/apiService";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Script from "next/script";
 import { useEffect, useState, use } from "react";
 import { Navbar } from "@/components/shared/Navbar";
 import toast from "react-hot-toast";
@@ -44,6 +43,21 @@ interface Provider {
   averageRating?: number;
   isOnline?: boolean;
   reviewCount?: number;
+}
+
+interface ProvidersApiResponse {
+  providers: Array<{
+    serviceId: string;
+    provider: {
+      id: string;
+      name: string;
+      email?: string;
+      bio?: string;
+      averageRating?: number;
+      isOnline?: boolean;
+      reviewCount?: number;
+    };
+  }>;
 }
 
 interface BookingDetails {
@@ -117,11 +131,25 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
         // Then fetch providers using the service name
         try {
           console.log("Fetching providers for service:", serviceResponse.data.name);
-          const providersResponse = await getServiceProviders(encodeURIComponent(serviceResponse.data.name));
+          const providersResponse = await getServiceProviders(serviceResponse.data.name);
           console.log("Providers fetched:", providersResponse.data);
-          setProviders(providersResponse.data || []);
+
+          const providersPayload = providersResponse.data as ProvidersApiResponse;
+          const mappedProviders: Provider[] = (providersPayload.providers || []).map((entry) => ({
+            _id: entry.provider.id,
+            user: {
+              fullName: entry.provider.name,
+              email: entry.provider.email,
+            },
+            bio: entry.provider.bio,
+            averageRating: entry.provider.averageRating,
+            isOnline: entry.provider.isOnline,
+            reviewCount: entry.provider.reviewCount,
+          }));
+
+          setProviders(mappedProviders);
         } catch (providerError) {
-          console.warn("Failed to fetch providers:", providerError);
+          console.info("Provider list endpoint unavailable; falling back to primary hiring team.");
           // Don't fail the whole page if providers can't be fetched
           // Just use the service's original partner
           setProviders(serviceResponse.data.partner ? [serviceResponse.data.partner] : []);
@@ -197,9 +225,9 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -286,7 +314,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-3xl font-bold text-green-400 mb-1">
+                      <div className="text-3xl font-bold text-emerald-600 mb-1">
                         {formatCurrency(service.price)}
                       </div>
                       <div className="text-slate-500 text-sm">/ year</div>
