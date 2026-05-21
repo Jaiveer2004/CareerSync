@@ -3,6 +3,7 @@
 const Booking = require('../models/booking.model');
 const Service = require('../models/service.model');
 const User = require('../models/user.model');
+const ServicePartner = require('../models/servicePartner.model');
 
 const createBooking = async (req, res) => {
   try {
@@ -46,12 +47,23 @@ const getMyBookings = async (req, res) => {
     if (role === 'customer') {
       query = { customer: userId };
     } else if (role === 'partner') {
-      query = { partner: userId };
+      const partnerProfile = await ServicePartner.findOne({ user: userId }).select('_id');
+      if (!partnerProfile) {
+        return res.status(200).json([]);
+      }
+      query = { partner: partnerProfile._id };
     }
 
     const bookings = await Booking.find(query)
       .populate('customer', 'fullName email profilePicture')
-      .populate('partner', 'fullName email profilePicture')
+      .populate({
+        path: 'partner',
+        select: 'user averageRating isOnline',
+        populate: {
+          path: 'user',
+          select: 'fullName email profilePicture'
+        }
+      })
       .populate('service', 'name category price')
       .sort({ createdAt: -1 });
 
@@ -94,7 +106,12 @@ const cancelBooking = async (req, res) => {
 const confirmBooking = async (req, res) => {
   try {
     const { bookingId } = req.params;
-    const partnerId = req.user._id;
+    const partnerUserId = req.user._id;
+
+    const partnerProfile = await ServicePartner.findOne({ user: partnerUserId }).select('_id');
+    if (!partnerProfile) {
+      return res.status(404).json({ message: 'Partner profile not found' });
+    }
 
     const booking = await Booking.findById(bookingId);
 
@@ -102,7 +119,7 @@ const confirmBooking = async (req, res) => {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    if (booking.partner.toString() !== partnerId.toString()) {
+    if (booking.partner.toString() !== partnerProfile._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to confirm this booking' });
     }
 
@@ -123,7 +140,12 @@ const confirmBooking = async (req, res) => {
 const rejectBooking = async (req, res) => {
   try {
     const { bookingId } = req.params;
-    const partnerId = req.user._id;
+    const partnerUserId = req.user._id;
+
+    const partnerProfile = await ServicePartner.findOne({ user: partnerUserId }).select('_id');
+    if (!partnerProfile) {
+      return res.status(404).json({ message: 'Partner profile not found' });
+    }
 
     const booking = await Booking.findById(bookingId);
 
@@ -131,7 +153,7 @@ const rejectBooking = async (req, res) => {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    if (booking.partner.toString() !== partnerId.toString()) {
+    if (booking.partner.toString() !== partnerProfile._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to reject this booking' });
     }
 
@@ -168,7 +190,13 @@ const updateBookingStatus = async (req, res) => {
     }
 
     // Authorization check
-    if (booking.customer.toString() !== userId.toString() && booking.partner.toString() !== userId.toString()) {
+    let isPartnerOwner = false;
+    if (req.user.role === 'partner') {
+      const partnerProfile = await ServicePartner.findOne({ user: userId }).select('_id');
+      isPartnerOwner = !!partnerProfile && booking.partner.toString() === partnerProfile._id.toString();
+    }
+
+    if (booking.customer.toString() !== userId.toString() && !isPartnerOwner) {
       return res.status(403).json({ message: 'Not authorized to update this booking' });
     }
 
