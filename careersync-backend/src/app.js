@@ -25,9 +25,34 @@ const app = express();
 
 app.set('trust proxy', 1);
 
+const configuredOrigins = [
+  process.env.FRONTEND_URL,
+  ...(process.env.FRONTEND_URLS || '').split(',').map((origin) => origin.trim()),
+].filter(Boolean);
+
+const defaultDevOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3001',
+  'http://127.0.0.1:3001',
+];
+
+const allowedOrigins = [...new Set([...configuredOrigins, ...defaultDevOrigins])];
+
 // Middlewares:
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: (origin, callback) => {
+    // Allow same-origin/non-browser requests with no Origin header.
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }))
 
