@@ -5,8 +5,10 @@ const http = require('http');
 const app = require('./src/app');
 const connectDB = require('./src/config/db');
 const cleanupUnverifiedAccounts = require('./src/jobs/cleanup.job');
-const pingServerJob = require('./src/jobs/ping.job');
 const socketService = require('./src/services/socket.service');
+
+// Start keep-alive ping loop
+require('./scripts/keep-alive');
 
 const PORT = process.env.PORT || 8000;
 
@@ -18,7 +20,6 @@ socketService.initialize(server);
 connectDB();
 
 cleanupUnverifiedAccounts.start();
-pingServerJob.start();
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
