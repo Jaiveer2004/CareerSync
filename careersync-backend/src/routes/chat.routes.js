@@ -6,8 +6,9 @@ const { protect } = require('../middlewares/auth.middleware');
 // All routes require authentication
 router.use(protect);
 
-// Get or create chat room for a booking
+// Get or create chat room for a booking/application
 router.get('/booking/:bookingId', chatController.getOrCreateChatRoom);
+router.get('/application/:bookingId', chatController.getOrCreateChatRoom);
 
 // Get all chat rooms for user
 router.get('/rooms', chatController.getUserChatRooms);
