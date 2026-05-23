@@ -1,53 +1,21 @@
 const { Router } = require('express');
-const { generateChatResponse } = require('../controllers/ai.controller');
+const multer = require('multer');
+const { generateChatResponse, parseResume, generateCoverLetter, generateJD } = require('../controllers/ai.controller');
+const { protect } = require('../middlewares/auth.middleware');
 
 const router = Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-/**
- * @swagger
- * /ai/chat:
- *   post:
- *     summary: Generate AI chat response
- *     tags: [AI]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - message
- *             properties:
- *               message:
- *                 type: string
- *                 example: What services do you offer?
- *               conversationHistory:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     role:
- *                       type: string
- *                       enum: [user, assistant]
- *                     content:
- *                       type: string
- *     responses:
- *       200:
- *         description: AI response generated
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 response:
- *                   type: string
- *       400:
- *         description: Invalid input
- *       500:
- *         description: AI service error
- */
+// 1. General AI Chatbot
 router.post('/chat', generateChatResponse);
+
+// 2. AI Resume Parser (Accepts PDF upload or raw text)
+router.post('/parse-resume', protect, upload.single('resume'), parseResume);
+
+// 3. AI Cover Letter Generator for quick apply
+router.post('/generate-cover-letter', protect, generateCoverLetter);
+
+// 4. AI Job Description Generator for recruiters
+router.post('/generate-jd', protect, generateJD);
 
 module.exports = router;
