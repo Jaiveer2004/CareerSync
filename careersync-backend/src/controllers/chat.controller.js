@@ -1,6 +1,6 @@
 const ChatRoom = require('../models/chatRoom.model');
 const Message = require('../models/message.model');
-const Booking = require('../models/booking.model');
+const Booking = require('../models/application.model');
 const chatRoomModel = require('../models/chatRoom.model');
 
 // Create or get chat room for a booking

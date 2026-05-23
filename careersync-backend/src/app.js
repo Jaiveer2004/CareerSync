@@ -10,7 +10,7 @@ const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const partnerRoutes = require('./routes/company.routes');
 const serviceRoutes = require('./routes/job.routes');
-const bookingRoutes = require('./routes/application.routes');
+const bookingRoutes = require('./routes/application.route');
 const aiRoutes = require('./routes/ai.routes');
 const reviewRoutes = require('./routes/review.routes');
 const otpRoutes = require('./routes/otp.routes');
@@ -22,6 +22,11 @@ const passport = require('./config/passport');
 const { apiLimiter } = require('./middlewares/rateLimit.middleware');
 
 const app = express();
+const sessionSecret = process.env.SESSION_SECRET || process.env.JWT_SECRET || 'careersync-dev-session-secret';
+
+if (!process.env.SESSION_SECRET && !process.env.JWT_SECRET) {
+  console.warn('SESSION_SECRET/JWT_SECRET not configured - using a development fallback session secret');
+}
 
 app.set('trust proxy', 1);
 
@@ -59,27 +64,31 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      touchAfter: 24 * 3600,
-      crypto: {
-        secret: process.env.ENCRYPTION_KEY || process.env.JWT_SECRET,
-      },
-    }),
-    cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'lax',
-    },
-  })
-);
+const sessionOptions = {
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'lax',
+  },
+};
 
+if (process.env.MONGO_URI) {
+  sessionOptions.store = MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    touchAfter: 24 * 3600,
+    crypto: {
+      secret: process.env.ENCRYPTION_KEY || sessionSecret,
+    },
+  });
+} else {
+  console.warn('MONGO_URI not configured - using the default in-memory session store');
+}
+
+app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
