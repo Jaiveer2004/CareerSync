@@ -17,7 +17,7 @@ export function PartnerRoute({ children }: { children: React.ReactNode }) {
         router.push('/login');
       } else if (user.role !== 'partner') {
         // Logged in but not a partner - redirect to onboarding
-        router.push('/partner/onboard');
+        router.push('/employer/onboard');
       } else {
         // User is a partner, allow access
         setIsChecking(false);

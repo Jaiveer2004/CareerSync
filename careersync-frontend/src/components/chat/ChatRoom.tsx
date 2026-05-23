@@ -170,55 +170,56 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
   const messageGroups = groupMessagesByDate(messages);
 
   return (
-    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#1e40af] to-[#1d4ed8] p-4 flex items-center justify-between border-b border-blue-700/30">
+      <div className="bg-gradient-to-r from-indigo-600 via-indigo-650 to-indigo-700 p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white/95 rounded-full flex items-center justify-center shadow-sm">
-            <span className="text-[#1e40af] font-bold text-lg">
+          <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+            <span className="text-white font-bold text-lg">
               {otherUserName.charAt(0).toUpperCase()}
             </span>
           </div>
           <div>
-            <h3 className="text-white font-semibold tracking-tight">{otherUserName}</h3>
-            <p className="text-blue-100 text-xs">
-              {otherUserTyping ? 'Typing...' : 'Application #' + bookingId.slice(-6)}
+            <h3 className="text-white font-semibold tracking-tight text-sm">{otherUserName}</h3>
+            <p className="text-indigo-200 text-[10px] font-medium tracking-wide">
+              {otherUserTyping ? 'Typing...' : 'Job Application #' + bookingId.slice(-6)}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button className="text-blue-100 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
-            <MoreVertical size={20} />
+        <div className="flex items-center gap-1.5">
+          <button className="text-indigo-200 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
+            <MoreVertical size={18} />
           </button>
           {onClose && (
             <button
               onClick={onClose}
-              className="text-blue-100 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              className="text-indigo-200 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
               aria-label="Close chat"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           )}
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50">
+      <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-slate-50/30">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-slate-600">
-            <Send size={48} className="mb-2 opacity-50" />
-            <p>No messages yet. Start the conversation!</p>
+          <div className="flex flex-col items-center justify-center h-full text-slate-500">
+            <Send size={44} className="mb-2 text-indigo-500/85" />
+            <p className="font-semibold text-sm">No messages yet</p>
+            <p className="text-xs text-slate-400 mt-1">Start the conversation below!</p>
           </div>
         ) : (
           Object.entries(messageGroups).map(([date, msgs]) => (
             <div key={date}>
               {/* Date Separator */}
               <div className="flex items-center justify-center my-4">
-                <div className="bg-white px-3 py-1 rounded-full text-xs text-slate-500 border border-slate-200">
+                <div className="bg-white px-3 py-1 rounded-full text-[10px] font-bold text-slate-400 border border-slate-100 shadow-sm">
                   {date}
                 </div>
               </div>
@@ -233,8 +234,8 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                     className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'} mb-3`}
                   >
                     {!isOwnMessage && (
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                        <span className="text-white text-xs font-bold">
+                      <div className="w-8 h-8 bg-indigo-100 border border-indigo-200/50 rounded-full flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 shadow-sm">
+                        <span className="text-indigo-700 text-xs font-bold">
                           {msg.sender.fullName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -242,22 +243,22 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
                     
                     <div className="flex flex-col max-w-[70%]">
                       <div
-                        className={`rounded-2xl px-4 py-3 shadow-sm ${
+                        className={`rounded-2xl px-4 py-2.5 shadow-sm text-sm leading-relaxed ${
                           isOwnMessage
-                            ? 'bg-[#2563eb] text-white rounded-br-md'
-                            : 'bg-white text-slate-800 border border-slate-200 rounded-bl-md'
+                            ? 'bg-indigo-600 text-white rounded-tr-sm'
+                            : 'bg-white text-slate-800 border border-slate-100 rounded-tl-sm'
                         }`}
                       >
-                        <p className="text-sm leading-relaxed break-words">{msg.content}</p>
+                        <p className="break-words">{msg.content}</p>
                       </div>
-                      <span className={`text-xs text-slate-500 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
+                      <span className={`text-[9px] font-medium text-slate-400 mt-1 ${isOwnMessage ? 'text-right' : 'text-left'}`}>
                         {formatTime(msg.createdAt)}
                       </span>
                     </div>
 
                     {isOwnMessage && (
-                      <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center ml-2 mt-1 flex-shrink-0">
-                        <span className="text-slate-900 text-xs font-bold">
+                      <div className="w-8 h-8 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center ml-2 mt-0.5 flex-shrink-0 shadow-sm">
+                        <span className="text-slate-600 text-xs font-bold">
                           {msg.sender.fullName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -271,16 +272,16 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
         
         {otherUserTyping && (
           <div className="flex justify-start mb-3">
-            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
-              <span className="text-white text-xs font-bold">
+            <div className="w-8 h-8 bg-indigo-100 border border-indigo-200/50 rounded-full flex items-center justify-center mr-2 shadow-sm">
+              <span className="text-indigo-700 text-xs font-bold">
                 {otherUserName.charAt(0).toUpperCase()}
               </span>
             </div>
-            <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 border border-slate-200">
+            <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-3 border border-slate-100 shadow-sm">
               <div className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce"></div>
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
               </div>
             </div>
           </div>
@@ -290,27 +291,28 @@ export function ChatRoom({ roomId, bookingId, partnerName, customerName, onClose
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-slate-200">
-        <div className="flex gap-2 items-center rounded-2xl border border-slate-200 bg-slate-50 px-2 py-1">
+      <form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-slate-100">
+        <div className="flex gap-2 items-center rounded-xl border border-slate-200/60 bg-slate-50/30 px-2 py-1.5 focus-within:border-indigo-400 focus-within:ring-1 focus-within:ring-indigo-400/20 transition-all">
           <button
             type="button"
-            className="text-slate-500 hover:text-slate-700 transition-colors p-2"
+            className="text-slate-400 hover:text-slate-600 transition-colors p-2"
             title="Attach file (Coming soon)"
           >
-            <Paperclip size={20} />
+            <Paperclip size={18} />
           </button>
           <input
             value={inputMessage}
             onChange={handleTyping}
             placeholder="Type a message..."
-            className="flex-1 bg-transparent border-0 rounded-xl px-3 py-3 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-0 transition-all"
+            className="flex-1 bg-transparent border-0 rounded-xl px-2 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-0 transition-all text-sm"
           />
           <button
             type="submit"
             disabled={!inputMessage.trim()}
-            className="bg-[#2563eb] hover:bg-[#1d4ed8] disabled:bg-slate-300 disabled:cursor-not-allowed text-white rounded-xl px-4 py-3 transition-all duration-200 flex items-center justify-center min-w-[48px]"
+            className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white rounded-xl px-4 py-2 transition-all duration-200 flex items-center justify-center font-semibold text-xs tracking-wider uppercase min-h-[38px]"
           >
-            <Send size={20} />
+            <Send size={14} className="mr-1.5" />
+            Send
           </button>
         </div>
       </form>

@@ -1,9 +1,9 @@
 const User = require("../models/user.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
-const Booking = require('../models/booking.model');
-const ServicePartner = require('../models/servicePartner.model');
-const Service = require('../models/service.model');
+const Booking = require('../models/application.model');
+const ServicePartner = require('../models/company.model');
+const Service = require('../models/job.model');
 const Review = require('../models/review.model');
 const ChatRoom = require('../models/chatRoom.model');
 const Message = require('../models/message.model');
@@ -79,26 +79,25 @@ const registerUser = async (req, res) => {
 
 const verifyEmail = async (req, res) => {
   try {
-    const token = (req.body?.token || req.query?.token || '').toString().trim();
+    const email = (req.body?.email || req.query?.email || '').toString().trim().toLowerCase();
     const code = (req.body?.code || req.query?.code || '').toString().trim();
 
-    if (!code || !token) {
-      return res.status(400).json({ message: 'Verification token and code are required' });
+    if (!code || !email) {
+      return res.status(400).json({ message: 'Verification email and OTP code are required' });
     }
 
-    const tokenHash = hashWithSHA256(token);
     const codeHash = hashWithSHA256(code);
 
     const user = await User.findOne({
+      email,
       emailVerificationCodeHash: codeHash,
-      emailVerificationTokenHash: tokenHash,
       emailVerificationExpiry: { $gt: new Date() },
       isEmailVerified: false,
     });
 
     if (!user) {
       return res.status(400).json({
-        message: 'Invalid or expired verification link. Please request a new verification email.'
+        message: 'Invalid or expired verification OTP. Please try again or request a new one.'
       });
     }
 
@@ -114,7 +113,7 @@ const verifyEmail = async (req, res) => {
     const jwtToken = generateToken(user._id, user.role);
 
     res.status(200).json({
-      message: 'Email verified successfully! You can now login.',
+      message: 'Email verified successfully! Logging you in...',
       token: jwtToken,
       user: {
         id: user._id,

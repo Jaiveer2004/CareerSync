@@ -1,0 +1,169 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+interface BookingFilters {
+  status: string;
+  sortBy: string;
+  sortOrder: 'asc' | 'desc';
+  searchQuery: string;
+}
+
+interface BookingFiltersProps {
+  filters: BookingFilters;
+  onFiltersChange: (filters: BookingFilters) => void;
+  bookingCounts: {
+    total: number;
+    pending: number;
+    confirmed: number;
+    completed: number;
+    cancelled: number;
+  };
+}
+
+export function BookingFilters({ filters, onFiltersChange, bookingCounts }: BookingFiltersProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const statusOptions = [
+    { value: 'all', label: 'All Applications', count: bookingCounts.total, color: 'bg-slate-200' },
+    { value: 'pending', label: 'Under Review', count: bookingCounts.pending, color: 'bg-yellow-500' },
+    { value: 'confirmed', label: 'Interview Scheduled', count: bookingCounts.confirmed, color: 'bg-blue-500' },
+    { value: 'completed', label: 'Hired', count: bookingCounts.completed, color: 'bg-green-500' },
+    { value: 'cancelled', label: 'Rejected', count: bookingCounts.cancelled, color: 'bg-red-500' },
+  ];
+
+  const sortOptions = [
+    { value: 'bookingDate', label: 'Application Date' },
+    { value: 'createdAt', label: 'Date Created' },
+    { value: 'totalPrice', label: 'Expected Salary' },
+    { value: 'status', label: 'Status' },
+  ];
+
+  const handleStatusChange = (status: string) => {
+    onFiltersChange({ ...filters, status });
+  };
+
+  const handleSearchChange = (searchQuery: string) => {
+    onFiltersChange({ ...filters, searchQuery });
+  };
+
+  const handleSortChange = (field: string, value: string) => {
+    if (field === 'sortBy') {
+      onFiltersChange({ ...filters, sortBy: value });
+    } else {
+      onFiltersChange({ ...filters, sortOrder: value as 'asc' | 'desc' });
+    }
+  };
+
+  const clearFilters = () => {
+    onFiltersChange({
+      status: 'all',
+      sortBy: 'bookingDate',
+      sortOrder: 'desc',
+      searchQuery: ''
+    });
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+      {/* Search Bar */}
+      <div className="mb-4">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search applications by job title, location, or application ID..."
+            value={filters.searchQuery}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pl-10 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <svg 
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-600" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Status Filter Pills */}
+      <div className="mb-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-3">Filter by Status</h3>
+        <div className="flex flex-wrap gap-2">
+          {statusOptions.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => handleStatusChange(option.value)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
+                filters.status === option.value
+                  ? 'bg-[#1e40af] text-white shadow-sm'
+                  : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+              }`}
+            >
+              <div className={`w-2 h-2 rounded-full ${option.color}`}></div>
+              {option.label}
+              <span className={`${filters.status === option.value ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'} text-xs px-2 py-1 rounded-full`}>
+                {option.count}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Advanced Filters Toggle */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-[#1e40af] hover:text-blue-700 text-sm font-medium flex items-center gap-2 transition-colors"
+        >
+          {isExpanded ? 'Hide' : 'Show'} Advanced Filters
+        </button>
+        
+        {(filters.searchQuery || filters.status !== 'all' || filters.sortBy !== 'bookingDate' || filters.sortOrder !== 'desc') && (
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={clearFilters}
+            className="border-slate-300 text-slate-700 hover:text-slate-900 hover:border-gray-500"
+          >
+            Clear Filters
+          </Button>
+        )}
+      </div>
+
+      {/* Advanced Filters */}
+      {isExpanded && (
+        <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-600 mb-2">Sort By</label>
+            <select
+              value={filters.sortBy}
+              onChange={(e) => handleSortChange('sortBy', e.target.value)}
+              className="w-full bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-600 mb-2">Sort Order</label>
+            <select
+              value={filters.sortOrder}
+              onChange={(e) => handleSortChange('sortOrder', e.target.value)}
+              className="w-full bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="desc">Newest First</option>
+              <option value="asc">Oldest First</option>
+            </select>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -131,6 +131,32 @@ const userSchema = new Schema({
     type: Date,
   },
 
+  skills: [{
+    type: String,
+    trim: true,
+  }],
+
+  experience: [{
+    company: String,
+    role: String,
+    duration: String,
+    description: String,
+  }],
+
+  education: [{
+    school: String,
+    degree: String,
+    year: String,
+  }],
+
+  resumeText: {
+    type: String,
+  },
+
+  resumeUrl: {
+    type: String,
+  },
+
 }, { timestamps: true });
 
 userSchema.virtual('isLocked').get(function () {

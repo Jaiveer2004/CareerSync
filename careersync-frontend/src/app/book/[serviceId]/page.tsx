@@ -1,8 +1,8 @@
 "use client";
 
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { BookingForm } from "@/components/booking/BookingForm";
-import { BookingPageSkeleton } from "@/components/booking/BookingPageSkeleton";
+import { BookingForm } from "@/components/applications/ApplicationForm";
+import { BookingPageSkeleton } from "@/components/applications/ApplicationPageSkeleton";
 import { getServiceById, getServiceProviders, createBooking } from "@/services/apiService";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
@@ -88,7 +88,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
   // Redirect partners - they can't book services, only provide them
   useEffect(() => {
     if (!authLoading && user?.role === 'partner') {
-      router.push('/partner/services');
+      router.push('/employer/jobs');
       toast.error('Companies cannot apply to jobs. Switch to a Candidate profile.');
     }
   }, [user, authLoading, router]);
@@ -210,7 +210,7 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
       } as any);
       toast.dismiss(toastId);
       toast.success("Application submitted successfully!");
-      router.push("/my-bookings");
+      router.push("/applications");
     } catch (error) {
       console.error("Application submission failed:", error);
       toast.dismiss(toastId);
@@ -262,10 +262,10 @@ export default function BookServicePage({ params }: { params: Promise<{ serviceI
             <h2 className="text-2xl font-bold mb-4">Service Not Found</h2>
             <p className="text-slate-500 mb-6">The service you&apos;re looking for doesn&apos;t exist or has been removed.</p>
             <button 
-              onClick={() => router.push('/services')}
+              onClick={() => router.push('/jobs')}
               className="bg-[#1e40af] hover:bg-[#1e3a8a] text-white px-6 py-3 rounded-xl font-medium"
             >
-              Browse All Services
+              Browse All Jobs
             </button>
           </div>
         </div>

@@ -5,39 +5,49 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
 
+import { 
+  LayoutDashboard, 
+  Calendar, 
+  MessageSquare, 
+  Search, 
+  Sliders, 
+  PlusCircle, 
+  Settings 
+} from "lucide-react";
+
 interface NavigationItem {
   name: string;
   href: string;
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
   roles?: string[];
 }
 
 const navigation: NavigationItem[] = [
-  { name: 'Dashboard', href: '/dashboard', icon: '🏠' },
-  { name: 'My Applications', href: '/my-bookings', icon: '📅' },
-  { name: 'Messages', href: '/messages', icon: '💬' },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'My Applications', href: '/applications', icon: Calendar },
+  { name: 'Messages', href: '/messages', icon: MessageSquare },
   { 
     name: 'Browse Roles', 
     href: '/services', 
-    icon: '🔍',
+    icon: Search,
     roles: ['customer']
   },
   { 
     name: 'Manage Roles', 
-    href: '/partner/services', 
-    icon: '🛠️',
+    href: '/employer/jobs', 
+    icon: Sliders,
     roles: ['partner']
   },
   { 
     name: 'Post a Role', 
-    href: '/partner/services/create', 
-    icon: '➕',
+    href: '/employer/jobs/create', 
+    icon: PlusCircle,
     roles: ['partner']
   },
   { 
     name: 'Company Profile', 
-    href: '/partner/onboard', 
-    icon: '⚙️',
+    href: '/employer/onboard', 
+    icon: Settings,
     roles: ['customer']
   },
 ];
@@ -56,27 +66,36 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden md:flex md:w-64 md:flex-col">
-          <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto shadow-xl border-r border-slate-200">
+          <div className="flex flex-col flex-grow pt-5 bg-white overflow-y-auto shadow-sm border-r border-slate-200/80">
             <div className="flex items-center flex-shrink-0 px-4">
-              <h2 className="text-2xl font-bold font-serif text-slate-900">CareerSync</h2>
+              <div className="flex items-center gap-2.5">
+                <div className="w-8.5 h-8.5 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-md shadow-indigo-100">
+                  <span className="text-white text-base font-bold font-serif">C</span>
+                </div>
+                <h2 className="text-2xl font-bold font-serif text-slate-900 tracking-tight">CareerSync</h2>
+              </div>
             </div>
             <div className="mt-8 flex-grow flex flex-col">
-              <nav className="flex-1 px-3 space-y-2">
+              <nav className="flex-1 px-3 space-y-1.5">
                 {filteredNavigation.map((item) => {
                   const isActive = pathname === item.href;
+                  const Icon = item.icon;
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className={`group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                      className={`group flex items-center py-2.5 text-sm font-medium transition-all duration-200 ${
                         isActive
-                          ? 'bg-indigo-700 text-white shadow-lg'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                          ? 'bg-indigo-50/80 text-indigo-600 border-l-4 border-indigo-600 rounded-r-xl rounded-l-none pl-3 shadow-sm'
+                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl pl-4'
                       }`}
                     >
-                      <span className="mr-3 text-lg" aria-hidden="true">
-                        {item.icon}
-                      </span>
+                      <Icon
+                        className={`mr-3 h-5 w-5 flex-shrink-0 transition-colors duration-200 ${
+                          isActive ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500'
+                        }`}
+                        aria-hidden="true"
+                      />
                       {item.name}
                     </Link>
                   );
@@ -84,19 +103,17 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               </nav>
             </div>
             {/* User info at bottom */}
-            <div className="flex-shrink-0 flex border-t border-slate-200 p-4">
+            <div className="flex-shrink-0 flex border-t border-slate-100 p-4 bg-slate-50/50">
               <div className="flex-shrink-0 w-full group block">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold text-sm">
-                      {user?.fullName?.charAt(0).toUpperCase()}
-                    </span>
+                  <div className="w-10 h-10 bg-indigo-50 border border-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold text-sm">
+                    {user?.fullName?.charAt(0).toUpperCase()}
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-slate-900 group-hover:text-gray-200">
+                  <div className="ml-3 min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-slate-800 truncate">
                       {user?.fullName}
                     </p>
-                    <p className="text-xs font-medium text-slate-500 group-hover:text-slate-600 capitalize">
+                    <p className="text-xs font-medium text-slate-400 capitalize truncate">
                       {user?.role === "customer" ? "Candidate" : "Company"}
                     </p>
                   </div>
@@ -111,11 +128,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="h-16 flex items-center justify-between">
-                <div className="md:hidden flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">C</span>
+                <div className="md:hidden flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-md shadow-indigo-100">
+                    <span className="text-white text-sm font-bold font-serif">C</span>
                   </div>
-                  <h2 className="text-lg font-semibold text-slate-900">CareerSync</h2>
+                  <h2 className="text-lg font-bold font-serif text-slate-900 tracking-tight">CareerSync</h2>
                 </div>
 
                 <div className="hidden md:flex items-center gap-6">

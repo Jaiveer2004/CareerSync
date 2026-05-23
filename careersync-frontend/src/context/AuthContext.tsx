@@ -9,7 +9,12 @@ interface User {
   email: string,
   role: string,
   twoFactorEnabled?: boolean,
-  profilePicture?: string
+  profilePicture?: string,
+  resumeUrl?: string,
+  phoneNumber?: string,
+  skills?: string[],
+  experience?: any[],
+  education?: any[]
 }
 
 // Define the shape of the context's value

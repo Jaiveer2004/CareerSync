@@ -128,49 +128,49 @@ export function ChatList() {
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-slate-50 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+    <div className="flex flex-col h-[600px] bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-slate-900 text-xl font-bold">Messages</h2>
+      <div className="bg-gradient-to-r from-indigo-600 via-indigo-650 to-indigo-700 p-5 text-white">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-white text-xl font-bold font-serif tracking-tight">Messages</h2>
           {totalUnread > 0 && (
-            <span className="bg-red-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-full">
-              {totalUnread}
+            <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+              {totalUnread} new
             </span>
           )}
         </div>
         
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500" size={18} />
+          <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-white/70" size={16} />
           <input
             type="text"
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/10 border border-white/20 rounded-lg pl-10 pr-4 py-2 text-slate-900 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30"
+            className="w-full bg-white/10 border border-white/20 rounded-xl pl-10 pr-4 py-2 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all text-sm"
           />
         </div>
       </div>
 
       {/* Chat List */}
-      <div className="flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <div className="flex-grow overflow-y-auto bg-slate-50/20">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
           </div>
         ) : filteredRooms.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-slate-600 p-6">
-            <MessageCircle size={48} className="mb-2 opacity-50" />
-            <p className="text-center">
+          <div className="flex flex-col items-center justify-center h-full text-slate-500 p-6">
+            <MessageCircle size={44} className="mb-2 text-indigo-500/80" />
+            <p className="font-semibold text-sm">
               {searchQuery ? 'No chats found' : 'No conversations yet'}
             </p>
-            <p className="text-xs text-center mt-2">
-              {!searchQuery && 'Start chatting with your bookings'}
+            <p className="text-xs text-slate-400 text-center mt-1 max-w-[220px]">
+              {!searchQuery && 'Start chatting with candidates or hiring partners.'}
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-800">
+          <div className="divide-y divide-slate-100">
             {filteredRooms.map((room) => {
               const otherUser = getOtherParticipant(room);
               
@@ -178,17 +178,17 @@ export function ChatList() {
                 <button
                   key={room._id}
                   onClick={() => setSelectedRoom(room)}
-                  className="w-full p-4 hover:bg-white transition-colors text-left flex items-start gap-3"
+                  className="w-full p-4 hover:bg-slate-50/60 transition-colors text-left flex items-start gap-3.5 border-b border-slate-100/50"
                 >
                   {/* Avatar */}
-                  <div className="relative">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-slate-900 font-bold text-lg">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-11 h-11 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center shadow-sm shadow-indigo-100">
+                      <span className="text-white font-bold text-base">
                         {otherUser?.fullName.charAt(0).toUpperCase()}
                       </span>
                     </div>
                     {room.unreadCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-slate-900 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
                         {room.unreadCount}
                       </span>
                     )}
@@ -196,23 +196,23 @@ export function ChatList() {
 
                   {/* Content */}
                   <div className="flex-grow min-w-0">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="text-slate-900 font-semibold truncate">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <h3 className="text-slate-800 font-semibold text-sm truncate">
                         {otherUser?.fullName}
                       </h3>
                       {room.lastMessage && (
-                        <span className="text-xs text-slate-600 flex-shrink-0 ml-2">
+                        <span className="text-[10px] text-slate-400 flex-shrink-0 ml-2 font-medium">
                           {formatLastMessageTime(room.lastMessage.timestamp)}
                         </span>
                       )}
                     </div>
                     
-                    <p className="text-xs text-[#1e40af] mb-1">
-                      {room.bookingId.service?.name || `Booking #${room.bookingId._id.slice(-6)}`}
+                    <p className="text-[10px] font-bold text-indigo-600/90 mb-1 uppercase tracking-wider">
+                      {room.bookingId.service?.name || `Job Application #${room.bookingId._id.slice(-6)}`}
                     </p>
                     
                     {room.lastMessage && (
-                      <p className={`text-sm truncate ${room.unreadCount > 0 ? 'text-slate-900 font-medium' : 'text-slate-500'}`}>
+                      <p className={`text-xs truncate ${room.unreadCount > 0 ? 'text-slate-900 font-semibold' : 'text-slate-500'}`}>
                         {room.lastMessage.text}
                       </p>
                     )}

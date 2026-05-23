@@ -120,7 +120,7 @@ export default function CompaniesPage() {
               <h2 className="font-serif text-3xl font-bold text-slate-900 md:text-4xl">Featured hiring partners</h2>
               <p className="mt-2 text-slate-600">A sample of teams actively recruiting through CareerSync.</p>
             </div>
-            <Link href="/services" className="text-sm font-semibold text-indigo-700 hover:text-slate-900">
+            <Link href="/jobs" className="text-sm font-semibold text-indigo-700 hover:text-slate-900">
               Explore open roles →
             </Link>
           </div>
@@ -186,13 +186,13 @@ export default function CompaniesPage() {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href="/partner/onboard">
+              <Link href="/employer/onboard">
                 <Button className="w-full rounded-none bg-slate-900 px-8 py-6 text-white hover:bg-indigo-700 sm:w-auto">
                   <Users className="mr-2 h-4 w-4" />
                   Start Hiring
                 </Button>
               </Link>
-              <Link href="/services">
+              <Link href="/jobs">
                 <Button
                   variant="outline"
                   className="w-full rounded-none border-2 border-slate-900 px-8 py-6 text-slate-900 hover:bg-slate-900 hover:text-white sm:w-auto"

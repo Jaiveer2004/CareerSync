@@ -56,7 +56,7 @@ export default function CareerAdvicePage() {
             Browse current openings and apply advice directly to the roles you are targeting.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/services">
+            <Link href="/jobs">
               <Button className="rounded-none bg-slate-900 px-7 text-white hover:bg-indigo-700">Browse Roles</Button>
             </Link>
             <Link href="/support">

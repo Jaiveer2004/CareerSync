@@ -39,7 +39,6 @@ interface BookingData {
     [key: string]: unknown;
 }
 
-
 interface ReviewData {
     bookingId: string;
     rating: number;
@@ -67,72 +66,77 @@ export const registerUser = (userData: RegisterData) => {
     return api.post('/auth/register', userData);
 };
 
-// --- Partner Service ---
+// --- Company/Recruiter Service ---
 export const createPartnerProfile = (profileData: PartnerProfileData) => {
-    return api.post('/partners', profileData);
+    return api.post('/companies', profileData);
 };
 
 export const getPartnerProfile = () => {
-    return api.get('/partners/me');
+    return api.get('/companies/me');
 };
 
 export const updatePartnerStatus = (status: StatusUpdate) => {
-    return api.patch('/partners/status', status);
+    return api.patch('/companies/status', status);
 };
 
 export const getPartnerServices = () => {
-    return api.get('/partners/services');
+    return api.get('/companies/services');
 };
 
-// --- Service Service ---
-export const createService = (serviceData: ServiceData) => {
-    return api.post('/services', serviceData);
+// --- Job Service ---
+export const createJob = (jobData: any) => {
+    return api.post('/jobs', jobData);
 };
 
-export const getAllServices = () => {
-    return api.get('/services');
+export const getAllJobs = () => {
+    return api.get('/jobs');
 };
 
-export const getServiceById = (serviceId: string) => {
-    return api.get(`/services/${serviceId}`);
+export const getJobById = (jobId: string) => {
+    return api.get(`/jobs/${jobId}`);
 };
 
-export const getServiceProviders = (serviceName: string) => {
-    return api.get(`/services/${encodeURIComponent(serviceName)}/providers`);
+export const getJobProviders = (jobName: string) => {
+    return api.get(`/jobs/${encodeURIComponent(jobName)}/providers`);
 };
 
 export const updateService = (serviceId: string, serviceData: Partial<ServiceData>) => {
-    return api.put(`/services/${serviceId}`, serviceData);
+    return api.put(`/jobs/${serviceId}`, serviceData);
 };
 
 export const deleteService = (serviceId: string) => {
-    return api.delete(`/services/${serviceId}`);
+    return api.delete(`/jobs/${serviceId}`);
 };
 
-// --- Booking Service ---
+// Aliases for legacy compatibility
+export const createService = createJob;
+export const getAllServices = getAllJobs;
+export const getServiceById = getJobById;
+export const getServiceProviders = getJobProviders;
+
+// --- Application Service ---
 export const createBooking = (bookingData: BookingData) => {
-    return api.post('/bookings', bookingData);
+    return api.post('/applications', bookingData);
 };
-
 
 export const getUserBookings = () => {
-    return api.get('/bookings/my-bookings');
+    return api.get('/applications/my-bookings');
 };
 
 export const cancelBooking = (bookingId: string) => {
-    return api.patch(`/bookings/${bookingId}/cancel`);
+    return api.patch(`/applications/${bookingId}/cancel`);
 };
 
 export const confirmBooking = (bookingId: string) => {
-    return api.patch(`/bookings/${bookingId}/confirm`);
+    return api.patch(`/applications/${bookingId}/confirm`);
 };
 
 export const rejectBooking = (bookingId: string, reason?: string) => {
-    return api.patch(`/bookings/${bookingId}/reject`, { reason });
+    return api.patch(`/applications/${bookingId}/reject`, { reason });
 };
 
 export const updateBookingStatus = (bookingId: string, status: string) => {
-    return api.patch(`/bookings/${bookingId}/status`, { status });
+    return api.patch(`/applications/${bookingId}/status`, { status });
 };
 
 // --- Review Service ---
@@ -144,7 +148,7 @@ export const getServiceReviews = (serviceId: string) => {
     return api.get(`/reviews/service/${serviceId}`);
 };
 
-// --- User Service ---
+// --- User Profile Service ---
 export const getUserProfile = () => {
     return api.get('/users/profile');
 };
@@ -160,4 +164,16 @@ export const getDashboardStats = () => {
 // --- AI Service ---
 export const getChatResponse = (message: string) => {
     return api.post('/ai/chat', { message });
+};
+
+export const generateCoverLetter = (jobId: string) => {
+    return api.post('/ai/generate-cover-letter', { jobId });
+};
+
+export const generateJD = (jdParams: { title: string; industry?: string; experienceLevel?: string }) => {
+    return api.post('/ai/generate-jd', jdParams);
+};
+
+export const parseResume = (formData: FormData) => {
+    return api.post('/ai/parse-resume', formData);
 };

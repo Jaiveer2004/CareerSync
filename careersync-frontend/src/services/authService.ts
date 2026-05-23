@@ -26,7 +26,7 @@ interface OTPVerifyData {
 }
 
 interface EmailVerifyData {
-    token: string;
+    email: string;
     code: string;
 }
 

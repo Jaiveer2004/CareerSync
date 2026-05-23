@@ -13,7 +13,7 @@ export function Navbar() {
     <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div className="flex-shrink-0 flex items-center gap-3">
+          <div className="shrink-0 flex items-center gap-3">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-10 h-10 bg-slate-900 group-hover:bg-indigo-700 transition-colors flex items-center justify-center">
                 <span className="text-white font-serif font-bold text-xl">C</span>
@@ -25,8 +25,8 @@ export function Navbar() {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/services" className="text-sm font-medium text-slate-600 hover:text-indigo-700 transition-colors">
-              Browse Roles
+            <Link href="/jobs" className="text-sm font-medium text-slate-600 hover:text-indigo-700 transition-colors">
+              Browse Jobs
             </Link>
             <Link href="/companies" className="text-sm font-medium text-slate-600 hover:text-indigo-700 transition-colors">
               Companies

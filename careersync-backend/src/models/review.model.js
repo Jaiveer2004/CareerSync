@@ -1,10 +1,10 @@
 const { Schema, model } = require('mongoose');
-const ServicePartner = require('./servicePartner.model');
+const ServicePartner = require('./company.model');
 
 const reviewSchema = new Schema({
   booking: {
         type: Schema.Types.ObjectId,
-        ref: 'Booking',
+        ref: 'Application',
         required: true,
     },
     customer: {
@@ -14,7 +14,7 @@ const reviewSchema = new Schema({
     },
     partner: {
         type: Schema.Types.ObjectId,
-        ref: 'ServicePartner',
+        ref: 'Company',
         required: true,
     },
     rating: {

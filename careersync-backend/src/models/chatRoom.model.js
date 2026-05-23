@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const chatRoomSchema = new mongoose.Schema({
   bookingId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Booking',
+    ref: 'Application',
     required: true,
     unique: true
   },

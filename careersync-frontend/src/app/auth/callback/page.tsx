@@ -31,7 +31,7 @@ function AuthCallbackContent() {
         if (user.role === 'partner') {
           router.push('/dashboard');
         } else {
-          router.push('/services');
+          router.push('/jobs');
         }
       } catch (error) {
         console.error('Error parsing user data:', error);

@@ -13,7 +13,7 @@ export default function MessagesPage() {
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-slate-900 mb-2">Messages</h1>
               <p className="text-slate-500">
-                Chat with your service providers or customers
+                Chat with candidates or hiring partners
               </p>
             </div>
 
