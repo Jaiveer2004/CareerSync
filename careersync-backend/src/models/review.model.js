@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const ServicePartner = require('./servicePartner.model');
+const Company = require('./company.model');
 
 const reviewSchema = new Schema({
   booking: {
@@ -14,7 +14,7 @@ const reviewSchema = new Schema({
     },
     partner: {
         type: Schema.Types.ObjectId,
-        ref: 'ServicePartner',
+        ref: 'Company',
         required: true,
     },
     rating: {
@@ -40,7 +40,7 @@ reviewSchema.post('save', async function() {
   const averageRating = reviews.length > 0 ? (totalRatings / reviews.length).toFixed(2) : 0;
 
   // 3. Update the ServicePartner document
-  await ServicePartner.findByIdAndUpdate(partnerId, {averageRating: averageRating});
+    await Company.findByIdAndUpdate(partnerId, {averageRating: averageRating});
 });
 
 const Review = model('Review', reviewSchema);
