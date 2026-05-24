@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -31,6 +32,7 @@ export function Navbar() {
             <Link href="/companies" className="text-sm font-medium text-slate-600 hover:text-indigo-700 transition-colors">
               Companies
             </Link>
+            <ThemeToggle />
             {user ? (
               <div className="flex items-center space-x-6 pl-6 border-l border-slate-200">
                 <Link href="/dashboard" className="text-sm font-medium text-slate-900 hover:text-indigo-700 transition-colors">
@@ -65,8 +67,9 @@ export function Navbar() {
           </div>
           
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-500 hover:text-slate-900">
+          <div className="md:hidden flex items-center gap-3">
+            <ThemeToggle />
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-500 hover:text-slate-900 p-1">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

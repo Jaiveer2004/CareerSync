@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 import { 
   LayoutDashboard, 
@@ -141,6 +142,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 </div>
 
                 <div className="flex items-center gap-4">
+                  <ThemeToggle />
                   <div className="hidden sm:block text-right">
                     <p className="text-sm font-semibold text-slate-900 leading-tight">{user?.fullName}</p>
                     <p className="text-xs text-slate-500 capitalize">{user?.role === 'customer' ? 'Candidate' : 'Company'}</p>
