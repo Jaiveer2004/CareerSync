@@ -62,6 +62,25 @@ const registerUser = async (req, res) => {
       const emailResult = await sendVerificationEmail(email, verificationCode, verificationToken, fullName);
       if (!emailResult?.success) {
         console.error('SMTP sending failed during registration:', emailResult?.error);
+        
+        const fallbackToAutoVerify = process.env.FALLBACK_VERIFY_ON_EMAIL_FAIL !== 'false';
+        if (fallbackToAutoVerify) {
+          console.warn('⚠️ SMTP sending failed. Auto-verifying user and proceeding as fallback.');
+          user.isEmailVerified = true;
+          user.accountStatus = 'active';
+          user.emailVerificationTokenHash = undefined;
+          user.emailVerificationCodeHash = undefined;
+          user.emailVerificationExpiry = undefined;
+          await user.save();
+
+          return res.status(201).json({
+            message: 'Registration successful! (Email service temporarily unavailable; account auto-verified)',
+            email: user.email,
+            userId: user._id,
+            requiresVerification: false,
+          });
+        }
+
         return res.status(500).json({
           message: `Failed to send verification email: ${emailResult?.error || 'Unknown transporter error'}. Please try again later.`,
         });
