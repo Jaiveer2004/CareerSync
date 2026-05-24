@@ -1,18 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --color-slate-50: var(--slate-50);
-  --color-slate-100: var(--slate-100);
-  --color-slate-200: var(--slate-200);
-  --color-slate-300: var(--slate-300);
-  --color-slate-400: var(--slate-400);
-  --color-slate-500: var(--slate-500);
-  --color-slate-600: var(--slate-600);
-  --color-slate-700: var(--slate-700);
-  --color-slate-800: var(--slate-800);
-  --color-slate-900: var(--slate-900);
-}
-
 :root {
   --font-inter: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-playfair: Georgia, "Times New Roman", serif;
@@ -36,88 +23,7 @@
   --input: #e2e8f0;
   --ring: #1e40af;
   --radius: 0.5rem;
-
-  /* Custom slate variables (Light Mode) */
-  --slate-50: #f8fafc;
-  --slate-100: #f1f5f9;
-  --slate-200: #e2e8f0;
-  --slate-300: #cbd5e1;
-  --slate-400: #94a3b8;
-  --slate-500: #64748b;
-  --slate-600: #475569;
-  --slate-700: #334155;
-  --slate-800: #1e293b;
-  --slate-900: #0f172a;
 }
-
-.dark {
-  --background: #090d16;
-  --foreground: #f1f5f9;
-  --card: #121824;
-  --card-foreground: #f1f5f9;
-  --popover: #121824;
-  --popover-foreground: #f1f5f9;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f1f5f9;
-  --muted: #161f30;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f1f5f9;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #3b82f6;
-
-  /* Curated dark mode slate variables */
-  --slate-50: #090d16;
-  --slate-100: #162032;
-  --slate-200: #1e293b;
-  --slate-300: #2d3748;
-  --slate-400: #64748b;
-  --slate-500: #94a3b8;
-  --slate-600: #cbd5e1;
-  --slate-700: #e2e8f0;
-  --slate-800: #f1f5f9;
-  --slate-900: #f8fafc;
-  
-  /* Class overrides for elements styled with absolute bg-white classes */
-  .bg-white {
-    background-color: #121824 !important;
-  }
-  .bg-white\/95 {
-    background-color: rgba(18, 24, 36, 0.95) !important;
-  }
-  .bg-white\/80 {
-    background-color: rgba(18, 24, 36, 0.8) !important;
-  }
-  .bg-white\/50 {
-    background-color: rgba(18, 24, 36, 0.5) !important;
-  }
-  
-  /* Class overrides for elements styled with absolute border/slate classes */
-  .border-slate-200\/80 {
-    border-color: #1e293b !important;
-  }
-  .border-slate-200 {
-    border-color: #1e293b !important;
-  }
-  .border-slate-100 {
-    border-color: #162032 !important;
-  }
-  .bg-slate-50 {
-    background-color: #090d16 !important;
-  }
-  .bg-slate-50\/50 {
-    background-color: rgba(9, 13, 22, 0.5) !important;
-  }
-  .bg-slate-100\/50 {
-    background-color: rgba(22, 32, 50, 0.5) !important;
-  }
-}
-
 
 html {
   scroll-behavior: smooth;
@@ -130,12 +36,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Smooth transitions for theme toggle on specific theme-sensitive classes */
-header, nav, footer, button, input, select, textarea, .bg-white, .bg-slate-50, .border-slate-200, .border-slate-100 {
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom scrollbar for light theme */
