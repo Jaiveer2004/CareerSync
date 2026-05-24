@@ -51,7 +51,7 @@ const getPartnerServices = async (req, res) => {
   try {
     const companyProfile = await Company.findOne({ user: req.user._id });
     if (!companyProfile) {
-      return res.status(404).json({ message: 'Company profile not found' });
+      return res.status(200).json([]);
     }
 
     const jobs = await Job.find({ company: companyProfile._id });
@@ -102,7 +102,7 @@ const getMyPartnerProfile = async (req, res) => {
   try {
     const companyProfile = await Company.findOne({ user: req.user._id });
     if (!companyProfile) {
-      return res.status(404).json({ message: "Company profile not found" });
+      return res.status(200).json({ companyProfile: null, message: "Company profile not found" });
     }
     res.status(200).json(companyProfile);
   } catch (error) {

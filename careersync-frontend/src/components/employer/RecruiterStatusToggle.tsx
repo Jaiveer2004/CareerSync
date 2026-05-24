@@ -9,12 +9,19 @@ import toast from "react-hot-toast";
 export function RecruiterStatusToggle() {
   const [isOnline, setIsOnline] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasProfile, setHasProfile] = useState(true);
 
   useEffect(() => {
     getPartnerProfile()
       .then((res) => {
         console.log("Partner profile fetched:", res.data);
-        setIsOnline(res.data.isOnline);
+        if (res.data && (res.data.companyProfile === null || !res.data._id)) {
+          setHasProfile(false);
+          setIsOnline(false);
+        } else {
+          setHasProfile(true);
+          setIsOnline(res.data.isOnline || false);
+        }
       })
       .catch((err) => {
         console.error("Failed to fetch partner status", err);
@@ -23,6 +30,7 @@ export function RecruiterStatusToggle() {
           console.error("Authentication issue - user may need to log in again");
         } else if (err?.response?.status === 404) {
           console.error("Partner profile not found - user may need to complete onboarding");
+          setHasProfile(false);
         }
       })
       .finally(() => setIsLoading(false));
@@ -83,7 +91,7 @@ export function RecruiterStatusToggle() {
           {isOnline && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>}
           {isOnline ? "Online" : "Offline"}
         </span>
-        <Switch id="online-status" checked={isOnline} onCheckedChange={handleToggle} />
+        <Switch id="online-status" checked={isOnline} disabled={!hasProfile} onCheckedChange={handleToggle} />
       </div>
     </div>
   );

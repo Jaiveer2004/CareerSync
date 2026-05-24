@@ -28,7 +28,7 @@ const navigation: NavigationItem[] = [
   { name: 'Messages', href: '/messages', icon: MessageSquare },
   { 
     name: 'Browse Roles', 
-    href: '/services', 
+    href: '/jobs', 
     icon: Search,
     roles: ['customer']
   },
@@ -136,7 +136,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 </div>
 
                 <div className="hidden md:flex items-center gap-6">
-                  <Link href="/services" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Browse Roles</Link>
+                  <Link href="/jobs" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Browse Roles</Link>
                   <Link href="/companies" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">Companies</Link>
                 </div>
 

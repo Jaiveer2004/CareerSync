@@ -29,7 +29,7 @@ export function RoleRedirect({
         if (user.role === 'partner') {
           router.push('/dashboard');
         } else if (user.role === 'customer') {
-          router.push('/services');
+          router.push('/jobs');
         } else {
           router.push(redirectPath);
         }

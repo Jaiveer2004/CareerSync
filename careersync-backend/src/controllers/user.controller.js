@@ -138,7 +138,8 @@ const getDashboardStats = async (req, res) => {
           totalReviews: await Review.countDocuments({ partner: companyProfile._id }),
           averageRating: companyProfile.averageRating || 0,
           recentBookings: mappedRecent,
-          isOnline: companyProfile.isOnline
+          isOnline: companyProfile.isOnline,
+          hasCompanyProfile: true
         };
       } else {
         stats = {
@@ -150,7 +151,8 @@ const getDashboardStats = async (req, res) => {
           totalReviews: 0,
           averageRating: 0,
           recentBookings: [],
-          isOnline: false
+          isOnline: false,
+          hasCompanyProfile: false
         };
       }
     }
