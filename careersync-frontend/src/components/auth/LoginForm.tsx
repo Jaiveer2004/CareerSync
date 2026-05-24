@@ -39,12 +39,19 @@ export function LoginForm() {
       toast.success('Welcome back!');
       router.push('/dashboard');
     } catch (err) {
-      const errorMessage = err instanceof Error && 'response' in err &&
-        err.response && typeof err.response === 'object' &&
-        'data' in err.response && err.response.data &&
-        typeof err.response.data === 'object' && 'message' in err.response.data
-        ? String(err.response.data.message)
-        : "Login failed!";
+      let errorMessage = "Login failed!";
+      if (err instanceof Error) {
+        const axiosError = err as any;
+        if (axiosError.response?.data?.message) {
+          errorMessage = String(axiosError.response.data.message);
+        } else if (axiosError.code === 'ECONNABORTED') {
+          errorMessage = "Login request timed out. Please check your network connection and server response times.";
+        } else if (err.message === 'Network Error' || err.message.includes('aborted') || err.message.includes('Network')) {
+          errorMessage = "Connection to server failed. Please ensure the backend is running and NEXT_PUBLIC_API_URL is configured correctly with proper CORS permissions.";
+        } else {
+          errorMessage = err.message;
+        }
+      }
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);

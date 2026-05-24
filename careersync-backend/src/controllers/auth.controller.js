@@ -33,15 +33,17 @@ const registerUser = async (req, res) => {
       }
     }
 
-    const verificationToken = generateVerificationToken();
-    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const requireVerification = process.env.REQUIRE_EMAIL_VERIFICATION !== 'false';
 
-    const tokenHash = hashWithSHA256(verificationToken);
-    const codeHash = hashWithSHA256(verificationCode);
+    const verificationToken = requireVerification ? generateVerificationToken() : undefined;
+    const verificationCode = requireVerification ? Math.floor(100000 + Math.random() * 900000).toString() : undefined;
+
+    const tokenHash = verificationToken ? hashWithSHA256(verificationToken) : undefined;
+    const codeHash = verificationCode ? hashWithSHA256(verificationCode) : undefined;
 
     // 6-digit code
     const expiryHours = parseInt(process.env.EMAIL_VERIFICATION_EXPIRY_HOURS) || 24;
-    const verificationExpiry = new Date(Date.now() + expiryHours * 60 * 60 * 1000);
+    const verificationExpiry = requireVerification ? new Date(Date.now() + expiryHours * 60 * 60 * 1000) : undefined;
 
     // 2. Create new User: (password will be hashed by the pre-save hook in the model)
     const user = await User.create({
@@ -49,25 +51,30 @@ const registerUser = async (req, res) => {
       email,
       password,
       role,
-      isEmailVerified: false,
-      accountStatus: 'pending',
+      isEmailVerified: !requireVerification,
+      accountStatus: requireVerification ? 'pending' : 'active',
       emailVerificationTokenHash: tokenHash,
       emailVerificationCodeHash: codeHash,
       emailVerificationExpiry: verificationExpiry,
     });
 
-    const emailResult = await sendVerificationEmail(email, verificationCode, verificationToken, fullName);
-    if (!emailResult?.success) {
-      return res.status(500).json({
-        message: 'Failed to send verification email. Please try again later.',
-      });
+    if (requireVerification) {
+      const emailResult = await sendVerificationEmail(email, verificationCode, verificationToken, fullName);
+      if (!emailResult?.success) {
+        console.error('SMTP sending failed during registration:', emailResult?.error);
+        return res.status(500).json({
+          message: `Failed to send verification email: ${emailResult?.error || 'Unknown transporter error'}. Please try again later.`,
+        });
+      }
     }
 
     res.status(201).json({
-      message: 'Registration successful! Please check your email to verify your account.',
+      message: requireVerification
+        ? 'Registration successful! Please check your email to verify your account.'
+        : 'Registration successful!',
       email: user.email,
       userId: user._id,
-      requiresVerification: true,
+      requiresVerification: requireVerification,
     });
 
 

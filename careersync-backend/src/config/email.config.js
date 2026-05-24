@@ -35,6 +35,9 @@ const createTransporter = () => {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASSWORD,
           },
+          connectionTimeout: 5000, // 5 seconds
+          greetingTimeout: 5000,   // 5 seconds
+          socketTimeout: 10000,    // 10 seconds
         }
       : {
           service: 'gmail',
@@ -42,6 +45,9 @@ const createTransporter = () => {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASSWORD,
           },
+          connectionTimeout: 5000, // 5 seconds
+          greetingTimeout: 5000,   // 5 seconds
+          socketTimeout: 10000,    // 10 seconds
         };
 
     return nodemailer.createTransport(config);
