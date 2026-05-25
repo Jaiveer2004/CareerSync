@@ -132,7 +132,7 @@ const parseResume = async (req, res) => {
 
     const parsedJsonText = completion.choices[0]?.message?.content?.trim() || '{}';
     let parsedData = {};
-    
+
     try {
       // Strip any accidental markdown formatting if the model didn't follow the instruction
       const cleanedJsonText = parsedJsonText.replace(/^```json\s*/i, '').replace(/```$/, '').trim();

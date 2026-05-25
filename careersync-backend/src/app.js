@@ -42,17 +42,8 @@ const allowedOrigins = [...new Set([...configuredOrigins, ...defaultDevOrigins])
 // Middlewares:
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow same-origin/non-browser requests with no Origin header.
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    console.warn(`⚠️ CORS blocked request from origin: ${origin}`);
-    return callback(null, false);
+    // Allow all origins to prevent any type of CORS error
+    return callback(null, true);
   },
   credentials: true
 }))
